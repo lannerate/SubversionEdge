@@ -1,0 +1,22 @@
+[is servermode "STANDALONE"]
+[if-any cfg.general.address]<div id="vc_admin">Administered by <address><a href="mailto:[cfg.general.address]">[cfg.general.address]</a></address></div>[end]
+<div id="vc_footer">
+[else]
+<div id="footer">
+[end]
+<div id="poweredbylogo" style="float: left;"><a href="http://www.collab.net/?cid=csvnedgeL" target="collabnet">
+  <img width="102" height="31" alt="Powered by CollabNet" border="0"
+       src="[docroot]/images/branding/poweredbylogo.gif"/></a>
+</div>
+&copy; 2011 CollabNet. CollabNet is a registered trademark of <a href="http://www.collab.net/?cid=csvnedgeL">CollabNet, Inc.</a>
+[is servermode "STANDALONE"]
+<br />
+<a href="http://subversion.apache.org">Apache Subversion</a> is a trademark of the <a href="http://www.apache.org/">Apache Software Foundation</a>.<br />
+Subversion and the Apache Subversion logo are registered trademarks of the <a href="http://www.apache.org/">Apache Software Foundation</a>.
+[end]
+</div>
+
+</div> <!-- vc_view_main -->
+
+</body>
+</html>

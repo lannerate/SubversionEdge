@@ -1,0 +1,75 @@
+[# setup page definitions]
+  [define page_title]Repository Listing[end]
+  [define help_href][docroot]/help_rootview.html[end]
+[# end]
+
+[include "include/header.ezt" "directory"]
+
+<div id="vc_main_body">
+<!-- ************************************************************** -->
+
+<table cellspacing="1" class="table table-striped table-bordered table-condensed" id="dirlist">
+<thead>
+<tr>
+  <th class="vc_header_sort">Name</th>
+  <th class="vc_header_sort">Checkout command</th>
+</tr>
+</thead>
+
+<tbody>
+[if-any roots]
+[for roots]
+  <tr>
+    <td onclick="jumpTo('[roots.href]')"><a href="[roots.href]"><img src="[docroot]/images/[roots.type]-logo.png" alt="" class="vc_icon" /> [roots.name]</a></td>
+    <td>svn co [csvn_svn_base_url][roots.name] --username=[username]</td>
+  </tr>
+[end]
+[end]
+</tbody>
+
+</table>
+
+<script type="text/javascript" src="[docroot]/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="[docroot]/js/DT_bootstrap.js"></script>
+<script type="text/javascript">
+  /* Table initialisation */
+  $(document).ready(function() {
+    var dt = $('#dirlist').dataTable( {
+      "sDom": "<'row-fluid'<'span4'l><'pull-right'f>r>t<'row-fluid'<'span4'i><'pull-right'p>><'spacer'>",
+      "sPaginationType": "bootstrap",
+      "iDisplayLength": 25, 
+      "bStateSave": true,
+      "aaSorting": [[ 0, "asc" ]],
+      "oLanguage": {
+        "sLengthMenu": "_MENU_ records per page",
+        "sSearch": "Filter:",
+      },
+      "aoColumns": [
+        {"sTitle": "Name",
+         "fnRender": function ( oObj, sVal ) {
+           return sVal;
+         }
+        },
+        {"sTitle": "Checkout command",
+         "fnRender": function (oObj, sVal) {
+           if (navigator.appVersion.indexOf("Win") == -1) {
+             sVal = sVal.replace("'", "\\'");
+           }
+           return sVal;
+         }
+        }
+      ]
+    } );
+    
+    // limit filter to column 1 only (the repo name)
+    filterElement= $('#dirlist_filter').find("input")
+    filterElement.keyup( function () {
+        dt.fnFilter(filterElement.val(), 0);
+    } );
+  } );
+</script>
+
+<!-- ************************************************************** -->
+</div>
+
+[include "include/footer.ezt"]

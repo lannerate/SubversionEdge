@@ -1,0 +1,68 @@
+# User id under which to run
+# IMPORTANT - Make sure that the user has the required privileges to write
+#  the PID file and wrapper.log files.  Failure to be able to write the log
+#  file will cause the Wrapper to exit without any way to write out an error
+#  message.
+# NOTE - This will set the user which is used to run the Wrapper as well as
+#  the JVM and is not useful in situations where a privileged resource or
+#  port needs to be allocated prior to the user being changed.
+#RUN_AS_USER=
+
+# If your server needs to use an http proxy for outbound network connections, 
+# provide the url here. For example, if your proxy does not require
+# authentication, the property will look like:
+# HTTP_PROXY=protocol://hostname:port
+# To set up with authentication, the property should look like this:
+# HTTP_PROXY=protocol://username:password@hostname:port
+#HTTP_PROXY=
+
+# Java environment
+# Minimum version: "1.6", etc. Leave empty if no minimum required
+# JAVA_HOME_CONF points to a file whose first line is exported as the JAVA_HOME when 
+# the environment var is not found
+JAVA_REQUIRED=true
+JAVA_REQUIRED_VERSION=1.6
+#JAVA_HOME=
+
+# Wrapper
+WRAPPER_CMD="./wrapper"
+WRAPPER_CONF="../data/conf/csvn-wrapper.conf"
+
+# Priority at which to run the wrapper.  See "man nice" for valid priorities.
+#  nice is only used if a priority is specified.
+PRIORITY=
+
+# Location of the pid file.
+PIDDIR="../data/run"
+
+# If uncommented, causes the Wrapper to be shutdown using an anchor file.
+#  When launched with the 'start' command, it will also ignore all INT and
+#  TERM signals.
+#IGNORE_SIGNALS=true
+
+# Wrapper will start the JVM asynchronously. Your application may have some
+#  initialization tasks and it may be desirable to wait a few seconds
+#  before returning.  For example, to delay the invocation of following
+#  startup scripts.  Setting WAIT_AFTER_STARTUP to a positive number will
+#  cause the start command to delay for the indicated period of time 
+#  (in seconds).
+# 
+WAIT_AFTER_STARTUP=0
+
+# If set, wait for the wrapper to report that the daemon has started
+WAIT_FOR_STARTED_STATUS=true
+WAIT_FOR_STARTED_TIMEOUT=120
+
+# If set, wait until the associated url is responsive (wget exit 0)
+WAIT_FOR_WEBSERVER=true
+WAIT_FOR_WEBSERVER_URL="http://localhost:3343/csvn"
+WAIT_FOR_WEBSERVER_TIMEOUT=120
+
+# If set, the status, start_msg and stop_msg commands will print out detailed
+#   state information on the Wrapper and Java processes.
+DETAIL_STATUS=false
+
+
+# When installing on On Mac OSX platforms, the following domain will be used to
+#  prefix the plist file name.
+PLIST_DOMAIN=com.collabnet

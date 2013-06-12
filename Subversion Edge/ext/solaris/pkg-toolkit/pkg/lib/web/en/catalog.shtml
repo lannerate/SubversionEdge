@@ -1,0 +1,182 @@
+## -*- coding: utf-8 -*-
+##
+## CDDL HEADER START
+##
+## The contents of this file are subject to the terms of the
+## Common Development and Distribution License (the "License").
+## You may not use this file except in compliance with the License.
+##
+## You can obtain a copy of the license at usr/src/OPENSOLARIS.LICENSE
+## or http://www.opensolaris.org/os/licensing.
+## See the License for the specific language governing permissions
+## and limitations under the License.
+##
+## When distributing Covered Code, include this CDDL HEADER in each
+## file and include the License file at usr/src/OPENSOLARIS.LICENSE.
+## If applicable, add the following below this CDDL HEADER, with the
+## fields enclosed by brackets "[]" replaced with your own identifying
+## information: Portions Copyright [yyyy] [name of copyright owner]
+##
+## CDDL HEADER END
+##
+## Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
+## Use is subject to license terms.
+##
+<%!
+        import pkg.fmri
+        import urllib
+%>\
+<%inherit file="layout.shtml"/>\
+<%page args="g_vars"/>\
+<%
+        catalog = g_vars["catalog"]
+        config = g_vars["config"]
+        request = g_vars["request"]
+%>\
+<%def name="page_title(g_vars)"><%
+        return "Package Catalog"
+%></%def>\
+<div id="yui-main">
+        <div class="yui-b">
+% if config.mirror:
+                <p>Information about packages is not available when the server is operating in mirror mode.</p>
+% else:
+<%
+        versions = self.shared.get_releases(g_vars)
+        selected_val = request.params.get("version", None)
+        show_all_versions = request.params.get("show_all_versions", None)
+        selected_match = None
+        for v in versions:
+                ver, val, label = v
+                if selected_val == val:
+                        selected_match = ver
+
+        if versions and (not selected_val or not selected_match):
+                # Either a version wasn't already selected, or the version
+                # provided didn't match a valid one, so default to the first in
+                # the list.
+                selected_match = versions[0][0]
+                selected_val = versions[0][1]
+%>
+%       if versions:
+                <form action="catalog.shtml">
+                        <p>
+                                <label for="version">Release and Branch</label>
+                                <select id="version" name="version">
+<%
+                for v in versions:
+                        ver, val, label = v
+                        attrs = ""
+                        if val == selected_val:
+                                attrs = 'selected="selected" '
+
+                        context.write("""<option %svalue="%s">%s</option>""" % (
+                            attrs, val, label))
+%>
+                                </select>
+                                <input id="submit-browse" type="submit"
+                                    name="action" value="Browse"/>
+                        </p>
+                        <p>
+                                <input id="show-all-versions" type="checkbox"
+%                       if show_all_versions:
+                                    checked="checked"
+%                       endif
+                                    name="show_all_versions" value="1"/>
+                                <label for="show-all-versions" title="By
+ default, only the latest versions of packages are shown.  To show all versions,
+ check this checkbox.">Show all versions</label>
+                        </p>
+                </form>
+%       else:
+                <form action="catalog.shtml">
+                        <p>
+                                <input id="show-all-versions" type="checkbox"
+%                       if show_all_versions:
+                                    checked="checked"
+%                       endif
+                                    name="show_all_versions" value="1"/>
+                                <label for="show-all-versions" title="By
+ default, only the latest versions of packages are shown.  To show all versions,
+ check this checkbox and click Refresh.">Show all versions</label>
+                                <input id="submit-browse" type="submit"
+                                    name="action" value="Refresh"/>
+                        </p>
+                </form>
+%       endif
+        </div>
+        <div class="yui-b results">
+                <table summary="A list of packages available in the repository
+ restricted by the specified listing criteria.">
+                        <tr class="first">
+                                <th>Name</th>
+                                <th>Version</th>
+                                <th>Install</th>
+                                <th>Manifest</th>
+                        </tr>
+<%
+        # Output each FMRI that we have in the catalog.
+        flist = []
+        if selected_val and selected_match:
+                ver = selected_match
+                pattern = "*,%s-%s" % (ver.build_release, ver.branch)
+                flist = catalog.get_matching_version_fmris(pattern)
+        else:
+                flist = [f for f in catalog.fmris()]
+                flist.sort(reverse=True)
+
+        found = {}
+        if not show_all_versions:
+                nlist = []
+                for f in flist:
+                         if f.pkg_name not in found:
+                                 found[f.pkg_name] = True
+                                 nlist.append(f)
+                flist = nlist
+                nlist = None
+        flist.sort()
+ 
+        rclass = None
+%>
+%       for pfmri in flist:
+<%
+                if rclass is None or rclass == ' class="odd"':
+                        rclass = ""
+                else:
+                        rclass = ' class="odd"'
+
+                # Start FMRI entry
+                phref = self.shared.rpath(g_vars, "info/0/%s" % (
+                    urllib.quote(str(pfmri)[len("pkg:/"):], "")))
+                # XXX the .p5i extension is a bogus hack because
+                # packagemanager requires it and shouldn't.
+                p5ihref = self.shared.rpath(g_vars, "p5i/0/%s.p5i" % (
+                    urllib.quote(pfmri.pkg_name, ""))) 
+                mhref = self.shared.rpath(g_vars, "manifest/0/%s" % (
+                    urllib.quote(pfmri.get_fmri(include_scheme=False,
+                    anarchy=True), "")))
+%>
+                        <tr${rclass}>
+                                <td>
+                                        <a title="Package Information Summary"
+                                            href="${phref}">${pfmri.pkg_name}</a>
+                                </td>
+                                <td>${pfmri.version}</td>
+                                <td>
+                                        <a class="p5i"
+                                            title="Launch the Package Manager and install this package"
+                                            href="${p5ihref}">Install</a>
+                                </td>
+                                <td>
+                                        <a title="Package Manifest"
+                                            href="${mhref}">Manifest</a>
+                                </td>
+                        </tr>
+%       endfor
+                        <tr class="last">
+                                <td colspan="4">${len(flist)} package(s)</td>
+                        </tr>
+                </table>
+% endif
+        </div>
+</div>

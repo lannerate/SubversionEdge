@@ -1,0 +1,6 @@
+VERSION: 1
+pkg:/pkg-extra-tools@0.2.0,0-38.2699:20100118T163636Z
+pkg:/python2.4-minimal@2.4.4.0,0-38.2699:20100118T164805Z
+pkg:/pkg-java@1.122,0-38.2699:20100118T163637Z
+pkg:/pkg@1.122.2,0-38.2699:20100118T164744Z
+pkg:/pkg-toolkit-incorporation@2.3.1,0-38.2699:20100118T164743Z

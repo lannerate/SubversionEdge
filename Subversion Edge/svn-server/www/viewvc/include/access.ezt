@@ -1,0 +1,8 @@
+[if-any csvn_svn_checkout_example]
+  <div id="helpbox">
+    <h5>Accessing the repository</h5>
+<pre>
+  [csvn_svn_checkout_example]</code>
+</pre>
+  </div>
+[end]

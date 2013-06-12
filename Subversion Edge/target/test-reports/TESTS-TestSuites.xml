@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="0" name="DumpBeanTests" package="com.collabnet.svnedge" tests="1" time="0.124" timestamp="2013-06-09T08:29:07">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.DumpBeanTests" name="testIncludePathMultiple" time="0.112" />
+
+      <system-out><![CDATA[--Output from testIncludePathMultiple--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testIncludePathMultiple--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="1" name="MailConfigurationTests" package="com.collabnet.svnedge" tests="2" time="0.086" timestamp="2013-06-09T08:29:10">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.MailConfigurationTests" name="testConstraints" time="0.068" />
+
+      <testcase classname="com.collabnet.svnedge.MailConfigurationTests" name="testFromAddress" time="0.012" />
+
+      <system-out><![CDATA[--Output from testConstraints--
+--Output from testFromAddress--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testConstraints--
+--Output from testFromAddress--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="2" name="RepositoryTests" package="com.collabnet.svnedge" tests="1" time="0.294" timestamp="2013-06-09T08:29:06">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.RepositoryTests" name="testConstraints" time="0.283" />
+
+      <system-out><![CDATA[--Output from testConstraints--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testConstraints--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="3" name="JobsInfoServiceTests" package="com.collabnet.svnedge.admin" tests="3" time="9.17" timestamp="2013-06-09T08:28:16">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.admin.JobsInfoServiceTests" name="testJobsRunningAndFinished" time="3.271" />
+
+      <testcase classname="com.collabnet.svnedge.admin.JobsInfoServiceTests" name="testFinishedJobsPruning" time="3.962" />
+
+      <testcase classname="com.collabnet.svnedge.admin.JobsInfoServiceTests" name="testDuplicateJob" time="1.932" />
+
+      <system-out><![CDATA[--Output from testJobsRunningAndFinished--
+Unbound session
+Unbound session
+--Output from testFinishedJobsPruning--
+Unbound session
+Unbound session
+Unbound session
+Unbound session
+Unbound session
+Unbound session
+Unbound session
+Unbound session
+--Output from testDuplicateJob--
+INFO (admin.JobsInfoService): Job 8 scheduled for Sun Jun 09 16:28:23 CST 2013 was skipped because the job is still running or is queued to run from an earlier trigger
+Unbound session
+Unbound session
+Unbound session
+Unbound session
+Unbound session
+Unbound session
+Unbound session
+Unbound session
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testJobsRunningAndFinished--
+--Output from testFinishedJobsPruning--
+--Output from testDuplicateJob--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="4" name="LogRotateJobTests" package="com.collabnet.svnedge.admin" tests="1" time="0.63" timestamp="2013-06-09T08:28:15">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.admin.LogRotateJobTests" name="testPruneLog" time="0.563" />
+
+      <system-out><![CDATA[--Output from testPruneLog--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testPruneLog--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="5" name="HttpProxyAuthTests" package="com.collabnet.svnedge.admin.pkgsupdate" tests="3" time="40.159" timestamp="2013-06-09T08:28:25">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.admin.pkgsupdate.HttpProxyAuthTests" name="testProxyAuthCreationWithNullURL" time="0.022" />
+
+      <testcase classname="com.collabnet.svnedge.admin.pkgsupdate.HttpProxyAuthTests" name="testProxyAuthCreationWithoutAuthentication" time="40.091" />
+
+      <testcase classname="com.collabnet.svnedge.admin.pkgsupdate.HttpProxyAuthTests" name="testProxyAuthCreationWithAuthentication" time="0.042" />
+
+      <system-out><![CDATA[--Output from testProxyAuthCreationWithNullURL--
+--Output from testProxyAuthCreationWithoutAuthentication--
+--Output from testProxyAuthCreationWithAuthentication--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testProxyAuthCreationWithNullURL--
+--Output from testProxyAuthCreationWithoutAuthentication--
+--Output from testProxyAuthCreationWithAuthentication--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="6" name="RepoTemplateServiceTests" package="com.collabnet.svnedge.console" tests="5" time="0.54" timestamp="2013-06-09T08:29:07">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.console.RepoTemplateServiceTests" name="testGetTemplateDirectory" time="0.34" />
+
+      <testcase classname="com.collabnet.svnedge.console.RepoTemplateServiceTests" name="testGetUploadDirectory" time="0.028" />
+
+      <testcase classname="com.collabnet.svnedge.console.RepoTemplateServiceTests" name="testSaveTemplate" time="0.086" />
+
+      <testcase classname="com.collabnet.svnedge.console.RepoTemplateServiceTests" name="testSaveTemplateWithInsert" time="0.042" />
+
+      <testcase classname="com.collabnet.svnedge.console.RepoTemplateServiceTests" name="testSaveTemplateWithDuplicateName" time="0.034" />
+
+      <system-out><![CDATA[--Output from testGetTemplateDirectory--
+--Output from testGetUploadDirectory--
+--Output from testSaveTemplate--
+--Output from testSaveTemplateWithInsert--
+--Output from testSaveTemplateWithDuplicateName--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testGetTemplateDirectory--
+2013-6-9 16:29:07 sun.reflect.NativeMethodAccessorImpl invoke0
+信息: testDir = /tmp/dataDir-test3679623497450217588.tmp
+--Output from testGetUploadDirectory--
+2013-6-9 16:29:07 sun.reflect.NativeMethodAccessorImpl invoke0
+信息: testDir = /tmp/dataDir-test276668930540592905.tmp
+--Output from testSaveTemplate--
+2013-6-9 16:29:07 sun.reflect.NativeMethodAccessorImpl invoke0
+信息: testDir = /tmp/dataDir-test7241901071873573622.tmp
+--Output from testSaveTemplateWithInsert--
+2013-6-9 16:29:07 sun.reflect.NativeMethodAccessorImpl invoke0
+信息: testDir = /tmp/dataDir-test421764338118408223.tmp
+--Output from testSaveTemplateWithDuplicateName--
+2013-6-9 16:29:07 sun.reflect.NativeMethodAccessorImpl invoke0
+信息: testDir = /tmp/dataDir-test6638506022149455268.tmp
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="7" name="RepoTemplateControllerTests" package="com.collabnet.svnedge.controller" tests="3" time="1.535" timestamp="2013-06-09T08:29:07">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.controller.RepoTemplateControllerTests" name="testList" time="1.083" />
+
+      <testcase classname="com.collabnet.svnedge.controller.RepoTemplateControllerTests" name="testSave" time="0.32" />
+
+      <testcase classname="com.collabnet.svnedge.controller.RepoTemplateControllerTests" name="testUpdate" time="0.118" />
+
+      <system-out><![CDATA[--Output from testList--
+--Output from testSave--
+--Output from testUpdate--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testList--
+--Output from testSave--
+--Output from testUpdate--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="8" name="UserControllerTests" package="com.collabnet.svnedge.controller.user" tests="3" time="1.328" timestamp="2013-06-09T08:29:09">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.controller.user.UserControllerTests" name="testSave" time="0.989" />
+
+      <testcase classname="com.collabnet.svnedge.controller.user.UserControllerTests" name="testUpdate" time="0.244" />
+
+      <testcase classname="com.collabnet.svnedge.controller.user.UserControllerTests" name="testIndex" time="0.089" />
+
+      <system-out><![CDATA[--Output from testSave--
+INFO (user.UserController): User created: testUser2
+--Output from testUpdate--
+INFO (user.UserController): User updated: testUser
+--Output from testIndex--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testSave--
+--Output from testUpdate--
+--Output from testIndex--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="9" name="RepoTemplateTests" package="com.collabnet.svnedge.domain" tests="1" time="0.593" timestamp="2013-06-09T08:29:06">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.domain.RepoTemplateTests" name="testConstraints" time="0.586" />
+
+      <system-out><![CDATA[--Output from testConstraints--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testConstraints--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="10" name="ReplicaConfigurationTests" package="com.collabnet.svnedge.domain.integration" tests="1" time="0.112" timestamp="2013-06-09T08:29:06">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.domain.integration.ReplicaConfigurationTests" name="testConstraints" time="0.109" />
+
+      <system-out><![CDATA[--Output from testConstraints--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testConstraints--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="11" name="ReplicaServerStatusServiceTests" package="com.collabnet.svnedge.integration" tests="1" time="0.226" timestamp="2013-06-09T08:29:05">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.integration.ReplicaServerStatusServiceTests" name="testStatusChangeForCommands" time="0.211" />
+
+      <system-out><![CDATA[--Output from testStatusChangeForCommands--
+DEBUG (command.ReplicaServerStatusService): Command scheduled: RepoAddCommand(cmdexec10001): SCHEDULED : [:]
+Before getting all scheduled commands: RepoAddCommand(cmdexec10001): SCHEDULED : [:]
+After getting all scheduled commands: RepoAddCommand(cmdexec10001): SCHEDULED : [:]
+All commands: [RepoAddCommand(cmdexec10001): SCHEDULED : [:]]
+MUST be SCHEDULED at this moment: RepoAddCommand(cmdexec10001): SCHEDULED : [:]
+MUST NOT be RUNNING at this moment: RepoAddCommand(cmdexec10001): SCHEDULED : [:]
+MUST NOT be TERMINATED at this moment: RepoAddCommand(cmdexec10001): SCHEDULED : [:]
+MUST NOT be REPORTED at this moment: RepoAddCommand(cmdexec10001): SCHEDULED : [:]
+DEBUG (command.ReplicaServerStatusService): Command executing: RepoAddCommand(cmdexec10001): RUNNING : [:]
+Before getting all running commands: RepoAddCommand(cmdexec10001): RUNNING : [:]
+MUST NOT be SCHEDULED at this moment: RepoAddCommand(cmdexec10001): RUNNING : [:]
+All commands: [RepoAddCommand(cmdexec10001): RUNNING : [:]]
+MUST be RUNNING at this moment: RepoAddCommand(cmdexec10001): RUNNING : [:]
+MUST NOT be TERMINATED at this moment: RepoAddCommand(cmdexec10001): RUNNING : [:]
+MUST NOT be REPORTED at this moment: RepoAddCommand(cmdexec10001): RUNNING : [:]
+DEBUG (command.ReplicaServerStatusService): Command terminated: RepoAddCommand(cmdexec10001-suceeded): TERMINATED : [:]
+Before getting all running commands: RepoAddCommand(cmdexec10001-suceeded): TERMINATED : [:]
+MUST NOT be SCHEDULED at this moment: RepoAddCommand(cmdexec10001-suceeded): TERMINATED : [:]
+MUST NOT be RUNNING at this moment: RepoAddCommand(cmdexec10001-suceeded): TERMINATED : [:]
+All commands: [RepoAddCommand(cmdexec10001-suceeded): TERMINATED : [:]]
+MUST be TERMINATED at this moment: RepoAddCommand(cmdexec10001-suceeded): TERMINATED : [:]
+MUST NOT be REPORTED at this moment: RepoAddCommand(cmdexec10001-suceeded): TERMINATED : [:]
+DEBUG (command.ReplicaServerStatusService): Command reported: RepoAddCommand(cmdexec10001): REPORTED : [:]
+MUST NOT be SCHEDULED at this moment: RepoAddCommand(cmdexec10001-suceeded): TERMINATED : [:]
+MUST NOT be RUNNING at this moment: RepoAddCommand(cmdexec10001-suceeded): TERMINATED : [:]
+MUST NOT be TERMINATED at this moment: RepoAddCommand(cmdexec10001-suceeded): TERMINATED : [:]
+MUST NOT be REPORTED at this moment: RepoAddCommand(cmdexec10001-suceeded): TERMINATED : [:]
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testStatusChangeForCommands--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="12" name="SetupTeamForgeServiceTests" package="com.collabnet.svnedge.integration" tests="2" time="0.29" timestamp="2013-06-09T08:29:05">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.integration.SetupTeamForgeServiceTests" name="testArchiveCurrentHooks" time="0.246" />
+
+      <testcase classname="com.collabnet.svnedge.integration.SetupTeamForgeServiceTests" name="testRestoreHooksWithAddedFiles" time="0.04" />
+
+      <system-out><![CDATA[--Output from testArchiveCurrentHooks--
+DEBUG (integration.SetupTeamForgeService): Archiving files in repo-hooks4265630453167778575.tmp into pre-ctf-hooks.zip
+DEBUG (integration.SetupTeamForgeService): Deleting file: test1.txt
+DEBUG (integration.SetupTeamForgeService): Deleting file: test2.txt
+DEBUG (integration.SetupTeamForgeService): Archiving CTF hook scripts and restoring pre-ctf scripts for repo-hooks4265630453167778575.tmp
+DEBUG (integration.SetupTeamForgeService): Archiving CTF hook scripts
+DEBUG (integration.SetupTeamForgeService): Archiving files in repo-hooks4265630453167778575.tmp into ctf-hook-scripts.zip
+DEBUG (integration.SetupTeamForgeService): No files to archive
+DEBUG (integration.SetupTeamForgeService): Restoring pre-ctf hook scripts
+--Output from testRestoreHooksWithAddedFiles--
+DEBUG (integration.SetupTeamForgeService): Archiving files in repo-hooks9196410594427175132.tmp into pre-ctf-hooks.zip
+DEBUG (integration.SetupTeamForgeService): Deleting file: test1.txt
+DEBUG (integration.SetupTeamForgeService): Deleting file: test2.txt
+DEBUG (integration.SetupTeamForgeService): Archiving CTF hook scripts and restoring pre-ctf scripts for repo-hooks9196410594427175132.tmp
+DEBUG (integration.SetupTeamForgeService): Archiving CTF hook scripts
+DEBUG (integration.SetupTeamForgeService): Archiving files in repo-hooks9196410594427175132.tmp into ctf-hook-scripts.zip
+DEBUG (integration.SetupTeamForgeService): Deleting file: new-test2.txt
+DEBUG (integration.SetupTeamForgeService): Deleting file: new-test1.txt
+DEBUG (integration.SetupTeamForgeService): Restoring pre-ctf hook scripts
+DEBUG (integration.SetupTeamForgeService): Archiving files in repo-hooks9196410594427175132.tmp into pre-ctf-hooks.zip
+DEBUG (integration.SetupTeamForgeService): Deleting file: test1.txt
+DEBUG (integration.SetupTeamForgeService): Deleting file: test2.txt
+DEBUG (integration.SetupTeamForgeService): Archiving CTF hook scripts and restoring pre-ctf scripts for repo-hooks9196410594427175132.tmp
+DEBUG (integration.SetupTeamForgeService): Previous CTF archive is being moved.
+DEBUG (integration.SetupTeamForgeService): Archiving CTF hook scripts
+DEBUG (integration.SetupTeamForgeService): Archiving files in repo-hooks9196410594427175132.tmp into ctf-hook-scripts.zip
+DEBUG (integration.SetupTeamForgeService): Deleting file: new2-test2.txt
+DEBUG (integration.SetupTeamForgeService): Deleting file: new2-test1.txt
+DEBUG (integration.SetupTeamForgeService): Restoring pre-ctf hook scripts
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testArchiveCurrentHooks--
+--Output from testRestoreHooksWithAddedFiles--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="13" name="CommandLineServiceTests" package="com.collabnet.svnedge.services" tests="3" time="15.248" timestamp="2013-06-09T08:29:10">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.services.CommandLineServiceTests" name="testExecuteSuccessfulCommand" time="12.192" />
+
+      <testcase classname="com.collabnet.svnedge.services.CommandLineServiceTests" name="testExecuteMultipleCommandsInParallel" time="3.044" />
+
+      <testcase classname="com.collabnet.svnedge.services.CommandLineServiceTests" name="testExecuteAsyncWithErrors" time="0.0070" />
+
+      <system-out><![CDATA[--Output from testExecuteSuccessfulCommand--
+Executing command ping www.facebook.com -c 3
+PING www.facebook.com (78.16.49.15) 56(84) bytes of data.
+
+--- www.facebook.com ping statistics ---
+3 packets transmitted, 0 received, 100% packet loss, time 2026ms
+
+--Output from testExecuteMultipleCommandsInParallel--
+Executing command ping www.google.com -c 3
+Executing command ping www.collab.net -c 2
+PING www.google.com (173.194.72.104) 56(84) bytes of data.
+64 bytes from tf-in-f104.1e100.net (173.194.72.104): icmp_req=1 ttl=45 time=140 ms
+64 bytes from tf-in-f104.1e100.net (173.194.72.104): icmp_req=2 ttl=45 time=57.2 ms
+
+--- www.google.com ping statistics ---
+3 packets transmitted, 2 received, 33% packet loss, time 2012ms
+rtt min/avg/max/mdev = 57.266/98.796/140.326/41.530 ms
+PING www.collab.net (184.73.245.212) 56(84) bytes of data.
+64 bytes from ec2-184-73-245-212.compute-1.amazonaws.com (184.73.245.212): icmp_req=1 ttl=40 time=234 ms
+64 bytes from ec2-184-73-245-212.compute-1.amazonaws.com (184.73.245.212): icmp_req=2 ttl=40 time=233 ms
+
+--- www.collab.net ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1155ms
+rtt min/avg/max/mdev = 233.772/234.037/234.303/0.551 ms
+--Output from testExecuteAsyncWithErrors--
+Cannot run program "wrongping": java.io.IOException: error=2, No such file or directory
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testExecuteSuccessfulCommand--
+--Output from testExecuteMultipleCommandsInParallel--
+--Output from testExecuteAsyncWithErrors--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="14" name="NetworkingServiceTests" package="com.collabnet.svnedge.services" tests="4" time="0.965" timestamp="2013-06-09T08:29:26">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.services.NetworkingServiceTests" name="testGetNetworkInterfacesWithIPAddresses" time="0.49" />
+
+      <testcase classname="com.collabnet.svnedge.services.NetworkingServiceTests" name="testGetIPv4Addresses" time="0.059" />
+
+      <testcase classname="com.collabnet.svnedge.services.NetworkingServiceTests" name="testGetInetAddressNetworkInterfaceMap" time="0.091" />
+
+      <testcase classname="com.collabnet.svnedge.services.NetworkingServiceTests" name="testSetHttpProxy" time="0.299" />
+
+      <system-out><![CDATA[--Output from testGetNetworkInterfacesWithIPAddresses--
+--Output from testGetIPv4Addresses--
+--Output from testGetInetAddressNetworkInterfaceMap--
+--Output from testSetHttpProxy--
+WARN (console.NetworkingService): NetworkConfiguration proxy password is stored in clear text
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testGetNetworkInterfacesWithIPAddresses--
+--Output from testGetIPv4Addresses--
+--Output from testGetInetAddressNetworkInterfaceMap--
+--Output from testSetHttpProxy--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="15" name="SecurityServiceTests" package="com.collabnet.svnedge.services" tests="5" time="0.388" timestamp="2013-06-09T08:29:31">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.services.SecurityServiceTests" name="testEncryptBadInput" time="0.019" />
+
+      <testcase classname="com.collabnet.svnedge.services.SecurityServiceTests" name="testDecryptBadInput" time="0.0060" />
+
+      <testcase classname="com.collabnet.svnedge.services.SecurityServiceTests" name="testGeneratePassword" time="0.345" />
+
+      <testcase classname="com.collabnet.svnedge.services.SecurityServiceTests" name="testMaxLessThanMin" time="0.0060" />
+
+      <testcase classname="com.collabnet.svnedge.services.SecurityServiceTests" name="testEncryptDecrypt" time="0.0030" />
+
+      <system-out><![CDATA[--Output from testEncryptBadInput--
+--Output from testDecryptBadInput--
+--Output from testGeneratePassword--
+Generated password: /7"j55\m]I7(6_T]k46XF&!"%CTYYnQK"fTCks?,Rj'habfI.b^M.)lD14Y%sn@zUCHy9[]3`Wc^?J\3bBZ1Ojq?1A-61BDvqrNoHXRj7]{l_T4[rA8wV*&zWo+?HA
+Generated password: >XssO\R[:+w]ssMP0S-R3N.;osm7Zuu`Or@LtK!u"{5'9G#o|!"J3\6
+Generated password: %Bb_7%c6aUt4DtKVk2<3W'5JrZ$2M`].g3ML:@!nTik&5P1A6B2tY]:>/LHgK9XT),]&Z"*o,D4&G=Wp:jXxf`F}d)S#QGl<LP}>Tz6\tG_$oHI!*vDxf1DX%}O{WUlP3w0K`NR9pk&
+Generated password: 47uDzlZn/DRBd{R4]I
+Generated password: `b5+,?SHP1#lu&Ia.LL:=c2F(/0G/r1/9hzJ'5.w}dFQ
+Generated password: PG&&,7!vM77-"6iJL-
+Generated password: $uI5;kQe&@q3q9<(;R`ir3(oE"/XcYI}eCp':\TW09L?w]T!lSQg<M+cYC2rkkC#YU-nJ=QC7HeJRyp_>1_`0A;PrGlfxZ)pyY[?AFzUy_H.pl,]8:yY!@?#Y|p5{I}vE!f_fccjBF79@FB@=4.)FGb
+Generated password: hIg3m.XWF_:ReRb+2MeT1?2l.:+OQS)D6
+Generated password: fQ#C^HtMeWPZU0n-YS^xMw0tE\NAdYA[KVtRd#1>RJBe(r]=i}A71+..$z{='
+Generated password: Gu,1G_{*(-v]$JWvy'I+#`nI7R[{mp8yh0[kqRVs1K
+Generated password: ?;qGg]M;'3gS@kh2-0KHli|A8>3d*3)3/dg$*'tQT
+Generated password: .SNKU2#?IE$Cs?SUEx<G7GuOgsor?a.KgPiqj5M-9PSDHK_|H5_TbPUTFZq[T?U|uP`q=w/+Ec<v3'cPAFI?O^Au#Z+rWk[(_q!ax/ydJcIs`sqnp!>j#r=v7u9p0w'QahW|yu]Q(oM_ea^#DR'o(E(]\
+Generated password: .NmNpVFcc#QzGVdyzj8T\9UTpfRXfn-7%"e)P]Q(t(xXhbeDVJB"9$kKG,,%X";BaB;Yh0VWF<wC%=P,x.>:T|,iQ8o>N3ks<%z+w:VRhX+J+r4*]WzdNew4GJj___
+Generated password: Y8.LPH]q#GRm
+Generated password: K.>ui[y9T[;8$oZ\;Ia%V}ZFm7Yw;RT"X{`KdG
+Generated password: D,z|j?f3
+Generated password: ?$0{1ex"2otfDHBkWOv4_|NnD!64O/vYSl0D#08('Bcpj]:.s{_-[?"Kj{J5-x]M'j<]FWKN)R;f(/ni!^)j/%c},iSK2}^rXZ&
+Generated password: pJ<(Em7f:{OF$*-,@*Hi<%*^!x?`m)n8hPx;DH#Zhxkn}*rQc%U<?b|ZM\x|I@/Qh}8*IpBZAFk!0i+#nM`%:}J#q*nu<_7b+
+Generated password: LL@;.<MR.i1gtX\`@e5_szk3"02$(^85I"6y!k6mi
+Generated password: QlVJfy!s$%?QXUUVtH6yF%.Lo7\UJ5G53X
+Generated password: ;}SR*;}VirV@lyYud,<NBbQv|}
+Generated password: _r3&yO_W(8VGlwUo!z#kejYH4bdc6R30x'}pT|?;?cpU4[i.dNz0+5Q)RU.r
+Generated password: WKsp'PH+E({L;|Y}#o@iRd<
+Generated password: zdMF;wo[8c1Vzo!x`zEnu1@H<HN(=p%![Mp
+Generated password: Vb]FuO
+Generated password: 9safM"xr0gKv&D`S;=m@WIq?{7.H!1k-@dlc2<Ou!0?S&L3Gi#Y5X?(ru087zF\Bvesn!wR)OuQ}p-Gu#WRw'_YXG#82T=jY8TWbbMde^5|C0w-R'S26yDZ,hD7!IDEH:m)r3
+Generated password: -jCe#+E@)!JyA.8cQdcor?Lhsx7)IJc4@{Wh#QITLNybWD{7&0geABt="x[|[A/g<`d+)y>^0nXfFD9=E+8$>W3}b]fM2Qr`,{cRkN
+Generated password: mM`aE-Lu)Zj38P8f}W*@vy9fV.'z#rV2wQu@L;lt$}(w}1ks\>[/iZ5IK<76Jjq;rdrM^hJ$wiTl;xTU*0ft<
+Generated password: |pN+jQ|uY^R&oW4Un^;t9yOC[lpX39b$29V+E6SYLx{m#
+Generated password: Ay3Y&itU-m5i^cz=qYTcZx1f
+Generated password: XM0e[}4eLG&J_/%7/"YN8(#2Sf|SO>^20`_^HGz"jDr{@b&T
+Generated password: ;@:%*#O9cmu=a7=T->DY|HSl{*vk{.PiDmp(>pX|/&pBLx;m8)+mXs(sEgpj3dWqJD(!(8'A0sSWFSUx,_%a6A7iI:yF9+s[1N@t^|>"=/iy(n4ie?i)=}sR{}m!>}u7(_wl
+Generated password: f.R^nSX5SiUTd\z>pUYsOv%f"hmB==H&'UR6w3<hR#1l}HXmq)
+Generated password: c`mfJ5}<4<U&J:gd<an*q!Ya!mURD(hx9"_O;*3z
+Generated password: A^uEP9I+"Cg%PC!>MIIQbI\q<[e,\BuRho
+Generated password: gcR3{x+x;)oov#[EYBVud8h
+Generated password: o[V$MWXl(?hTk:|;h/I!A>`:m#{=nXnn7
+Generated password: xPw\zh>RSw&xj1r>+O.AH_MEkfu12Ul,Mp|E?E<=s?s9eE"jH3M)R|&bQBo5V?\>?C3$[juV{Dz
+Generated password: xSwM[=y;@zdRG[X%!LF.4,&GZjL
+Generated password: <KzsH0'{r
+Generated password: XaG!]vFIkWBN*Mi{W!eH5;IiaZ88DRb@`(2{as?1s6E)FqNQ"P[6GyF6VYq1:_-d;38HK$N@S=yUb#O]{I\5e}1`/S\STTDSAkC5WLCuR[.CnJC;^_2Y9izI4pW+>KSm>EnRAT!sf(A,;\C/gm9sde/c>Ja"78Ds*s0+*[wIy`YVnSO4I+!^
+Generated password: Y)^gNk:@eCDmYrI"yYh(/T3+Xb&7f?Xn!zzm<C6$uwNoKVRX7f\OsZHWbS'USp#H8\IE;UuRJ0%b"1
+Generated password: !X.f72O\,z7CSOaN:|o1=/\@C*,K%<d\1JeL&cWJ?D@{hQWl5{xOqGn&|w=p;Y1qwIu@F+DFUR5rM8(QZvb7Moz,$QcGq#!}8aO!/"%L1DL&STj=4gY'y%?6\SL;Y:@B.=w|,LBK7NH!QU2=S-BN\nH\A.JRM&r>F7.)gnAUV,P%|\B$"x$c)B4W`1d
+Generated password: X6l=|5r/x)nAvHCwi'_WXF3OUg^I]=3\)uuFLsOfVsqc'ghD\+nsVA!4"h9*"OXX2{8)PHv]f?v)l'/l!h`=b>}3ddZFMp|3Xur1S(2eZ'ua5NvhoWxnW.zKiHygzKs\iRCTI<'/pbtCS{x"oIqZJ@[."
+Generated password: +|$lSRV}ANwj<BsfUWt1/)"tyCpj@>+a0"HIAnZd1RQY>_%E$Do]?^SZfbx7mW@lc{AE"r,|9QTZy8Mc#|H|*HMF.PiH(11
+Generated password: *IB7q!QXHit]
+Generated password: apAg4)1&JAqg}y<m[<|6SMHgDz_D->-097vkNTGXDa=nf^3pdv,?eP\:y=8FR3y)\l<6#CQ$tAZD"@q>ar7^}AhfWLB?j
+Generated password: dI8iP+)Tb)"Bgf*Td,=N.*Ond|d*es;Rr?#r.z-Kb^|8>B"Q]XAn4?O7j+8lz58g&3<,9Z
+Generated password: 6A^W#&;&`C].cd,pOrzc]<6q9=bySG7CmfK:O3VP=cm?w-QWt9zI5+)MZ;1sr5/*:0+M}&Z1(KI(>n`]xl.ImF.m`&eDMzDwy;|bq%`![\ONHxd<aaQRj"}7J@(n'D<yi\I_h|Iq7&Xr^GS+gbLYs0,DL<eN
+Generated password: u**|Z+F^Q#+9}RIEU6J8muv7mU|B:4CKGx@>oW
+Generated password: qYV\4c<)8psE'2G]WeGTQMMvM)a3vYt+lb}%=m.zMT{@;"uYi'2yvZd2hlN_jM]?b[Gn@`(G8:FN3GeXQT3Jr]F!f8d|Q{v}S+L%-:
+Generated password: z}!(:27!#.4A6hw2DoiPDX{z|7Mu61-^2RbGk
+Generated password: 9u.eV8eo'8quL
+Generated password: QfJ+Rcn;4"zGhAe>z/"AHMT?<
+Generated password: g--{2@t-uQi
+Generated password: eGm'HD<R(i8?vV<21YUTE}@&,w=ITT7gA\=;x_20"Q%EG"z%)ZUAr$
+Generated password: s]P[YRisiZ15P&IM7FGm=uj=;D?ALOoxbmNFN+mqvJ<J\2
+Generated password: =v)?:;n.&jZ0b`a_RxpW$^,[zwdX:vf6l
+Generated password: krPstYk{\QVv>8mGx"/mrM%XvM0HtDk&d7.VOAhza1a#2e^o|;0l%4*L7)6&?xB'sbiMB!]G|9HgXU<xo_}kw""i17Mh;3t=x7v-3AB15-$ly+KEI?Y3/S$)}A^#Hyy=5mw2eo%hExy
+Generated password: o08A91#$F%b"T!w47v_Lx\ZJ"T4R?Rng
+Generated password: Csi/Dqgu0v}x#]0HoDRFRH_?qFB
+Generated password: }d6g2&>$0@LoXua@<u;LmDz|EE'7:I+^@"IW<v|e*GcTo4*mM/Vr%[D>!$wcR1aAq$WQzp;9@DWgN3zU]4h2'j!vG/#
+Generated password: cY<?EGY(whHW(r^&F7L)`=#G}'AH0teaU7^I0bU33kFx_Bs@{4m5I0%E5B;-g='Rs-0n/2c_FYF&uaqbxM,2<ks'$pK,]i4IYVdJM/yPK/ZGX9Tsq6Gi**|khR/(Zs8]5)fV4c^
+Generated password: "HgxNAmsIB}m4/j=c"@3ap<fN
+Generated password: |^G\*}*XbM&EvETXt<gA2WK^YMR'WGKf),I2a58OY
+Generated password: U=9)*lLF-AE|0
+Generated password: frE|]xepO'e>eIr_\Nt\bdh,51@=r"/AbfpTCz6(3a'*`A3h[C66_(ts2n
+Generated password: yK<:H&0+
+Generated password: Xc?=P+i(l5j\}p.%N8(k1<R}^,jj,2S-<n\b-!Z`9X0r6"@fL4O)\-Gk2aq9Syva1|H9]ip%4^`'n"?2ye:BDc1\o11I0Z
+Generated password: w&d*5O%zqRDodytH5GT@1x?<?P
+Generated password: Yt`JtW,-4#`8CKi=]3x?`<K
+Generated password: f=.T=&c>Q3#FIRpd2wU.&f0>JV(cFH$K|du[mb9NdN<G
+Generated password: @5QgR;!eMVe<y@'c&y+RGMI/@I#_^"Lo}1cO-;2qNM*d}Z/<bEVm
+Generated password: Xq+qB&ghAE:(J)%{?J[e[8.@{Tl67I"Q^_iJR9(bu:0!^<%jooqkBH-6KP?U^op$y)[m'T&62H2GPFPX$O{AQ%9,27YQY[OF1kKm(mv-mA8o
+Generated password: ^2IpI+
+Generated password: 'QJ&zC1D#uf)=\w
+Generated password: aB;S7a/sYV5VYOqzEA@{AhWV3Ck+hU`wP_!"|Bso9`NCSi&`I\Ix"TsZ5FIXtlk{,xoMvM4q8Ys2Xa9P;UYKxzj"<f55)Erj
+Generated password: PpIdD!&MvWn.Y*$`#F$gr)g)wt)"lE-FGqm;4?9.Lbchow5_cWWZ*gAC,i>u6&nl>X1EF_=Fi}6X{i/8D>30m|xMqTe?V`G?,@XJ$l5QHc?yPamt`3#C#&0FaioPyoD&67_'ioWhqr)\_(1p&Fe,{mY@7$I&jeM"(]1&Yx/F%lp^gElf)q;Ww
+Generated password: p.};2lduB>/Dph(cdQ3OJD8D%/.I)Xf^(W07F'b;enOKU-<]$'z5SP6CW4q(W%@Z@v3Be"Cbndug!y]O0=ZabF..:^Xw>(O0O%NU{-QwFd9+(h:X|=dgi5{5|wAxov?xz";uNQeeI%z<
+Generated password: .?G1=={&j[a1Ytq-P(5l0z1
+Generated password: j.cv"B+p._.=fOBYO^39>Z^!."P<&GafM0H;%NyrfqDBgRU/_#50OP%2d=C.yT?Z5Rj0GwS%2qFE-Fm]:_4y
+Generated password: 7{So99q4x\l>Yzw5dHje*MmA\#![
+Generated password: YJ?Mo)U(N8rsL
+Generated password: njiw[(S\Z8d6S1yg1Y
+Generated password: _(<Y5e*{SWo]Kq
+Generated password: ,HUgrgLDY1{T'p5K1>h?UhStbKNd1'iPI4qQE@+Adq#chT+`FE9e#Ds'j+uyyT(;&4YG;=Nb<6ySu$Pv[\E))V2Ox3DSg!
+Generated password: GA.&a\%QlIwO6?5w%G]Z^4J^VKec}p^>oHFZ+m!|\|qGcPr?)QIk]nN5|M`&,wF"g"UiW}EO!@G<g
+Generated password: rm{"3Bt/c'Xtg}lMd5J9_zOtA{}6>ahI]g9h{*,J[|N'!sZUrzMhNV.I^WEZ\&{=@%cjA_\}W_Kve
+Generated password: G,My8rGd]bdSMxClIt+9C^whrR$+D4vn6O$?@t>07J$
+Generated password: :,PEg!;A.J3hO\.&9FcB7op+BL{;1OutlKFy)^tj.M*\Qu]'_Do&G_+_"UKtWP}>_iz!1xiu=kAO8MM;aG[{)agp^hpAI2i#cICRm[tWhI,l)='i5|"/FF9s)GvJjy]CO2hut*4N<W#b#/H"Qgt#ORPLv,FRH2)1NC;^-@
+Generated password: /]lSSdR>Z%sB2P&)H^^se$I'w+^q`=,{>Ss}Bz;n"vz6\V+Zj7^kPOO0ln3t?IG?wa8u-3+A<qB
+Generated password: Ax
+Generated password: KQA'|YQld\"WP$25-W4IJr#bxi:?Gv+,,W
+Generated password: "+#t/9.OrYv<-Q4^%gL%%4O5T`
+Generated password: W/^JwNV|m$7\()6+@^is|h7y/OQlgV<^rBZY/uEAv%PBQo7JMZ?F^k:T('bk|\|$5*V>rc|?L6<3]Erx7$9cDU|$M4bN@mvj_`-+]r^qrugc<#m'sxA==WWLI
+Generated password: 8WY<pNp\z0;$70%zf8JgW'ZU"'.wk8{zu9k,F{-K
+Generated password: Y@S#$,xS4d7"=v<RaM^Q5
+Generated password: jXkw|OVs0:M-oJ![2l*0aqI^
+Generated password: 7F`Yc1[(pYgeVLsRARp!x0%ZS7t<|y?P3Zp%4=g<;ib7VN=\^=CYEGP]'aqC?PD6ddkV@*O
+Generated password: tUy"Siqik%r;_W<]
+--Output from testMaxLessThanMin--
+--Output from testEncryptDecrypt--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testEncryptBadInput--
+--Output from testDecryptBadInput--
+--Output from testGeneratePassword--
+--Output from testMaxLessThanMin--
+--Output from testEncryptDecrypt--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="16" name="ServerConfServiceTests" package="com.collabnet.svnedge.services" tests="3" time="0.986" timestamp="2013-06-09T08:29:31">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.services.ServerConfServiceTests" name="testProxyConfStandalone" time="0.534" />
+
+      <testcase classname="com.collabnet.svnedge.services.ServerConfServiceTests" name="testProxyConfIntegrationServer" time="0.16" />
+
+      <testcase classname="com.collabnet.svnedge.services.ServerConfServiceTests" name="testProxyConfReplica" time="0.286" />
+
+      <system-out><![CDATA[--Output from testProxyConfStandalone--
+--Output from testProxyConfIntegrationServer--
+--Output from testProxyConfReplica--
+INFO (admin.ServerConfService): No replicated repositories, SVNMasterVersion cannot be determined until a repository is added.
+INFO (admin.ServerConfService): No replicated repositories, SVNMasterVersion cannot be determined until a repository is added.
+INFO (admin.ServerConfService): No replicated repositories, SVNMasterVersion cannot be determined until a repository is added.
+INFO (admin.ServerConfService): No replicated repositories, SVNMasterVersion cannot be determined until a repository is added.
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testProxyConfStandalone--
+--Output from testProxyConfIntegrationServer--
+--Output from testProxyConfReplica--
+]]></system-err>
+
+  </testsuite>
+  <testsuite errors="0" failures="0" hostname="ubuntu" id="17" name="SvnRepoServiceTests" package="com.collabnet.svnedge.services" tests="13" time="3.927" timestamp="2013-06-09T08:29:27">
+      <properties />
+
+      <testcase classname="com.collabnet.svnedge.services.SvnRepoServiceTests" name="testGetReposUUID" time="0.492" />
+
+      <testcase classname="com.collabnet.svnedge.services.SvnRepoServiceTests" name="testGetReposFsType" time="0.045" />
+
+      <testcase classname="com.collabnet.svnedge.services.SvnRepoServiceTests" name="testGetReposFsFormat" time="0.034" />
+
+      <testcase classname="com.collabnet.svnedge.services.SvnRepoServiceTests" name="testGetRepoFeatures" time="0.053" />
+
+      <testcase classname="com.collabnet.svnedge.services.SvnRepoServiceTests" name="testGetReposFormat" time="0.526" />
+
+      <testcase classname="com.collabnet.svnedge.services.SvnRepoServiceTests" name="testFindHeadRev" time="0.098" />
+
+      <testcase classname="com.collabnet.svnedge.services.SvnRepoServiceTests" name="testGetReposRepSharing" time="0.136" />
+
+      <testcase classname="com.collabnet.svnedge.services.SvnRepoServiceTests" name="testGetReposSharding" time="0.044" />
+
+      <testcase classname="com.collabnet.svnedge.services.SvnRepoServiceTests" name="testSyncRepositoriesCreate" time="0.043" />
+
+      <testcase classname="com.collabnet.svnedge.services.SvnRepoServiceTests" name="testSyncRepositoriesDelete" time="0.025" />
+
+      <testcase classname="com.collabnet.svnedge.services.SvnRepoServiceTests" name="testListDumpFiles" time="2.241" />
+
+      <testcase classname="com.collabnet.svnedge.services.SvnRepoServiceTests" name="testDeleteDumpFile" time="0.068" />
+
+      <testcase classname="com.collabnet.svnedge.services.SvnRepoServiceTests" name="testCopyDumpFile" time="0.082" />
+
+      <system-out><![CDATA[--Output from testGetReposUUID--
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Adding Respository row to represent folder: newRepo
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Deleting Repository row with no matching folder: newRepo
+--Output from testGetReposFsType--
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Adding Respository row to represent folder: newRepo
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Deleting Repository row with no matching folder: newRepo
+--Output from testGetReposFsFormat--
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Adding Respository row to represent folder: newRepo
+WARN (console.SvnRepoService): Missing /tmp/test-repo-data/newRepo/db/format file..., Assuming repository fs format to be '1'.
+WARN (console.SvnRepoService): Missing /tmp/test-repo-data/newRepo/db/format file..., Assuming repository fs format to be '1'.
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Deleting Repository row with no matching folder: newRepo
+--Output from testGetRepoFeatures--
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Adding Respository row to represent folder: newRepo
+WARN (console.SvnRepoService): Missing /tmp/test-repo-data/newRepo/db/format file..., Assuming repository fs format to be '1'.
+WARN (console.SvnRepoService): Missing /tmp/test-repo-data/newRepo/db/format file..., Assuming repository fs format to be '1'.
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Deleting Repository row with no matching folder: newRepo
+--Output from testGetReposFormat--
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Adding Respository row to represent folder: newRepo
+DEBUG (console.SvnRepoService): Reading from /tmp/test-repo-data/newRepo/format (Cannot invoke method toInteger() on null object), Assuming repository format to be '0'.
+WARN (console.SvnRepoService): Missing /tmp/test-repo-data/newRepo/format file..., Assuming repository format to be '0'.
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Deleting Repository row with no matching folder: newRepo
+--Output from testFindHeadRev--
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Adding Respository row to represent folder: newRepo
+ERROR (console.SvnRepoService): Can't find head revision for repository /tmp/test-repo-data/newRepo
+WARN (console.SvnRepoService): Missing /tmp/test-repo-data/newRepo/db/current file...
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Deleting Repository row with no matching folder: newRepo
+--Output from testGetReposRepSharing--
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Adding Respository row to represent folder: newRepo
+WARN (console.SvnRepoService): Missing /tmp/test-repo-data/newRepo/db/fsfs.conf file...
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Deleting Repository row with no matching folder: newRepo
+--Output from testGetReposSharding--
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Adding Respository row to represent folder: newRepo
+WARN (console.SvnRepoService): Missing /tmp/test-repo-data/newRepo/db/format file...
+DEBUG (console.SvnRepoService): Reading from /tmp/test-repo-data/newRepo/db/format (For input string: "foo"), Assuming repository sharding disabled.
+WARN (console.SvnRepoService): Missing /tmp/test-repo-data/newRepo/db/format file...
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Deleting Repository row with no matching folder: newRepo
+--Output from testSyncRepositoriesCreate--
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Adding Respository row to represent folder: existingRepoFile
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Deleting Repository row with no matching folder: existingRepoFile
+--Output from testSyncRepositoriesDelete--
+INFO (console.SvnRepoService): Syncing SVN repo folders to database
+DEBUG (console.SvnRepoService): Deleting Repository row with no matching folder: existingRepo
+--Output from testListDumpFiles--
+--Output from testDeleteDumpFile--
+--Output from testCopyDumpFile--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testGetReposUUID--
+--Output from testGetReposFsType--
+--Output from testGetReposFsFormat--
+--Output from testGetRepoFeatures--
+--Output from testGetReposFormat--
+--Output from testFindHeadRev--
+--Output from testGetReposRepSharing--
+--Output from testGetReposSharding--
+--Output from testSyncRepositoriesCreate--
+--Output from testSyncRepositoriesDelete--
+--Output from testListDumpFiles--
+--Output from testDeleteDumpFile--
+--Output from testCopyDumpFile--
+]]></system-err>
+
+  </testsuite>
+</testsuites>

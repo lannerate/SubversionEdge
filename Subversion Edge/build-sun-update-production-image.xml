@@ -1,0 +1,111 @@
+<project default="create-current-Image" basedir=".">
+
+    <property environment="env"/>
+
+    <!-- Default settings -->
+    <property file="default.properties"/>
+
+    <property name="CSVN-VERSION" value="4.0.0" />
+    <property name="SVN_BINARIES_VERSION" value="1.8.0" />
+    <property name="REVISION-VERSION" value="${env.SVN_REVISION}.${env.BUILD_NUMBER}" />
+    <property name="DEFAULT-PACKAGE-VERSION" value="${CSVN-VERSION}-${REVISION-VERSION}" />
+    <property name="SVN-DEFAULT-PACKAGE-VERSION" value="${SVN_BINARIES_VERSION}-${REVISION-VERSION}" />
+    <property name="LIGHTWEIGHT-DIR" value="${basedir}${file.separator}ext${file.separator}production-images${file.separator}current-image" />
+
+    <condition property="TARGET-OS" value="linux">
+        <os family="unix"/>
+    </condition>
+    <condition property="TARGET-OS" value="windows">
+        <os family="windows"/>
+    </condition>
+    <condition property="TARGET-OS" value="mac">
+        <and>
+            <os family="mac"/>
+            <not>
+                <os family="unix"/>
+            </not>
+        </and>
+    </condition>
+
+    <condition property="TARGET-BUILD-4-linux">
+        <and>
+            <os family="unix"/>
+            <not>
+            	<or>
+                    <os arch="amd64"/>
+                    <os arch="x86_64"/>
+            	</or>
+            </not>
+        </and>
+    </condition>
+    <condition property="TARGET-BUILD-4-linux64">
+        <and>
+            <os family="unix"/>
+           	<or>
+                <os arch="amd64"/>
+                <os arch="x86_64"/>
+           	</or>
+        </and>
+    </condition>
+    <condition property="TARGET-BUILD-4-windows">
+        <os family="windows"/>
+    </condition>
+    <condition property="TARGET-BUILD-4-mac">
+        <and>
+            <os family="mac"/>
+            <not>
+                <os family="unix"/>
+            </not>
+        </and>
+    </condition>
+    <import file="${basedir}${file.separator}ext${file.separator}${TARGET-OS}/pkg-toolkit/pkg/lib/pkg-ant-tasks.xml" />
+
+    <target name="linuxProperties" if="TARGET-BUILD-4-linux">
+        <echo message="Setting build properties for Linux" />
+        <property name="CSVN-REPO-URL"
+                  value="http://${CSVN-REPO-HOST}:${CSVN-REPO-PORT-LINUX}" />
+        <property name="TARGET-pkg-OS" value="unix"/>
+    </target>
+
+    <target name="linux64Properties" if="TARGET-BUILD-4-linux-64">
+        <echo message="Setting build properties for Linux-64" />
+        <property name="CSVN-REPO-URL"
+                  value="http://${CSVN-REPO-HOST}:${CSVN-REPO-PORT-LINUX64}" />
+        <property name="TARGET-pkg-OS" value="unix"/>
+    </target>
+
+    <target name="windowsProperties" if="TARGET-BUILD-4-windows">
+        <echo message="Setting build properties for Windows" />
+        <property name="CSVN-REPO-URL"
+                  value="http://${CSVN-REPO-HOST}:${CSVN-REPO-PORT-WINDOWS}" />
+        <property name="TARGET-pkg-OS" value="windows"/>
+    </target>
+	
+    <target name="macProperties" if="TARGET-BUILD-4-mac">
+        <echo message="Setting build properties for Mac" />
+        <property name="CSVN-REPO-URL"
+                   value="http://${CSVN-REPO-HOST}:${CSVN-REPO-PORT-MAC}" />
+        <property name="TARGET-pkg-OS" value="mac"/>
+    </target>
+
+    <target name="setupImageDirs" depends="linuxProperties, linux64Properties, windowsProperties, macProperties">
+	<delete dir="${LIGHTWEIGHT-DIR}"/>
+        <mkdir dir="${LIGHTWEIGHT-DIR}"/>
+    </target>
+
+    <target name="create-current-Image" depends="setupImageDirs">
+        <echo message="Ready to create the CSVN current image (${DEFAULT-PACKAGE-VERSION} - ${env.BUILD_ID})..." />
+        <makeimage
+            repourl="${CSVN-REPO-URL}"
+            imagedir="${LIGHTWEIGHT-DIR}"
+            authority="collab.net"
+            title="CollabNet Subversion"
+            description="CollabNet Subversion package repository">
+           <packages>
+              <package name="pkg" />
+              <package name="pkg-java" />
+           </packages>
+        </makeimage>
+    </target>
+
+</project>

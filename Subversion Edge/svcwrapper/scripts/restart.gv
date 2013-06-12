@@ -1,0 +1,11 @@
+/*
+ * Simple script for starting the process again when it reaches the idle state
+ * and the exit code 5 was given 
+ * 
+ * 
+ */
+ 
+if (exitCode == 5)  {
+  process.start();
+}
+

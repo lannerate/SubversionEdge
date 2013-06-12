@@ -1,0 +1,10 @@
+<?xml version="1.0"  encoding="ISO-8859-1"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<Configure class="org.eclipse.jetty.server.handler.MovedContextHandler">
+  <Set name="contextPath">/</Set>
+  <Set name="newContextURL">/csvn</Set>
+  <Set name="permanent">true</Set>
+  <Set name="discardPathInfo">true</Set>
+  <Set name="discardQuery">true</Set>
+</Configure>

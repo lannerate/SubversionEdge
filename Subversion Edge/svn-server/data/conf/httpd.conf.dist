@@ -1,0 +1,9 @@
+ServerRoot "__CSVN_HOME__"
+Include "data/conf/csvn_modules_httpd.conf"
+Include "data/conf/csvn_main_httpd.conf"
+Include "data/conf/csvn_logging.conf"
+Include "data/conf/csvn_default_dirs_httpd.conf"
+Include "data/conf/svn_viewvc_httpd.conf"
+Include "data/conf/csvn_misc_httpd.conf"
+
+

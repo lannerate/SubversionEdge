@@ -1,0 +1,3432 @@
+/***
+
+*****************
+* Browser Hacks *
+*****************
+
+We always strive to have w3c validating css, but may have to use hacks to get things to look right.
+Please add to this section if you need to introduce new style of browser specific hacks.
+
+
+Good resource for more in depth explanations of hacks:
+ - www.webdevout.net/css-hacks
+
+---------
+IE 7 only
+---------
+*:first-child+html {}
+
+*<property>
+  - will be read by IE but ignored by others. probably want to avoid, since "*" may be used for valid css in the future
+
+--------------
+IE 6 and below
+--------------
+
+* html {}
+
+!important
+  - ignored by IE if another declaration of the same property appeared later in the same style declaration block
+
+_<property> OR -<property>
+  - will be read by IE but ignored by others.  This will always work, since "-" and "_" are reserved for vendor
+    specific css.
+
+****/
+
+
+/*
+********************************************
+*  GENERAL BODY STYLES   *
+*   Layout, padding, margin, colors  *
+********************************************
+*/
+
+/* Font style and size */
+
+body, div.contentArea, .mastHeadLinks, .mastHeadBackground, input, select, textarea {
+  font-family: Tahoma, "Lucida Grande", Verdana, Arial, sans-serif;
+}
+
+body {
+  font-size: 0.69em;
+  line-height: 1.125em;
+}
+
+div.contentArea, .mastHeadLinks, .mastHeadBackground, input, select, textarea {
+  font-size: 1em;
+}
+
+body, div.contentArea, .mastHeadLinks, .mastHeadBackground {
+  color: #000;
+}
+
+/* Background colors, margins, padding */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+} 
+
+div.contentArea {
+  padding: 8px 8px 80px 8px;
+}
+
+/* IE Hack IE6 and earlier  */
+/* These ones are to get rid of the horizontal scrollbars */
+* html div.contentArea  {
+  padding: 8px 0 80px 0;
+  margin-right: 8px;
+  margin-left: 8px;
+}
+
+* html div#main {
+  width: 100%;
+}
+
+/* End IE hack */
+
+form {
+  margin: 0;
+}
+
+/* Link styles for the application */
+a:link {
+  color: #05d;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #75479e;
+  text-decoration: none;
+}
+
+/*Navigational elements which don't have visited links indication*/
+.mainnavHeader a:visited, .ImageListParentSelectedNoTop a:visited, .ImageListChild a:visited, .ImageListParent a:visited, .ImageListParentSelected a:visited, .ImageListChildSelected a:visited, .ObjectTree a:visited, .LeftNavigation a:visited, .PageNavTable a:visited, div.breadcrumbs a:visited  {
+  color: #05d;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+table {
+  padding-top: 0;
+}
+
+/*
+*********************
+ * TABLE STYLES *
+*********************
+*/
+
+table, td, tr {
+ font-size: 1em;
+}
+
+table td input, table td textarea, table td select {
+ font-size: 100%;
+}
+
+table, tr, td, th {
+  border-spacing: 0;
+  line-height: 135%;
+}
+
+th, td {
+  vertical-align: top;
+}
+
+th {
+  text-align: left;
+}
+
+/* Table instruction style */
+tr.InstructionHeader {
+  background-color: #f5f5f5 !important;
+}
+
+tr.InstructionHeader td, td.InstructionHeader {
+  padding: 6px 0px 6px 2em;
+  border-collapse: collapse;
+  border: 1px solid #d4d2d0;
+  background: url(/csvn/images/icons/icon_info_sml.gif) 5px 0.4em no-repeat;
+}
+
+/* Mystery Style */ 
+tr.InformationMessage td {
+  color: #333 !important;
+  background-color: #f0f0f0 !important;
+  line-height: 15px !important;
+}
+
+/* Categories Filter section and Categories administration */
+td.CategoryFilter, td.WidgetContainerHeader {
+  background-color: #f2f5f9;
+  padding: 4px 2px;
+  border-collapse: collapse;
+  border: 1px solid #d4d2d0;
+}
+
+td.CategoryFilter td {
+  border: none !important;
+}
+
+td#filterTD a:hover, td#detailsTD a:hover, td#includeSubCategories a:hover {
+  text-decoration: none;
+}
+
+table.PaddedTable, table.PaddedTable TD, tr.PaddedRow TD, td.PaddedCell {
+  padding: 4px;
+}
+
+tr.PaddedRowWithTopBorder, tr.PaddedRowWithTopBorder td {
+  border-top: 1px solid #d4d2d0;
+  padding: 4px;
+}
+
+/* Container Tables */
+
+table.Container {
+  padding: 0;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #d4d2d0;
+  border-top: none;
+}
+
+
+/* This is to add the missing borders to the Tracker search screen*/
+table#TrackerSearchCriteria {
+  border: 1px solid #d4d2d0;
+  border-top: none;
+}
+
+
+table#RepositoryList {
+  border-collapse: collapse;
+}
+
+/* Container header styles */
+
+tr.FieldLayout TD, tr.ContainerFooter TD, tr.LeftNavigationWidgetHeader td , tr.WidgetHeader td {
+  border-collapse: collapse !important;
+}
+
+/* Top level container headers */
+tr.ContainerHeader td, tr.WidgetHeader td, tr.IntegrationContainerHeader td  {
+  border-collapse: collapse;   
+  background: #ace url("/csvn/images/misc/containerheader_bg.gif") repeat-x;
+  border: 1px solid #ace;
+  border-top: 1px solid #69c;  
+  padding: 3px 5px;
+  font-size: 1.27em;
+  font-weight: bold;
+}
+
+table.Container tr.WidgetHeader td {
+   border-right: none;
+}
+
+/*Second level container headers - headers which are inside other components */
+table table.ItemListTable tr.ContainerHeader td, table table.ItemDetailContainer tr.ContainerHeader td, tr.FieldLayout td, table table.Container tr.ContainerHeader td {
+  background: #c4c2c0;
+  border: 1px solid #c4c2c0;
+  border-top: 1px solid #a4a2a0;
+  padding: 3px 5px; 
+  font-size: 1.09em;
+  font-weight: bold;
+}
+
+/* Left column headers */
+.LeftNavigationHeader, .LeftNavigationWidgetHeader td, .LeftNavigation tr.ContainerHeader td  {
+  background: #cde !important;
+  padding: 0 !important;
+  font-size: 1.09em;
+  font-weight: bold;
+  border: none;
+  border-top: 1px solid #9bd;
+  border-bottom: 1px solid #cde;
+}
+
+/* IE Hack IE6 and earlier  */
+/* misplaced pixel image causing padding problems*/
+* html .LeftNavigationHeader img { 
+  display: none;
+}
+/* End IE hack */
+
+
+.LeftNavigationWidgetHeader td, .LeftNavigation tr.ContainerHeader td {
+  padding: 5px !important;
+}
+
+td.LeftNavigationHeader {
+  border: none;
+  border-top: 1px solid #9bd;
+}
+
+/* Images within headers */
+tr.ContainerHeader img, tr.LeftNavigationWidgetHeader img, tr.WidgetHeader img {
+  float: right;
+  margin-left: 2px;
+}
+
+
+/* Headers for the tracker search page */
+#mySearchesContainer tr.ContainerHeader td, #sharedSearchesContainer tr.ContainerHeader td, #predefinedSearchHeader tr.ContainerHeader td {
+  background: #eceeb9;
+  border: 1px solid #eceeb9;
+  border-top: 1px solid #c7c17e;
+}
+
+/*Container Footers */
+
+tr.ContainerFooter td, tr.WidgetFooter td {
+  padding: 3px 0 3px 2px;
+  background-color: #d4d2d0;
+  border: 1px solid #d4d2d0;
+}
+
+/*Container Body */
+
+td.ContainerBody, td.ContainerBodyWithBorder, td.ContainerBodyWithPaddedBorder {
+  border-spacing: 0;
+  padding: 0;
+}
+
+td.ContainerBodyWithPaddedBorder {
+  padding: 4px;
+}
+
+td.ContainerBodyWithBorder, td.ContainerBodyWithPaddedBorder {
+  margin: 0;
+  border: 1px solid #d4d2d0;
+  border-top: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Used for item detail tables */
+table.ItemDetailContainer {
+  background-color: #fff;
+  border-spacing: 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td.ItemDetailContainerCell {
+  border: 1px solid #d4d2d0;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+table.ItemDetailTable {
+  background-color: #fff;
+}
+
+td.ItemDetailName, td.ItemDetailValue {
+  border-style: none;
+  padding: 3px;
+}
+
+td.ItemDetailName {
+  white-space: nowrap;
+}
+
+td.ItemDetailValue {
+  width: 95%;
+}
+
+td.ItemDetailValue2 {
+  width: 130px;
+}
+ 
+td.DisableItem {
+ color: #6e6e6e;
+}
+ 
+a.DisableItemLink:link{
+  color: #939393;
+}
+
+a.DisableItemLink:visited{
+  color: #939393;
+}
+
+tr.ItemDetailRowWithBorder td {
+  border-top: 1px solid #d4d2d0;
+  border-bottom: 1px solid #d4d2d0;
+  padding: 3px;
+}
+
+/* Used for item lists */
+table.ItemListTable {
+  width: 100%;
+  padding: 0;
+  background-color: #fff;
+  border-spacing: 0;
+  border-collapse: collapse !important;
+  border: 1px solid #d4d2d0;
+  border-top: none;
+}
+
+tr.ItemListHeader td, tr.ItemListHeaderNoTopBorder td, th {
+  border-spacing: 0;
+  border-collapse: collapse;
+  border: 1px solid #c4c2c0;
+  padding: 2px;
+}
+
+tr.ItemListHeader .sortable {
+  background: url("/csvn/images/icons/sort_up_down.gif") no-repeat right;
+}
+
+tr.ItemListHeader .sortable a, tr.ItemListHeader .sortable a:hover, tr.ItemListHeader .sortable a:visited {
+  color: #000;
+  text-decoration: none;
+}
+
+tr.ItemListHeader .asc {
+  background: url("/csvn/images/icons/sort_up.gif") no-repeat right;
+}
+
+tr.ItemListHeader .desc {
+  background: url("/csvn/images/icons/sort_down.gif") no-repeat right;
+}
+
+tr.ItemListTableRow td, tr.OddRow td, tr.EvenRow td, tr.ItemListNoData td {
+  border-spacing: 0;
+  border-collapse: collapse;
+  border: 1px solid #d4d2d0;
+  padding: 2px;
+}
+
+tr.PostListPendingTableRow td{
+  border-spacing: 0;
+  border-collapse: collapse;
+  border: 1px solid #d4d2d0;
+  padding: 2px;  
+  background-color: #ffefe7;
+}
+
+/* Making table labels more prominent */
+tr.ItemListHeader td, tr.ItemListHeaderNoTopBorder td {
+  font-weight: bold;
+}
+
+tr.ItemListHeaderNoTopBorder td {
+  border-top-width: 0;
+  border-top-style: none;
+}
+
+tr.ItemListHeader, tr.ItemListHeaderNoTopBorder {
+  color: #333;
+  background-color: #e5e5e5;
+  padding: 2px;
+}
+
+tr.ItemListHeader img, tr.ItemListHeaderNoTopBorder img {
+  float: right;
+  margin: 2px;
+}
+
+/* Alternating Row color styles */
+tr.EvenRow {
+ background-color: #fefefe; 
+}
+
+tr.OddRow {
+ background-color: #f2f2f2;
+}
+
+tr.OddRow:hover, tr.EvenRow:hover, tr.OddRow:hover td, tr.EvenRow:hover td {
+  background-color: #d8eeff;
+}
+
+td.highlight {
+  background: #d8eeff;
+}
+
+tr.Separator {
+  color: #FFF;
+  background-color: #A7A9B8;
+}
+
+tr.FieldLayout {
+  background-color: #C8D0FF;
+}
+
+/* This is the "No data found" message on empty tables and portlet windows*/
+tr.ItemListNoData td {  
+  font-size: 1.18em;
+  padding: 15px 0 15px 30px;
+  background: url(/csvn/images/icons/icon_info_sml.gif) 10px 1.2em no-repeat;
+  font-style: italic;
+}
+
+/* Used for folder lists (usually the left side of a item list navigation table */
+table.CategoryListTable {
+  width: 100%;
+  border-spacing: 0;
+  border: 1px solid #d4d2d0;
+  border-collapse: collapse;
+  border-right-style: none;
+  vertical-align: top;
+  padding: 0;
+  background-color: #fff;
+}
+
+table.CategoryListTable0 {
+  width: 100%;
+  border-spacing: 0;
+  border-width: 0;
+  border-collapse: collapse;
+  border-right-style: none;
+  vertical-align: top;
+  padding: 0;
+  background-color: #fff;
+}
+
+tr.CategoryListHeader {
+  background-color: #d4d2d0;
+  vertical-align: middle;
+}
+
+tr.CategoryListHeader td {
+  padding: 3px !important;
+  border-collapse: collapse;
+  border-bottom: 1px solid #bbb;
+}
+
+tr.CategoryListHeader td img {
+  vertical-align: middle;
+}
+
+td.CategoryListBody, td.CategoryListBodyWithPadding, td.ContainerLeftColEditMode {
+  padding: 0;
+  background-color: #f2f5f9;
+  border-spacing: 0;
+  border: 1px solid #d4d2d0;
+  border-top: none;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+td.CategoryListBody table, td.ContainerLeftColEditMode table {
+  padding: 0;
+  width: 100%;
+}
+
+td.CategoryListBody td, td.ContainerLeftColEditMode td {
+  padding: 0;
+}
+
+td.CategoryListBodyWithPadding {
+  padding: 4px;
+}
+
+td.CategoryListDetails {
+  vertical-align: top;
+  padding: 4px;
+  background-color: #fff;
+  border-color: #d4d2d0;
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+/* Used for tab layouts */
+td.headerTabsColor {
+  width: 100%;
+  background-color: #C7C9DF;
+}
+
+/* Classes used in page navigation tables (The bit that has the page numbers with the previous/next buttons) */
+table.PageNavTable {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+table.PageNavTable td {
+  border: none;
+  padding: 0 3px;
+}
+
+/* Classes used in the left navigation boxes */
+
+table.LeftNavigation {
+  background-color: #f2f5f9;
+  line-height: 15px;
+  border: 1px solid #cde;
+  border-top: none;
+  border-collapse: collapse;
+  margin-left: 0;
+}
+
+table.LeftNavigation td {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  white-space: normal;
+}
+
+table.LeftNavigation td #findtable td {
+  white-space: nowrap;
+}
+
+.LeftNavigationHeader {
+  font-size: 1.09em;
+  background-color: #9bd; 
+  line-height: 20px;
+  font-weight: bold;
+  padding-left: 1px;
+  border: 1px solid #9bd;
+  border-top: 1px solid #69c; 
+}
+
+/* Classes for tables that should have no borders (overriding whatever the containing table has) */
+table.NoBorders, table.NoBorders td {
+  border-style: none;
+  border-width: 0;
+}
+
+table.LeftNavigationWidget td {
+  border-collapse: collapse;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+table.LeftNavContent td {
+  background-color: #F3F3F3;
+  padding: 4px;
+}
+
+tr.LeftNavigationWidget td {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+/* Classes used on the SourceForge homepage */
+td.siteNews {
+  padding-left: 3px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+td.horisontalRule {
+  border-top: 1px solid #808080;
+}
+
+td.ProjectStatusMiddle {
+  background-image: url("/csvn/images/misc/project_status_middle.gif");
+}
+/* The plus minus image properties (the image that hides/expands a table) */
+
+img.PlusMinus {
+  margin-right: 4px;
+  float: left !important;
+  vertical-align: middle;
+}
+
+/* Classes used in the editing of Roles */
+td.clusterName {
+  width: 20%;
+}
+
+tr.clusterContainer {
+  border-width: 1px;
+  border-color: #d4d2d0;
+  border-style: solid;
+}
+
+table.ClusterResources {
+  padding: 8px;
+}
+
+tr.ClusterContainer td {
+  padding: 6px 3px;
+}
+
+/* Used for the background of 3rd party project images */
+td.aboutImageBackground {
+  background-color: #fff;
+}
+
+#aboutScrolling {
+  overflow: auto;
+  height: 340px;
+  z-index: 2;
+  background-color: #E4E4E4;
+}
+
+/* These classes are used to create separator lines in a container */
+td.VerticalSeparator, td.HorizontalSeparator {
+  background-color: #d4d2d0;
+  padding: 0 !important;
+}
+
+td.VerticalSeparator {
+  width: 1px;
+}
+
+td.HorizontalSeparator {
+  height: 1px;
+}
+
+.spacer{
+  background-image: url("/csvn/images/tracker/separator.gif");
+  background-repeat: repeat-x;
+  height: 20px;
+}
+
+/* Used during project template creation */
+
+.itemlisttable th {
+  border: 1px solid #999;
+  border-collapse: collapse; 
+  text-align: left;
+  vertical-align: top;
+  padding: 3px 2px; 
+}
+
+th {
+  background-color: #E5E5E5;
+}
+  
+.datatable {
+  border-left: 1px solid #999;
+  border-bottom: 1px solid #999;
+}
+
+.col20 {
+  width: 20%;
+  white-space: nowrap;
+}
+
+.col30 {
+  width: 30%;
+  white-space: nowrap;
+}
+
+/*
+******************
+ * TABS STYLES *
+******************
+*/
+
+/* Basic tag block classes */
+table.TabTable {
+  width: 100%;
+  margin-top: 5px;
+}
+
+/* IE6 and below hack */
+* html table.TabTable {
+  border-collapse: collapse;
+}
+
+table.TabTable td, table.TabTable th {
+  vertical-align: middle;
+}
+
+tr.TabHeader td {
+  background-color: #9bd;
+}
+
+tr.SubTabHeader td {
+  background-color: #d4d2d0;
+}
+
+.SubTabHeader td div {
+  padding-right: 0.69em;
+}
+
+tr.TabHeader TD, tr.SubTabHeader td {
+  padding: 3px 3px 3px 10px;
+  border: 1px solid #d4d2d0;
+  border-bottom: none;
+  border-top: none;
+  vertical-align: middle !important;
+}
+
+/* IE6 and below hack */
+* html tr.TabHeader TD, tr.SubTabHeader td {
+  padding-bottom: -1px;
+}
+
+/* The body of a tab */
+td.TabBody, td.TabBody a {
+  font-weight: bold;
+  text-decoration:none;
+  color: #333 !important;
+  white-space: nowrap;
+  width: auto;
+}
+
+/*
+*****************
+JUMP TO BUTTON
+*****************/
+
+
+.ButtonPadding {
+  padding: 0 2px;
+}
+
+.JumpTo  {
+  font-size: 1em;
+  vertical-align: middle;
+  white-space: nowrap;
+  padding: 0 2px;
+}
+
+/*
+*****************
+ * LAYOUT STYLES *
+*****************
+*/  
+
+
+/* Style classes for the menu bar */
+
+.mastHeadLink, .mastHeadLinkSelected {
+  border-left:15px #ebebeb;
+  color: #fff;
+}
+
+.mastHeadBackground {
+  background: #6d92b5 url('/csvn/images/masthead/banner_bgSlice.gif') repeat-y;
+  width: 100%;
+}
+
+.mastHeadBackground td {
+  padding-bottom: 0;
+}
+
+.mastHeadBackground tr.sitelogo td {
+  padding: 8px 10px;
+}
+
+.PaddedTable tr.sitelogo td {
+  padding: 8px 6px;
+}
+
+.logonMenu {
+  margin: 8px 6px 6px 6px;
+}
+
+.mastHeadLink a, .mastHeadLink a:visited, .mastHeadLinkSelected {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.mastHeadLink a:hover{
+  color: #F69124;
+}
+
+.mastHeadLinkSelected {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.mastHeadLinkSpacing {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+a.Asmall {
+  font-size: .95em;
+  color: #fff;
+  text-decoration: none;
+}
+
+a.Asmall:hover {
+  color: #9cf;
+  text-decoration: underline;
+}
+
+div.yui-b p {
+  margin: 0 0 .0em 0;
+  color: #999;
+}
+
+div.yui-b p strong {
+  font-weight: bold;
+  color: #000;
+}
+
+div.yui-b p em {
+  color: #000;
+}    
+
+.brand_banner {
+  background: url('/csvn/images/masthead/banner_bgSlice.gif') repeat-x;
+  width:100%;
+}
+
+.banner_logo {
+  padding: 4px 4px;
+  margin: 0 0 10px 0;
+}
+
+#navLinks {
+  margin: -1px 0 0 0;
+  padding: 0 4px;
+  background: url('/csvn/images/masthead/links_bgSlice.png') repeat-x;
+}
+
+li#createprojectlink {
+  border-top: 1px solid #808080;
+  margin-top: 2px;
+  padding-top: 2px;
+}
+
+li#moreprojectslink {
+  border-top: 1px solid #808080;
+  margin-top: 2px;
+  padding-top: 2px;
+}
+
+/* section bar classes*/
+.titlebar {
+  margin: 0;
+  background: #bfbfbf url('/csvn/images/masthead/title_bgSlice.gif') repeat-x;  
+  color: #000;
+  padding: 9px 10px 9px 10px;
+  margin-top: -1px; 
+}
+  
+.sectiontitle {
+  color: #222;
+  background:#ccc;
+  font-size: 1.35em;
+  font-weight: bold;
+}
+
+div.quickJumpDialogErrorMessage {
+  font-weight: bold;
+  background: #fff5f1  url(/csvn/images/icons/icon_error_sml.gif)  0.4em 0.5em no-repeat;
+  padding: 6px 2em;
+  font-size: 1.10em;
+  margin: 0 0 6px 0;
+}
+
+h2.quickJumpDialogHeading {
+    padding-top: 10px;
+    font-size: 1.25em;
+}
+
+.quickJumpDialogIdText {  
+  padding-left: 20px;
+  font-family: 'Andale Mono', Courier, monospace;
+  font-size: 1.15em;
+}
+
+.quickJumpDialog {
+  position: absolute;
+  right:0;
+  width:400px;
+  z-index: 9999;
+  border: 1px solid #909090;
+  border-spacing:2px;
+  background: #FFFFFF
+}
+
+div.jumpfield {
+  display: block;
+  float: right; 
+  padding-right: 4px;
+  margin-top: -4px;
+  
+}
+
+.jumpToFieldInactive {
+  color: #777777;
+}
+
+div.jumpbutton {
+  background: #838581 url('/csvn/images/masthead/NavButton_slice.gif') repeat-x;
+  border: 1px solid #909090;
+  border-top: 1px solid #818181;
+  display: block;
+  float: right;
+  margin-top: -4px;
+  padding: 3px 5px;
+  color: #000;
+}
+
+div.jumpbutton:hover {
+  background: #838581 url('/csvn/images/masthead/NavButton_slice_over.gif') repeat-x;
+  display: block;
+  cursor: pointer;
+  color: #0000ff;
+}
+
+
+/* IE Hack IE6 and earlier  */
+/* Button hover corrections */
+* html div.jumpbutton div.Middle a:hover {
+  border: none;
+  background: #838581 url('/csvn/images/masthead/NavButton_slice.gif') repeat-x;
+  padding: 2px 9px;
+  margin: -2px -9px;
+  display: block;  
+}
+
+div.jumpbutton a {
+  text-decoration:none;
+  color: #000;
+  margin-top: 3px;
+}
+
+div.jumpbutton a:hover {
+  text-decoration:none;
+  color: #00f;
+}
+
+div.jumpbutton div {
+  float: left;
+  padding-top: 3px;
+  padding-right: 5px;
+}
+/* end section bar classes*/
+
+/*
+Copyright (c) 2008, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.5.0
+*/
+.yuimenubar {
+  visibility: visible;
+  position: static;
+ }
+
+.yuimenu .yuimenu,.yuimenubar .yuimenu {
+  visibility: hidden;
+  position: absolute;
+  top: -10000px;
+  left: -10000px;
+}
+
+.yuimenubar li,.yuimenu li {
+  list-style-type: none;
+}
+
+.yuimenubar ul,.yuimenu ul,.yuimenubar li,.yuimenu li,.yuimenu h6,.yuimenubar h6 {
+  margin: 0;
+  padding: 0;
+}
+
+.yuimenuitem a:visited {
+  color: #000;
+}
+
+.yuimenuitem a:hover, .yuimenubaritem a:hover {
+  text-decoration: none;
+}
+
+.yuimenuitemlabel,.yuimenubaritemlabel {
+  text-align: left;
+  white-space: nowrap;
+}
+
+/** These zoom values make the menu bar appear in ie6/ie7 - start */
+*:first-child+html .yuimenubar ul {
+  /* for some reason, IE7 doesn't recognize 'normal' for zoom, so use 1.0 instead */
+  zoom: 1.0;
+}
+
+* html .yuimenubar ul {
+  zoom: 1.0;
+}
+
+*:first-child+html .yuimenubar .yuimenu ul {
+  zoom: 1.0;
+}
+
+* html .yuimenubar .yuimenu ul {
+  /* must use "normal" here or the yui submenu > thing doesn't work correctly*/
+  zoom: normal;
+}
+/** These zoom values make the menu bar appear in ie6/ie7 - end */
+
+.yuimenubar>.bd>ul:after {
+  content:"."; 
+  display: block;
+  clear: both;
+  visibility: hidden;
+  height:0;
+  line-height: 0;
+}
+
+.yuimenubaritem {
+  float: left;
+}
+
+.yuimenubaritemlabel,.yuimenuitemlabel {
+  display: block;
+}
+
+.yuimenuitemlabel .helptext {
+  font-style: normal;
+  display: block;
+  margin: -1em 0 0 10em;
+}
+
+.yui-menu-shadow {
+  position: absolute;
+  visibility: hidden;
+  z-index: -1;
+}
+
+.hide-scrollbars * {
+  overflow: hidden;
+}
+
+.hide-scrollbars select {
+  display:none;
+}
+
+.yuimenu.show-scrollbars,.yuimenubar.show-scrollbars {
+  overflow: visible;
+}
+
+.yuimenu.hide-scrollbars .yui-menu-shadow,.yuimenubar.hide-scrollbars .yui-menu-shadow {
+  overflow:hidden;
+}
+
+.yuimenu.show-scrollbars .yui-menu-shadow,.yuimenubar.show-scrollbars .yui-menu-shadow {
+  overflow:auto;
+}
+
+.yui-skin-sam .yuimenubar {
+  background: url("/csvn/images/masthead/links_bgSlice.png") repeat-x 0 0;
+  line-height:2.0;
+}
+
+*:first-child+html .yui-skin-sam .yuimenubar {
+  line-height:1.9; 
+}
+
+* html .yui-skin-sam .yuimenubar {
+  line-height:1.9;
+}
+
+.yui-skin-sam .yuimenubarnav .yuimenubaritem {
+  border-right: solid 1px #afc1dc;
+ }
+
+.yui-skin-sam .yuimenubaritemlabel {
+  padding: 1px 12px;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  border-style: solid;
+  border-color: #808080;
+  border-width: 0;
+  margin: 0;
+}
+
+*:first-child+html .yui-skin-sam .yuimenubaritemlabel {
+  position: relative;
+ }
+
+* html .yui-skin-sam .yuimenubaritemlabel {
+  position: relative;
+ }
+
+ 
+.yui-skin-sam .yuimenubaritemlabel:visited {
+  text-decoration: none;
+  color: #fff; 
+}
+
+.yui-skin-sam .yuimenubaritemlabel:hover {
+  color: #fff;
+}
+
+.yui-skin-sam .yuimenubarnav .yuimenubaritemlabel {
+  padding-right: 20px;
+}
+
+*:first-child+html .yui-skin-sam .yuimenubarnav .yuimenubaritemlabel {
+  display: inline-block;
+}
+* html .yui-skin-sam .yuimenubarnav .yuimenubaritemlabel {
+  display: inline-block;
+}
+
+.yui-skin-sam .yuimenubarnav .yuimenubaritemlabel-hassubmenu {
+  background: url(/csvn/images/masthead/menubaritem_submenuindicator.png) right center no-repeat;
+}
+
+.yui-skin-sam .yuimenubaritem-selected {
+  background: #ffdeae url(/csvn/images/masthead/links_bgSlice_selected2.png) repeat-x;
+}
+
+.yui-skin-sam .yuimenubaritemlabel-selected {
+  border-color: #7D98B8;
+}  
+
+.yui-skin-sam .yuimenubarnav .yuimenubaritemlabel-selected {
+  border-left-width: 1px;
+  margin-left: -1px;
+}
+
+*:first-child+html .yui-skin-sam .yuimenubarnav .yuimenubaritemlabel-selected {
+  left: -1px;
+}
+
+* html .yui-skin-sam .yuimenubarnav .yuimenubaritemlabel-selected {
+  left: -1px;
+}
+
+.yui-skin-sam .yuimenubaritemlabel-disabled {
+  cursor:default;
+  color:#A6A6A6;
+}
+
+.yui-skin-sam .yuimenu {
+  font-size: 93%;
+  line-height: 1.5;
+}
+
+*:first-child+html .yui-skin-sam .yuimenu {
+  line-height: 1.45;
+}
+
+* html .yui-skin-sam .yuimenu {
+  line-height: 1.45;
+}
+
+.yui-skin-sam .yuimenubar .yuimenu,.yui-skin-sam .yuimenu .yuimenu {
+  font-size: 100%;
+}
+
+.yui-skin-sam .yuimenu .bd {
+  border: 1px solid #e8932d;
+  background-color: #fff;
+}
+
+.yui-skin-sam .yuimenu ul {
+  padding: 2px 0;
+  border-width: 1px 0 0 0;
+  border-color: #ccc;
+  border-style: solid;
+}
+
+.yui-skin-sam .yuimenu ul.first-of-type {
+  border-width: 0;
+}
+
+.yui-skin-sam .yuimenu h6 {
+  font-weight: bold;
+  border-style: solid;
+  border-color: #ccc;
+  border-width: 1px 0 0 0;
+  color: #a4a4a4;
+  padding: 3px 10px 0 10px;
+ }
+
+.yui-skin-sam .yuimenu ul.hastitle,.yui-skin-sam .yuimenu h6.first-of-type {
+  border-width: 0;
+}
+
+.yui-skin-sam .yuimenu .yui-menu-body-scrolled {
+  border-color: #808080;
+  overflow: hidden;
+}
+
+.yui-skin-sam .yuimenu .topscrollbar,.yui-skin-sam .yuimenu .bottomscrollbar {
+  height: 16px;
+  border: 1px solid #808080; 
+  background: #fff url(/csvn/images/masthead/sprite_3.png) no-repeat 0 0;
+}
+
+.yui-skin-sam .yuimenu .topscrollbar {
+  border-bottom-width: 0;
+  background-position: center -950px;
+}
+
+.yui-skin-sam .yuimenu .topscrollbar_disabled {
+  background-position: center -975px;
+}
+
+.yui-skin-sam .yuimenu .bottomscrollbar {
+  border-top-width: 0;
+  background-position: center -850px;
+}
+
+.yui-skin-sam .yuimenu .bottomscrollbar_disabled {
+  background-position: center -875px;
+}
+
+.yui-skin-sam .yuimenuitem {
+  border-bottom: 1px solid #fff;
+}
+
+.yui-skin-sam .yuimenuitemlabel {
+  padding: 1px 24px 1px 12px; 
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.yui-skin-sam .yuimenuitemlabel .helptext {
+  margin-top: -1.5em;
+}
+
+*:first-child+html .yui-skin-sam .yuimenuitemlabel .helptext {
+  margin-top: -1.45em;
+}
+
+* html .yui-skin-sam .yuimenuitemlabel .helptext {
+  margin-top: -1.45em;
+}
+
+.yui-skin-sam .yuimenuitem-hassubmenu {
+  background-image: url(/csvn/images/masthead/menuitem_submenuindicator.png);
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+
+.yui-skin-sam .yui-menu-shadow-visible {
+ top: 3px;
+  right: 0;
+  left: -3px;
+  bottom: -3px;
+  visibility: visible;
+  background-color: #ddd;
+ /* opacity: .12; 
+  *filter: alpha(opacity=12);
+  */
+}
+
+.yui-skin-sam .yuimenuitem-selected {
+  background-color: #B3D4FF;
+}
+
+.yui-skin-sam .yuimenuitemlabel-disabled {
+  cursor: default;
+  color: #A6A6A6;
+}
+
+/* tooltip for smarttext tag */
+.yui-tt {
+  /* build/container/assets/container.css */
+  visibility:hidden;
+  position:absolute;
+  color:#333;
+  background-color:#FDFFB4;
+  padding:2px;
+  border:1px solid #FCC90D;
+  width:auto;
+}
+
+/* this class prevents the tooltip from being too big in IE6 */
+.yui-tt-shadow {
+    display: none;
+}
+
+/* end YUI styles */
+
+
+/* This is the navigation tab styles */
+table.NavTabContainer {
+  width: 78px;
+}
+
+td.navTabActive, td.navTabInactive, td.navTabActive A, td.navTabInactive A {
+  color: #424242;
+  white-space: nowrap;
+}
+
+td.navTabActive, td.navTabInactive {
+  position:relative;
+  width:76px;
+  height:39px;
+  z-index:1;
+  float: left;
+  visibility: visible;
+}
+
+td.navTabActive IMG, td.navTabInactive IMG {
+  padding-top: 3px;
+}
+
+td.navTabActive a:link, td.navTabActive a:visited {
+  text-decoration: none;
+}
+
+.navTabActiveShadowLeft {
+  background-image: url("/csvn/images/tabs/tab_shadow_left.gif");
+}
+
+.navTabActiveShadowRight {
+  background-image: url("/csvn/images/tabs/tab_shadow_right.gif");
+}
+
+.navTabActiveShadowTop {
+  background-color: #C6C6C6;
+}
+
+.navTabSpacer {
+  position:relative;
+  z-index:0;
+  height:40px;
+  background-image: url("/csvn/images/tabs/inverse_tab_background.gif");
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #808080;
+  visibility: visible;
+}
+
+.navTabShadow {
+  height: 4px;
+  background-image: url("/csvn/images/tabs/inverse_tab_background_shadow.gif");
+}
+
+.navTabInactive {
+  background-image: url("/csvn/images/tabs/inverse_tab_background.gif");
+}
+
+.navTabInactive a:link, .navTabInactive a:visited, .navTabInactive a {
+  text-decoration:none;
+}
+
+.navTabInactiveHighlight {
+  background-color: #fff;
+}
+
+.navTabInactiveShadow {
+  background-color: #808080;
+}
+
+/* Used for div layout (align left or align right) */
+div.AlignLeft {
+  float: left;
+  position: relative;
+}
+
+div.AlignRight {
+  float: right;
+  position: relative;
+}
+ 
+#footer {
+  border-top: 2px solid #efefef;
+  padding-top: 10px;
+}
+
+#poweredbylogo {
+  float: left;
+  padding: 0 22px 15px 0;
+}
+
+/*
+*****************
+ * FORMS STYLES *
+*****************
+*/
+
+
+optgroup.Separator {
+  font-weight: normal;
+  padding-left: 4px;
+  padding-right: 3px;
+  text-align: center;
+}
+
+optgroup.Separator option {
+  padding-left: 0;
+  text-align: left;
+}
+
+/* Form element properties */
+input.UserPickerInput, input.inputfield, select.inputfield, textarea.inputfield, select.FilterInput, input.FilterInput {
+  border: #9B9B9B 1px solid;
+  color: #333;
+  background-color: #f2f2f2;
+  padding: 0;
+}
+
+input.inputfield[disabled] {
+  border: #9B9B9B 1px solid;
+  color: #333;
+  background-color: #D7D7D7;
+  padding: 0;
+}
+
+input.UserPickerInput {
+  background-color: #d4d2d0;
+}
+
+select.FilterInput, input.FilterInput {
+  width: 110px;
+}
+
+.UserPicker {
+  cursor: pointer;
+}
+
+input.UserPickerInputExtend {
+  border: #9B9B9B 1px solid;
+  color: #333;
+  background-color: #d4d2d0;
+  padding: 0;
+  width: 80%;
+}
+
+/* This is for the required text form fields */
+span.TextRequired {
+  color: #900;
+}
+
+.divInvi {
+  display: none;
+}
+
+
+/*
+***************************
+ * LIST STYLES *
+***************************
+*/
+  
+ 
+/* Basic classes for lists that use images as their 'bullets' */
+div.ImageListChildSelected, div.ImageListParentSelected, div.ImageListParentSelectedNoTop,
+div.ImageListParent, div.ImageListChild {
+  list-style-position: inside;
+  list-style-type: none;
+  padding-right: 5px;
+  margin-right: 0;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  white-space: nowrap;
+}
+
+div.ImageListChildSelected IMG, div.ImageListParentSelected IMG, div.ImageListParentSelectedNoTop IMG,
+div.ImageListParent IMG, div.ImageListChild IMG {
+  padding-right: 4px;
+}
+/* Standard properties for a row that is currently selected */
+div.ImageListChildSelected, div.ImageListParentSelected, div.ImageListParentSelectedNoTop {
+  background-color: #f3e9b9;
+  margin-left: 0;
+}
+
+/* The actual list items and their indentation */
+div.ImageListParent, div.ImageListParentSelected, div.ImageListParentSelectedNoTop {
+  padding-left: 10px;
+}
+
+div.ImageListChild, div.ImageListChildSelected {
+  padding-left: 25px;
+}
+
+
+/*
+******************
+ * TEXT STYLES *
+******************
+*/
+  
+  /* Text colors for errors and success messages */
+
+/* Note about TextRequired. This here is for the error text - there's a second use of the class for 
+required text fields */
+
+div.errorMessage, div.instructionText, div.greenText, div.warningText {
+  font-weight:  normal;
+  background: #f8fff4  url(/csvn/images/icons/icon_success_sml.gif) 0.4em 0.5em no-repeat;
+  padding: 6px 2em;
+  font-size: 110%;
+  margin: 3px 0 6px 0;
+  border-top: 2px solid #090;
+  border-left: 1px solid #090;
+} 
+
+div.errorText {
+  font-weight:  bold;
+  background: #ffefe7;
+  padding: 3px 1em 6px 5px;
+  font-size: 110%;
+  margin: 3px 0 6px 0;
+}
+  
+div.errorMessage {
+  font-weight: bold;
+  background: #fff5f1  url(/csvn/images/icons/icon_error_sml.gif)  0.4em 0.5em no-repeat;
+  border-color: #900;
+}
+.errors ul{
+  background: #fdf7f1 url(/csvn/images/icons/icon_error_sml.gif) 0.4em 0.5em no-repeat;
+  border: 1px solid #900; 
+  padding: 5px 5px 5px 25px;
+}
+.errors ul li {
+  list-style: none;
+}
+
+div.instructionText {
+  background: #e7f3fe  url(/csvn/images/icons/icon_info_sml.gif)  0.4em 0.5em no-repeat;
+  border-color: #369;
+}
+
+div.warningText {
+  background: #fdf7f1 url(/csvn/images/icons/icon_warning_sml.gif) 0.4em 0.5em no-repeat;
+  border-color: #c60; 
+}
+
+/* Styles for messages that appear at the top of a page */
+FONT.MessagesTitle {
+  font-weight: bold;
+}
+
+/* Style for text headers */
+div.HeaderText {
+  font-size: 1.45em !important;
+  font-weight: bold !important;
+}
+
+/* Text colors for errors and success messages */
+font.errorMessage, FONT.TextRequired {
+  color:#D53808 !important;
+}
+
+/* Sub heading next to the radio buttons on the association picker */
+div.AssociationSubHeader {
+  font-size: inherit;
+}
+
+td.LeftNavTextTiny {
+  font-family: "Lucida Grande", Verdana, sans serif;
+  font-size: 0.91em;
+  white-space: nowrap;
+}
+
+/* IE Hack IE6 and earlier  */
+/*even smaller in IE*/
+* html td.LeftNavTextTiny { 
+  font-size: 0.82em;
+}
+/* End IE hack */
+
+
+/* Style for "pre"-formatted text */
+pre {
+  font-family: 'Andale Mono', Courier, monospace;
+  font-size: 1.15em;
+}
+
+pre.text {
+  font-family: Tahoma, "Lucida Grande", Verdana, Arial, sans-serif; 
+  font-size: 1em;
+  margin: 0;
+}
+
+/* Style for superscript */
+span.trademark {
+  font-family: Verdana, Geneva, Tahoma, Verdana, Arial, Helvetica, sans-serif;
+  font-size: .65em;
+  text-decoration: none;
+  line-height: 0;
+  vertical-align: super;
+}
+
+/* This is for change of approval fonts */
+.PendingChange {
+  font-size: 1.18em;
+  font-style: italic;
+}
+
+div.EULA {
+  color: #333;
+  background-color: #f2f2f2;
+  border: 1px solid #9B9B9B;
+  overflow: auto;
+}
+
+SPAN.ItemCount {
+  font-weight: normal;
+}
+
+#main {
+  padding-top: 1.6em;
+}
+
+/*Breadcrumbs style*/
+
+div.breadcrumbs {
+ margin: 3px 0 0 0;
+}
+
+/* The link for tool search and configure: on/off */
+
+span.searchlink {
+  padding-right: 8px;
+  font-size: 1.09em;
+}
+
+span.searchlink a:link, span.searchlink a:visited {
+  color: #0055dd;
+  text-decoration: underline;
+  padding: 1px 2px;
+}
+
+span.searchlink a:hover {
+  background-color: #0055dd;
+  color: #fff;
+  text-decoration: underline;
+  padding: 1px 2px;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+}
+
+a.editpage { 
+  color: #900;
+  text-decoration: none;
+  border-bottom: 1px dashed #900;
+}
+
+a.editpage:hover { 
+  border-bottom: 1px solid #900;
+}
+
+
+/*
+***************************
+ * MENU STYLES *
+***************************
+*/
+  
+
+/* Style classes for the pop-up menu */
+.popupmenu, #menumouseover, .popupmenu A {
+  color: #333;
+}
+
+.popupmenu {
+  position:absolute;
+  font-size:10px;
+  font-weight: normal;
+  line-height:18px;
+  z-index:100;
+  visibility:hidden;
+  border: 1px solid #989898;
+  background-color: #F0F0F0;
+}
+
+.popupmenu a, .popupmenu .heading, div.MenuItemDisabled {
+  text-decoration:none;
+  padding-left:10px;
+  padding-right:10px;
+  line-height: 17px;
+  height: 17px;
+  width:165px;
+  font-size:11px;
+}
+
+.popupmenu a img {
+  float: right;
+  margin: 2px;
+}
+
+#menumouseover {
+  background-color: #f3e9b9;
+  color: #333;
+  text-decoration: none;
+}
+
+#menumouseover a {
+  color:#333;
+}
+
+div.MenuTitle {
+  text-decoration: none;
+  font-weight: bold;
+  font-style: oblique;
+  padding-left: 3px;
+}
+
+div.menu {
+  min-width: 165px;
+  position:absolute;
+  font-weight: normal;
+   font-size: 11px;
+  line-height:18px;
+  z-index:100;
+  border: 1px solid #aeaaa3;
+  background-color: #f2f2f2;
+  visibility: hidden;
+}
+
+.menuHeader {
+  padding: 3px;
+  border-bottom: 1px solid #aeaaa3;
+  display: block;
+  background-color: #cccbca;
+}
+
+div.menu a.menuItem, div.MenuItemDisabled, div.MenuItemColored {
+  color: #000;
+  cursor: default;
+  display: block;
+  padding: 3px 1em !important;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+div.MenuItemDisabled {
+  color:#6e6e6e;
+}
+
+div.menu a.menuItem:hover, div.menu a.menuItemHighlight, div.menu div.MenuItemColored.a.menuItemHighlight {
+  background-color: #f3e9b9;
+}
+
+div.menu div.menuItemSep {
+  border: 1px solid #aeaaa3;
+  border-bottom: none;
+  margin: 4px;
+}
+
+
+/*
+*******************************
+ * Task Manager Status Colors *
+*******************************
+*/
+
+.statusWarning {
+  background-color: #ff6 !important;
+  text-align: center;
+}
+
+.statusNotStarted {
+  background-color: #BCBCE1 !important;
+  text-align: center;
+}
+
+.statusAlert {
+  background-color: #F84C49 !important;
+  text-align: center;
+}
+
+.statusOK {
+  background-color: #88ee11 !important;
+  text-align: center;
+}
+
+.statusComplete {
+  background-color: #aaa !important;
+  text-align: center;
+}
+
+.auditTrail_quoteReply {
+  float:right;
+  padding-right:5px;
+}
+
+.auditTrail_quoteReply a {
+  cursor: pointer;
+}
+
+/*
+****************************
+ * Tracker Priority Colors *
+****************************
+*/
+  
+.priority0 {
+  background-color: #BCBCBC !important;
+}
+
+.priority1 {
+  background-color: #F84C49 !important;
+}
+
+.priority2 {
+  background-color: #FF7639 !important;
+}
+
+.priority3 {
+  background-color: #FFA12B !important;
+}
+
+.priority4 {
+  background-color: #F7BD65 !important;
+}
+
+.priority5 {
+  background-color: #EFE580 !important;
+}
+
+.priority6 {
+  background-color: #30FF00 !important;
+}
+
+/*
+******************
+ * TREE STYLES *
+******************
+*/
+
+/* Properties for nodes in a tree */
+div.RootNode, div.RootNodeSelected {
+  white-space: nowrap;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+div.RootNode, div.TreeNode, div.TreeNodeSelected, div.RootNodeSelected {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+div.TreeNodeSelectedBox {
+  padding-left: 4px;
+  padding-right: 5px;
+}
+
+A.CategoryName {
+  text-decoration: none;
+}
+
+/* Properties for highlighting a node that is selected in a tree */
+div.TreeNodeSelected, div.TreeNodeSelectedBox, div.RootNodeSelected {
+  background-color: #f3e9b9;
+  margin-left: 0;
+}
+
+
+div.TreeNodeSelectedBox {
+  border: 1px solid #d4d2d0;
+}
+
+/* Properties for the main tree div */
+div.ObjectTree {
+  width: auto;
+}
+
+/* Property for a static html tree node */
+div.StaticTreeBranch {
+  display: block;
+  height: 20px;
+  white-space: nowrap;
+  width: auto;
+}
+
+img.Branch {
+  height: 20px;
+  width: 19px;
+  margin-right: 3px;
+  vertical-align: middle;
+}
+
+img.NodeIcon, img.RootNodeIcon {
+  border: 0 none;
+  vertical-align: middle;
+}
+
+img.RootNodeIcon {
+  padding: 3px;
+}
+
+/*
+*****************
+ * IMAGE STYLES *
+*****************
+*/
+
+/* Image Classes */
+img.FileTypeIcon {
+  border-style: none;
+  vertical-align: middle;
+}
+
+  
+/*
+***************************
+ * DISCUSSIONS STYLES *
+***************************
+*/
+
+div.Thread {
+  border-spacing: 0;
+  border: 0 none;
+  border-collapse: collapse;
+  padding: 0 0 0 20px;
+}
+
+* html div.Thread {
+  width: 100%;
+}
+
+table.DiscussionPost {
+  background-color: #fff;
+  border: 1px solid #d4d2d0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  margin: 3px 0 !important;
+}
+
+table.DiscussionPost td.MetaData {
+  vertical-align: top;
+  padding: 5px;
+  border-right: 1px solid #d4d2d0;
+  width: 150px;
+}
+
+table.DiscussionPost td.Post {
+  vertical-align: top;
+  padding: 5px;
+}
+
+table.DiscussionPost td.DeletedPost {
+  padding: 10px;
+  font-weight: bold;
+}
+
+table.DiscussionPost td.Post div.Title {
+  font-weight: bold;
+}
+
+table.DiscussionPendingPost {
+  background-color: #ffefe7;
+  border: 1px solid #d4d2d0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  margin: 3px 0 !important;
+}
+
+table.DiscussionPendingPost td.MetaData {
+  vertical-align: top;
+  padding: 5px;
+  border-right: 1px solid #d4d2d0;
+  width: 150px;
+}
+
+table.DiscussionPendingPost td.Post {
+  vertical-align: top;
+  padding: 5px;
+}
+ 
+table.DiscussionPendingPost td.Post div.Title {
+  font-weight: bold;
+}
+
+div.instructionPendingText {
+  background: #CCDDEE url(/csvn/images/misc/hourglass.gif)  0.4em 0.5em no-repeat;
+  font-weight:  normal;
+  padding: 6px 2em;
+  font-size: 110%;
+  margin: 3px 0 6px 0;  
+}
+ 
+div.Content {
+}
+
+pre.DiscussionText {
+  font-family: Tahoma, "Lucida Grande", Verdana, Arial, sans-serif; 
+  font-size: 1em;
+  margin: 5px 0 0 0 !important;
+}
+
+table.DiscussionPost td.PostButtons {
+  padding: 5px;
+}
+
+table.Associations td.Associations {
+  margin: 0 0 !important;
+  padding: 0 !important;
+}
+
+/* Styles for "Associations"/"Attachment" post labels - depend on view style */
+
+.AuxLabelNested {
+  font-weight: bold;
+}
+
+.AuxLabelFlat {
+  font-weight: bold;
+}
+
+/*
+*****************
+ * WIKI STYLES *
+*****************
+*/
+
+div.WikiAttachment {
+  border: 1px solid #d4d2d0;
+  padding: 4px;
+  margin: 4px;
+}
+
+#PageSourceBox {
+  padding: 5px;
+  min-width: 800px;
+}
+
+div#commentForm {
+  margin: 0 20px 0 20px;
+  display: none;
+}
+
+/*
+***************************
+ * PCE STYLES *
+***************************
+*/
+
+
+.editproperties {
+  background-image: url("/csvn/images/icons/edit.gif") !important;
+}
+
+a.editproperties:hover {
+  background-image: url("/csvn/images/icons/edit_hover.gif") !important;
+}
+
+.deletecomponent {
+  background-image: url("/csvn/images/icons/delete.gif") !important;
+}
+
+a.deletecomponent:hover {
+  background-image: url("/csvn/images/icons/delete_hover.gif") !important;
+}
+
+.uparrow {
+  background-image: url("/csvn/images/icons/uparrow.gif") !important;
+}
+
+a.uparrow:hover {
+  background-image: url("/csvn/images/icons/uparrow_hover.gif") !important;
+}
+
+.downarrow {
+  background-image: url("/csvn/images/icons/downarrow.gif") !important;
+}
+
+a.downarrow:hover {
+  background-image: url("/csvn/images/icons/downarrow_hover.gif") !important;
+}
+
+.uparrowgray {
+  background-image: url("/csvn/images/icons/uparrow_gr.gif") !important;
+  cursor:default;
+}
+
+.downarrowgray {
+  background-image: url("/csvn/images/icons/downarrow_gr.gif") !important;
+  cursor:default;
+}
+
+.editproperties,.deletecomponent,.uparrow,.downarrow,.uparrowgray,.downarrowgray {
+  display: block;
+  float: left;
+  height: 16px;
+  width: 16px;
+  border-bottom: none;
+  vertical-align: top;
+  padding-right: 3px;
+  padding-left: 2px;
+  background-repeat: no-repeat;
+  margin-top: 1px;
+}
+
+.alt {
+  display: none;
+}
+
+.componentbuttonbar {
+  float: right;
+  white-space: nowrap;
+}
+
+div.contentactions_on, div.contentactions_off {
+  float: left; 
+  font-size:  0.79em; 
+  padding-right: 2em;
+}
+
+div.contentactions_off {
+  padding-right: 0.2em;
+}
+
+.contentactions_on a, .contentactions_off a {
+  border: 1px solid #888;
+  background: #cde url("/csvn/images/button/componentbutton_background.gif") repeat-x bottom;
+  padding: 1px 8px; 
+  margin-right: 0.2em;
+  font-weight: normal;
+  color: #000;
+  text-decoration: none;
+  margin-top: -2px;
+}
+
+tr.nocomponentheader td {
+  border-top: 1px solid #69c;
+}
+ 
+.contentactions_on a:hover,  .contentactions_off a:hover {
+  background: #f6ebd0 url("/csvn/images/button/componentbutton_hover.gif") repeat-x bottom;
+}
+
+td.EditComponentContainerCell {
+  border: 1px solid #d4d2d0;
+  background: #d4d2d0;
+  border-collapse: collapse;
+  vertical-align: top;
+}
+
+.pcetaskbar a:visited {
+  color: #0355aa;
+  text-decoration: none; 
+}
+
+.pcetaskbar a:hover {
+  color: #0355aa;
+  text-decoration: underline; 
+}
+
+.pcetaskbar ul li a a:hover{
+  text-decoration: none !important; 
+}
+
+.addpagediv {
+  width: 500px;
+  margin-bottom: 4px;
+}
+
+.editcompdiv {
+  width: 500px;
+  margin-bottom: 40px;
+}
+
+.buttondiv {
+  font-weight: normal;
+}
+
+.axial {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 2px;  
+}
+
+.axial th {
+  background: transparent;
+  width: 9em;
+  font-weight: normal;
+  text-align: left;
+  border: 1px solid #d4d2d0;
+  border-collapse: collapse;
+}
+
+.minusicon {
+  padding-left: 18px;
+  background-image: url("/csvn/images/icons/properties_minus.gif") !important;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  padding-bottom: 3px;
+  padding-right: 10px;
+}
+
+.plusicon {
+  padding-left: 18px;
+  background-image: url("/csvn/images/icons/properties_plus.gif") !important;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  padding-bottom: 3px;
+  padding-right: 10px;
+}
+
+.borderedToolbar {
+  border-spacing: 0;
+  border-collapse: collapse;
+  border-width: 1px;
+  border-color: #d4d2d0;
+  border-style: none solid solid;
+}
+
+.pagecomponent {
+  margin-bottom: 8px;
+}
+
+.pceCompSpecific {
+  visibility : hidden;
+  position : absolute;
+  left : -3000px;
+}
+
+#create_component_tracker_search {
+  width: 200px;
+}
+
+/*IE Hack IE7 and earlier*/
+*:first-child+html #create_component_tracker_search {
+  width: 20%;
+}
+* html #create_component_tracker_search {
+  width: 20%;
+}
+/* Project pages left navigation / accordion navigation */
+
+#pcenav {
+  background: #f9f9f9;
+}
+
+#pcenav dt {
+  background-color: #cde;
+  padding: 4px 5px;
+  border-top: 1px solid #9bd;
+  border-bottom: none;
+}
+
+#pcenav dd {
+  padding: 0 !important;
+  background: #f2f5f9;
+  margin: 0;
+  border-top: 1px solid #f9f9f9;
+}
+
+#pcenav a {
+  display: block;
+}
+
+#pcenav a.head {
+  cursor:pointer;
+  background:url("/csvn/images/icons/collapsed.gif") no-repeat scroll 0 0;
+  float: right;
+  text-decoration: none;
+  display: block;
+  width: 16px;
+}
+
+#pcenav a.selectedNav {
+  background-image: url("/csvn/images/icons/expanded.gif");
+}
+
+#pcenav a:visited {
+  color: #05d;
+}
+
+#pcenav ul {
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  padding: 0;
+}
+
+#pcenav li {
+ padding-top: 3px;
+ padding-bottom: 3px;
+ display: block;
+}
+
+#pcenav li.subNavSelected, #pcenav dt.NavSelected {
+  display: block;
+  background: #f3e9b9 !important; 
+}
+
+#pcenav dt.NavSelected {
+  border-top: 1px solid #c9c999;
+}
+
+#project_home_content {
+  padding: 5px 3px 0 10px;
+}
+
+#pcenav-empty {
+  margin: 0;
+  padding: 3px 0;
+}
+
+#pcenav {
+  margin-top: 0;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #9bd;
+}
+
+.projectlogo {
+  border: 1px solid #cde;
+  border-top: 1px solid #9bd;
+  text-align: center;
+  background: #f2f5f9 url('/csvn/images/misc/projectlogo_bg.gif') top left repeat-x;
+}
+
+#replaceprojectimage {
+  margin-top: 2px;
+  padding: 0 2px 30px 4px;
+  border: 1px solid #cde;
+  border-bottom: none;
+  background-color: #f2f5f9;
+  width:20em;
+}
+
+p.attributetip {
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.expanddata {
+  background: url('/csvn/images/icons/icon16_arrowcollapsed_gr.gif') top left no-repeat; 
+  padding-left: 20px;
+  padding-bottom: 1px;
+  cursor: pointer;
+ }
+
+.collapsedata {
+  background: url('/csvn/images/icons/icon16_arrowexpanded_gr.gif') top left no-repeat; 
+  padding-bottom: 1px;
+  padding-left: 20px;
+  cursor: pointer;
+ }
+
+/* Styles for configuration mode in content editor */
+
+.pce_leftnav_options {
+   background-color: #d4d2d0;
+   padding: 8px 0 8px 6px;
+   border-collapse: collapse !important;
+}
+
+.pce_configure_options {
+   background-color: #f3e9b9;
+   padding: 8px 0 8px 6px;
+   margin-top:0;
+}
+
+/* separate class from pce_configure_option since we have other class below that turns all link into buttons */
+.pce_edit_configure_options {
+   padding: 4px 0 0 4px;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.project_home_leftnav_config {
+  background-color: #d4d2d0;
+  padding: 0 1em 0 6px;
+}
+
+.project_home_content_config, .pce_edit_configure_options, .pce_configure_options {
+   border-left: 6px solid #f3e9b9;
+}
+
+
+.pce_leftnav_options a, .pce_configure_options a  {
+  background: #ececec url('/csvn/images/button/button_background_gray.gif') repeat-x bottom left;
+  border: 1px solid #888;
+  border-left: none;
+  border-collapse: collapse !important;
+  padding: 5px 6px;
+  color: #000;
+  text-decoration: none; 
+}
+
+.pce_leftnav_options a:hover, .pce_configure_options a:hover {
+  background: #f6ebd0 url('/csvn/images/button/button_background_hover.gif') repeat-x bottom;
+  border: 1px solid #888;
+  border-left: none;
+  border-collapse: collapse !important;
+  text-decoration: none;
+}
+
+.pce_leftnav_options a:visited, .pce_configure_options a:visited, .AppButton a:visited {
+  color: #000;
+}
+
+#addTopPageLink, #addSubPageLink, #addPageLink {
+  border-left: 1px solid #888;
+}
+
+.project_home_leftnav_config li.subNavSelected, .project_home_leftnav_config dt.NavSelected {
+  margin-right: -1em;
+}
+
+.project_home_leftnav_config dt.NavSelected a.head, .project_home_leftnav_config li.subNavSelected a.selfref {
+  margin-right: 1em;
+}
+
+/* Styles for project pages when in view mode */
+
+.modalPopup {
+  /* there are actually getting overridden by jqModal's css */
+  padding: 0;
+  margin: 0;
+}
+
+.modalTitle {
+  float:left;
+  font-weight:bold;
+  font-size: 1.09em;
+}
+
+.modalClose {
+  float:right;
+  cursor: pointer;
+  background: transparent url("/csvn/images/icons/closeicon.gif") !important;
+  display: block;
+  height: 16px;
+  width: 16px;
+  border-bottom: none;
+  vertical-align: top;
+  background-repeat: no-repeat;
+}
+
+.modalHeader td {
+  padding: 3px 5px;
+  background-color:#9bd;
+  border-top: 1px solid #69c;
+}
+
+.modalForm {
+  width:100%;
+  height:100%;
+  background-color: #fff;
+}
+
+.modalForm td {
+  padding: 5px 3px 2px 3px;
+}
+
+.modalFormFooter {
+  background-color:#d4d2d0;
+  padding: 3px 0 3px 2px;
+}
+
+.modalFormTitle {
+  background-color:#efefef;
+  width:150px;
+  text-align:right;
+}
+
+.modalFormElem {
+ background-color:#fff;
+}
+
+#pageFormDiv {
+  width:550px;
+}
+
+#pageCompFormDiv {
+  width:550px;
+}
+
+
+/* this is the pce page title class at th top of the pce page content area */
+
+h1.pcePageTitle {
+  font-size: 1.64em;
+  margin: 0 0 15px 1px;
+  padding: 0 1px 1px 1px;
+}
+
+/*IE Hack IE7 and earlier*/
+*:first-child+html h1.pcePageTitle {
+  margin-top: 0.1em;
+}
+
+* html h1.pcePageTitle {
+  margin-top: 0.1em;
+}
+
+/* class for indicating the row has been cut - for cut/paste */
+/* class for indicating the row has been dropped - for drag/drop in edit content */
+tr.cutClass, tr.Dropped {
+  background-color:#ffffbb;
+}
+
+/* class that will be placed on the project home page row in edit content structure */
+tr.projectHome {
+  border-bottom: 2px solid #d4d2d0;
+}
+
+/* The class for the tracker component ajax load */
+.tracker_component_load {
+  margin-left: 15px;
+  color: #BC8F8F;
+  font-weight: normal;
+}
+
+.tracker_comp_search_result {
+  display: none;
+}
+
+/* TinyMCE specific rules */
+body.mceContentBody {
+   background: #FFF;
+}
+
+/*
+*****************************************
+ * ACTIVITY TABLE / HTML SNIPPET STYLES *
+*****************************************
+*/
+#activitybox {
+  background-color: #E9F6FD;
+  border: 1px solid #9caccc;
+  clear: both;
+}
+
+.activitybox_topleft {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+.activitybox_topleft td {
+  padding: 0 10px;
+  border-right: 1px solid #9caccc;
+}
+
+.activitybox_topleft td.activitytable_right {
+  border: none;
+}
+
+#activitybox h2 {
+  text-align: center;
+  border: none;
+  border-bottom: 1px dashed #369;
+  font-size: 1.2em;
+  margin: 0 0 3px 0;
+  padding: 0 0 3px 0;
+  background-color: #E9F6FD;
+}
+
+/* Commented Backslash Hack hides rule from IE5-Mac - pads activity box header in IE-Win \*/
+* html #activitybox h2 {
+  padding-top: 8px;
+}
+/* End IE hack */
+
+#activitybox div {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.add_icon, .add_icon2 {
+  padding-left: 14px;
+  background: url("/csvn/images/icons/activitytable/add-new-artifact.gif") no-repeat 0 .5em;
+}
+
+.download_icon, .download_icon2 {
+  padding-left: 14px;
+  background: url("/csvn/images/icons/activitytable/download.gif") no-repeat 0 .5em;
+}
+
+.edit_icon, .edit_icon2 {
+  padding-left: 14px;
+  background: url("/csvn/images/icons/activitytable/edit.gif") no-repeat 0 .5em;
+}
+
+.launch_icon, .launch_icon2 {
+  padding-left: 14px;
+  background: url("/csvn/images/icons/activitytable/launch.gif") no-repeat 0 .5em;
+}
+
+.report_icon, .report_icon2 {
+  padding-left: 14px;
+  background: url("/csvn/images/icons/activitytable/generate-report.gif") no-repeat 0 .5em;
+}
+
+.view_icon, .view_icon2 {
+  padding-left: 14px;
+  background: url("/csvn/images/icons/activitytable/query-artifacts.gif") no-repeat 0 .5em;
+}
+
+/* Extra spacing for alternate icon divs */
+.add_icon2, .download_icon2, .edit_icon2, .launch_icon2, .report_icon2, .view_icon2 {
+  margin-bottom: 4px;
+}
+
+#activitybox ul {
+  margin-left: 0;
+  margin-bottom: 0;
+  padding: 0;
+  margin-top: 3px;
+}
+
+#activitybox ul li {
+  padding-left: 8px;
+  margin: 0 0 3px 6px;
+  list-style-type: none;
+  background: url("/csvn/images/icons/activitytable/bullet-small.gif") no-repeat .1em .6em;
+}
+
+
+/*
+*********************
+ * PROFILES STYLES *
+*********************
+*/
+
+table.Profile {
+  border: 1px solid #999;
+  background-color: #fff;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table.Profile td.Summary {
+  padding: 3px;
+  vertical-align: top;
+  text-align: left;
+  width: 2%;
+  white-space: nowrap;
+  border-right: 1px solid #999;
+}
+
+table.Profile.Long {
+  background-color: #ffc1c1;
+}
+
+table.Profile.Method {
+  border: 1px solid #006400;
+}
+
+table.Profile.Query {
+  border: 1px solid #ffd700;
+}
+
+table.Profile td.ErrorMessage {
+  border: inherit;
+  background-color: #b22222;
+  color: #FFF;
+  font-weight: bold;
+}
+
+/*
+************************************************** ****************
+ * Styles for the top tool menu for Projects, My Workspace, Admin *
+*******************************************************************
+*/
+
+table.TopMenu {
+  width: 100%;
+}
+
+/*IE Hack IE7 and earlier*/
+*:first-child+html table.TopMenu {
+  margin-top: -2px;
+}
+* html table.TopMenu {
+  margin-top: -2px;
+}
+table.TopMenu tr.PageTop td {
+  padding: 0;
+  vertical-align: middle;
+  color: #fff;  
+}
+
+table.TopMenu tr.PageTop td.Selected {
+  font-weight: bold;
+}
+
+table.TopMenu tr.ButtonRow td.Button {
+  cursor: pointer;
+  padding-top: 2px;
+  padding-bottom: 4px;
+}
+
+table.TopMenu tr.ButtonRow td.Button img {
+  vertical-align: top;
+  padding: 2px 0 4px 0;
+  margin: 0 2px;
+  border: none;
+}
+
+table.TopMenu tr.ButtonRow td.Button {
+  vertical-align: middle;
+  text-align: center;
+  background: #cde url(/csvn/images/icons/top_gradient.gif) repeat-x;
+  border-top: 1px solid #fff;
+  font-size:1em;
+  width: 80px;
+  white-space: nowrap;
+}
+
+table.TopMenu tr.ButtonRow td.Button a:link, table.TopMenu tr.ButtonRow td.Button a:visited {
+  text-decoration: none;
+  color: #000;
+}
+
+table.TopMenu tr.ButtonRow td.Button a {
+   white-space: nowrap;
+   font-family:Tahoma,"Lucida Grande",Verdana,Arial,sans-serif;
+ }
+
+table.TopMenu tr.ButtonRow td.Button:hover, table.TopMenu tr.ButtonRow td.Button a:hover, table.TopMenu tr.ButtonRow td.Button:hover a  {
+   background: #9bd;
+   text-decoration: none;
+   color: #fff;
+}
+
+* html table.TopMenu tr.ButtonRow td.Button:hover, * html table.TopMenu tr.ButtonRow td.Button a:hover, * html table.TopMenu tr.ButtonRow td.Button:hover a  {
+   background: #cde url(/csvn/images/icons/top_gradient.gif) repeat-x;
+   text-decoration: none;
+   color: #000;
+}
+
+table.TopMenu tr.ButtonRow td.Selected a:hover, table.TopMenu tr.ButtonRow td.Selected:hover, table.TopMenu tr.ButtonRow td.Selected:hover a {
+  color: #000 !important;
+  background: #fff !important;
+}
+
+table.TopMenu tr.ButtonRow td.SelectedLeft, table.TopMenu tr.ButtonRow td.SelectedRight {
+  width: 1px;
+  padding: 0;
+  display: none;
+}
+
+table.TopMenu tr.ButtonRow td.Selected {
+  font-weight: bold;
+  background: #fff;
+}
+
+table.TopMenu tr.ButtonRow td.ButtonEnd {
+  width: auto;
+  border-top: 1px solid #fff;
+  border-bottom: none;
+  background: #cde url(/csvn/images/icons/top_gradient.gif) repeat-x;
+}
+
+table.TopMenu tr.ButtonRow td.VerticalSeparator  {
+  background-color: #fff;
+}
+
+td.VerticalSeparator, td.VerticalSeparatorNoBorder {
+  width: 1px;
+}
+
+/*IE Hack IE7 and earlier*/
+*:first-child+html td.VerticalSeparator {
+  display: none;
+}
+
+* html td.VerticalSeparator {
+  display: none;
+}
+
+*:first-child+html td.VerticalSeparatorNoBorder {
+  display: none;
+}
+
+* html td.VerticalSeparatorNoBorder {
+  display: none;
+}
+
+tr.ShadowRow, tr.ShadowRow td {
+  display: none;
+}
+
+/*
+***********************************
+ * FORM SUBMIT BUTTON STYLES *
+ ***********************************
+ */
+
+/* Basic font, positioning, borders, padding, styles */
+div.Button, div.Left, div.Right, div.DropDownRight,
+div.Middle, div.MiddleDisabled, div.LeftDisabled, div.RightDisabled {
+  font-weight: normal;
+  text-decoration: none; 
+  white-space: nowrap;
+  float: left;
+  border: none;  
+}
+
+.spinner {
+    float: left;
+    padding: 2px;
+}
+
+.ButtonSpace, .ButtonSpaceSeparator {
+  float: left;
+}
+
+div.Button div.Middle, div.Button div.MiddleDisabled { 
+  padding: 2px 8px;
+}
+
+div.Button, input.Button {
+  float: left;
+  background: #edebca url('/csvn/images/button/button_background_gold.gif') repeat-x bottom;
+  border: 1px solid #888;
+  margin-right: 6px;
+}
+
+div.ButtonSpaceSeparator {
+  float:left;
+  margin-right: 6px;
+}
+
+/* Active Button styles */
+div.Button div.Left, div.Button div.Right, div.Button div.LeftDisabled, div.Button div.RightDisabled {
+  display: none;
+}
+
+div.Button div.DropDownRight {
+  background: transparent url('/csvn/images/button/dropdown_button_rightcap_hover.gif') center no-repeat;
+  border: none;
+  border-left:1px solid #888;
+  padding: 2px 7px; 
+}
+
+div.Button div.Middle, div.Button div.Middle a:link, div.Button div.Middle a:visited {
+  color:#000;
+}
+
+div.Button div.Middle a {
+  text-decoration: none;
+  padding: 2px 8px;
+  margin: -2px -8px;
+  color:#222;
+}
+
+div.Button:hover {
+ background: #f6ebd0 url('/csvn/images/button/button_background_hover.gif') repeat-x bottom;
+ display: block;
+}
+
+div.Button div.DropDownRight:hover {
+  border: none;
+  border-left:1px solid #888; 
+}
+
+div.Button div.DropDownRight, div.Button div.Middle {
+  cursor: pointer;
+}
+
+/* Disabled Button styles */
+div.Button div.MiddleDisabled {
+  background-color: #edebe2; 
+  border: none;
+}
+
+div.Button div.MiddleDisabled {
+  color:#6e6e6e;
+}
+
+div.Button div.MiddleDisabled a {
+  text-decoration: none;
+  color:#6e6e6e; 
+}
+
+div.Button div.Middle img{
+  margin-top: -5px;
+}
+ 
+/*
+***************************
+ * MISC STYLES *
+***************************
+*/
+
+.floatleft {
+  float: left;
+}
+
+.floatright {
+  float: right;
+}
+
+.selectiongroup { 
+  padding: 2px 0 6px 2em;
+}
+
+img#filtericon {
+  padding: 0 3px;
+  margin-right: 3px;
+}
+
+tr#filter {
+  background-color: #cde;
+}
+
+tr#filter td {
+   border: 1px solid #c4c2c0;
+}
+
+tr#filter:hover td {
+  background-color: #cde;
+}
+
+/* Currently specific to Tracker search screens */
+#ArtifactListTable tr.ContainerHeader td {
+  background-color: #c4c2c0;
+  border: 1px solid #c4c2c0;
+  border-top: 1px solid #a4a2a0;
+}
+
+.text_tableDataValue_emphasized {
+  font-weight: bold; 
+  font-size: 1.2em;
+}
+
+div#showAllForShared, div#showAllForMy {
+  font-size: smaller;
+}
+
+div.WarningInPanel   {
+  padding: .4em;
+  background-color: #fefedd;
+  color: #000;
+}
+
+.fieldLabel_gray {
+  color:#606060;
+  font-weight:bold;
+}
+
+.fieldValue {
+  color:#000;
+  font-weight:normal;
+  line-height:110%;
+}
+
+div.whiteTitle, span.whiteTitle {
+  color: #fff;
+  font-size: smaller;
+  padding-bottom: 1px;
+}
+
+.ContainerHeader td div {
+  padding-right: 0.69em;
+}
+
+td.ContainerBodyWithBorderNoTopBorder {
+  border-top: none;
+}
+
+tr.rowSelected {
+  background-color:#ffb;
+}
+
+td.noMargin {
+  margin: 0;
+}
+
+table.marginBottom {
+  margin-bottom:8px;
+}
+
+table.marginTop {
+  margin-top:8px;
+}
+
+table#searchCriteriaContainer td {
+  border-collapse: collapse;
+}
+
+table.marginTop3 {
+   margin-top: 3em;
+}
+
+.fieldLabel_gray {
+  color:#606060;
+  font-weight:bold;
+}
+
+.whiteTitle {
+  color:white;
+}
+
+th.FieldLabel_Gray, td.FieldLabel_Gray {
+  padding: 4px 4px;
+  font-size: 1.0em;
+  font-weight: bold;
+  vertical-align: top;
+  color:#9b9b9b;
+}
+
+th.ItemListHeaderFirst {
+  background-color: #DEE0EC;
+  padding: 4px 4px;
+  font-size: 1.0em;
+  font-weight: bold;
+  vertical-align: middle;
+  text-align:left;
+  border: 1px solid #9B9B9B;
+}
+ 
+th.ItemListHeader {
+  background-color: #DEE0EC;
+  padding: 4px 4px;
+  font-size: 1.0em;
+  font-weight:bold;
+  vertical-align: middle;
+  text-align:left;
+  border: 1px solid #9B9B9B;
+} 
+
+td.FieldItem {
+  padding: 4px 4px;
+  font-size: 1.0em;
+  font-weight: normal;
+  vertical-align: top;
+}
+
+td.FieldItemLarge {
+  padding: 4px 4px;
+  font-size: 1.10em;
+  font-weight: normal;
+  vertical-align: top;
+}
+
+.fieldValue {
+  color: #000;
+  font-weight: normal;
+  line-height: 110%;
+}
+
+td.FieldItemLargerBold {
+  padding: 4px 4px;
+  font-size: 1.30em;
+  font-weight: bold;
+  vertical-align: top;
+}
+
+span.PlainFont {
+  font-size: 1.0em;
+  font-weight: normal;
+}
+
+span.LargeFontBold, p.LargeFontBold {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+span.Font_Gray {
+  color: #9b9b9b; 
+}
+
+span.FontBold_Gray {
+  font-weight: bold;
+  color: #9b9b9b;
+}
+
+div.padding {
+  padding: 4px 8px;
+}
+
+.bottomspace20 {
+  padding-bottom: 20px !important;
+}
+
+/*specific to my monitoring settings*/
+.grayText  {
+  color: #999999;
+  text-decoration: none;
+}
+
+span.font8WithLeftMargin {
+    margin-left: 10px; font-size: 8pt;
+}
+
+
+/*
+********************************************
+*  filter bar buttons for tables       *
+********************************************
+*/
+ 
+ div.FilterAppButton {
+  float: left;
+  background: #ececec url('/csvn/images/button/button_background_gray.gif') repeat-x bottom left; 
+  border: 1px solid #888;
+  border-left: none;
+  border-collapse: collapse !important;
+  margin-right: 0;
+  cursor: pointer;
+  padding-right: 2px !important;
+}
+
+div.FirstButton {
+  border-left: 1px solid #888;
+}
+
+table.AppButtonTable {
+  font-size: 1.09em;
+  padding: 0;
+}
+
+table.AppButtonTable:hover {
+  background: #f6ebd0 url('/csvn/images/button/button_background_hover.gif') repeat-x bottom;
+}
+
+div.FilterAppButton td {
+  background: transparent !important;
+  border-width: 0 !important;
+  font-weight: normal;
+  padding: 2px 0 !important;
+}
+
+div.FilterAppButton:hover {
+  background: #f6ebd0 url('/csvn/images/button/button_background_hover.gif') repeat-x bottom;
+}
+
+tr.TabHeader table.AppButtonTable td.AppButtonPadding img {
+  margin-left: 2px;
+}
+
+.AppButtonPaddingLeft {
+  padding: 0 1px;
+  float: left;
+}
+
+.AppButtonPaddingRight {
+  padding: 0 1px;
+  border-width:0 !important;
+  float: right;
+}
+
+.AppButtonPadding {
+  border-width: 0;
+}
+  
+.AppButtonPadding img {
+  padding-right: 2px;
+  padding-left: 1px;
+}
+
+#removefilterbutton img {
+  padding-right: 3px;
+}
+
+table.AppButtonTable .AppButtonText {
+  font-weight:normal !important;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-size: 0.83em !important;
+}
+
+tr.TabHeader .AppButtonText, tr.SubTabHeader .AppButtonText {
+  font-size: 0.92em !important;
+}
+
+tr.ContainerHeader .AppButtonText {
+   font-size: 0.71em !important;
+}
+
+table table.ItemListTable tr.ContainerHeader .AppButtonText {
+   font-size: 0.83em !important;
+}
+
+
+/* IE Hack IE6 and earlier  */
+/* Button hover corrections */
+* html div.AppButton div.Middle a:hover {
+  border:none;
+  background: #ececec url('/csvn/images/button/button_background_gray.gif') repeat-x bottom left;
+  padding: 2px 9px;
+  margin: -2px -9px;
+  display: block;  
+}
+
+.FilterAppButton a, .FilterAppButton a:visited {
+  text-decoration:none;
+  color: #000;
+}
+
+.HeaderRowBar {
+  padding-top: 3px;
+}
+
+.TabHeader td div {
+  padding-right:0.69em;
+}
+
+/*
+********************************************
+*  openCollabNet page Styles   *
+********************************************
+*/
+
+#opencollabnet_sfee {
+ padding-left: 6px;
+ padding-right: 6px;
+}
+
+
+#opencollabnet_sfee div.h2 {
+  border: 1px solid #d4d2d0;
+  border-top: none;
+  border-collapse: collapse;
+  padding: 8px;
+  padding-top: 0;
+  margin-right: 1em;
+}
+
+#opencollabnet_sfee div.h2 h2 {
+  background: #ace url("/csvn/images/misc/containerheader_bg.gif") repeat-x;
+  border: 1px solid #ace;
+  border-top: 1px solid #69c;  
+  padding: 3px 5px;
+  font-size: 1.27em;
+  font-weight: bold;
+  border-collapse: collapse;
+  margin: 0 -8px 1em -8px;
+}
+
+#opencollabnet_sfee div.h3 h3 {
+   padding: 0 0;
+}
+
+#opencollabnet_sfee .page_module {
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+}
+
+#opencollabnet_sfee .page_module .moduleList ul {
+  list-style: none;
+  margin: 0;
+  margin-top: 5px;
+  padding-left: 6px;  
+}
+
+#opencollabnet_sfee .page_module .moduleList li {
+  margin: 0 0 .50em 0;
+}
+#opencollabnet_sfee .page_module .more {
+  font-weight: bold;
+}
+
+/* edit_role.jsp's Source Code Permission table */
+
+#editRole_scmPerm td {
+  border-right:0;
+  border-left:0;
+  vertical-align: middle;
+}
+
+#editRole_scmPerm .fgp_path_label, #editRole_scmPerm .fgp_path_indent1 {
+  padding-left:15px;
+}
+
+#editRole_scmPerm .fgp_path_label {
+  margin-top:5px;
+}
+
+#editRole_scmPerm .fgp_path_label img {
+  vertical-align: bottom;
+  margin-right: 5px;
+}
+
+
+#editRole_scmPerm .fgp_path_indent2 {
+  padding-left:15px;
+  vertical-align: middle;
+}
+
+#editRole_scmPerm .fgp_path_repo_perm {
+  vertical-align: top;
+}
+
+tr.fgp_disabled td {
+  background-color:#f2f5f9;
+}
+
+.showmoreicon {
+  margin-bottom: -2px;
+  margin-left: 4px;
+}
+
+/* copy color of tr.cutClass */
+tr.fgp_mod_setting td {
+  background-color:#ffffbb;
+}
+
+/*
+********************************************
+*  License Banner Styles   *
+********************************************
+*/
+
+#licenseBanner {
+  background-color: #f0ebc4;
+}
+
+#licenseBannerExpired {
+  background-color: #ffb75f;
+}
+
+.rbcontent img {
+   padding-right: 5px;
+}
+
+/* rounded corners */
+#licenseBanner .rbroundbox { background: url(/csvn/images/misc/info-nt.gif) repeat; }
+#licenseBanner .rbtop div { background: url(/csvn/images/misc/info-tl.gif) no-repeat top left; }
+#licenseBanner .rbtop { background: url(/csvn/images/misc/info-tr.gif) no-repeat top right; }
+#licenseBanner .rbbot div { background: url(/csvn/images/misc/info-bl.gif) no-repeat bottom left; }
+#licenseBanner .rbbot { background: url(/csvn/images/misc/info-br.gif) no-repeat bottom right; }
+
+#licenseBannerExpired .rbroundbox { background: url(/csvn/images/misc/expired-nt.gif) repeat; }
+#licenseBannerExpired .rbtop div { background: url(/csvn/images/misc/expired-tl.gif) no-repeat top left; }
+#licenseBannerExpired .rbtop { background: url(/csvn/images/misc/expired-tr.gif) no-repeat top right; }
+#licenseBannerExpired .rbbot div { background: url(/csvn/images/misc/expired-bl.gif) no-repeat bottom left; }
+#licenseBannerExpired .rbbot { background: url(/csvn/images/misc/expired-br.gif) no-repeat bottom right; }
+
+.rbtop div, .rbtop, .rbbot div, .rbbot {
+  width: 100%;
+  height: 7px;
+  font-size: 1px;
+}
+.rbcontent { margin: 0 7px; }
+.rbroundbox { width: 99%; margin: 0 auto; margin-top:1em; }
+
+/* help text */
+.formHelpText {
+  margin:5px;
+  padding-left:5px;
+  font-style: italic;
+}
+
+/* PAGINATION */
+
+.paginateButtons {
+    color: 	#05D;
+    font-size: 10px;
+    overflow: hidden;
+    padding: 2px 2px;
+}
+.paginateButtons a {
+    color: #05D;
+    margin: 0;
+    padding: 2px 3px;
+}
+.paginateButtons span {
+    padding: 2px 3px;
+}
+
+.paginateButtons .currentStep {
+    font-weight: bold;
+    color: #05D;
+}
+.paginateButtons .prevLink, .paginateButtons .nextLink {
+    background: url(/csvn/images/icons/pagination_left_active.gif) no-repeat left top;
+    font-size: 0px;
+    padding: 10px 0px 5px 17px;
+    text-decoration: none;
+    color: #fff;
+}
+.paginateButtons .nextLink {
+    background: url(/csvn/images/icons/pagination_right_active.gif) no-repeat left top;
+}

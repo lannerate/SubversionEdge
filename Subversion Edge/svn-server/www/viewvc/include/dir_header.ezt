@@ -1,0 +1,16 @@
+[# setup page definitions]
+[is servermode "STANDALONE"]
+  [define page_title]Index of:[end]
+[else]
+  [define page_title]Index of /[where][end]
+[end]
+  [define help_href][docroot]/help_[if-any where]dir[else]root[end]view.html[end]
+[# end]
+
+[include "header.ezt" "directory"]
+
+[if-any where][else]
+  <!-- you may insert repository access instructions here -->
+[end]
+
+<p><a name="dirlist"></a></p>

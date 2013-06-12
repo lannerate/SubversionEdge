@@ -1,0 +1,16 @@
+set name=fmri value=pkg:/pkg-toolkit-incorporation@2.3.1,0-38.2699:20100118T164743Z
+set name=description value="Update Center Toolkit Incorporation"
+set name=info.classification value=":System Tools"
+set name=pkg.detailed_url value=http://wiki.updatecenter.java.net/Wiki.jsp?page=UC2Documentation.ReleaseNotes.2.3
+set name=pkg.summary value="Update Center Toolkit Incorporation"
+set name=pkg.description value="This package ensures that all packages in the Update Center Toolkit are of the proper revision."
+set name=info.upstream_url value=http://wiki.updatecenter.java.net/
+set name=info.maintainer_url value=http://wiki.updatecenter.java.net/
+depend fmri=pkg:/pkg-toolkit@2.3.1-38 type=incorporate
+depend fmri=pkg:/python2.4-minimal@2.4.4.0-38 type=incorporate
+depend fmri=pkg:/pkg@1.122.2-38 type=incorporate
+depend fmri=pkg:/pkg-java@1.122-38 type=incorporate
+depend fmri=pkg:/pkg-extra-tools@0.2.0-38 type=incorporate
+depend fmri=pkg:/wxpython2.8-minimal@2.8.10.1-38 type=incorporate
+depend fmri=pkg:/updatetool@2.3.1-38 type=incorporate
+set name=publisher value=layered.sun.com

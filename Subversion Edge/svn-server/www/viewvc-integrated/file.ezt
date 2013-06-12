@@ -1,0 +1,89 @@
+[# ------------------------------------------------------------------------- ]
+[# CUSTOMIZE ME: To avoid displaying "binary garbage" -- the contents of     ]
+[# files with non-human-readable file formats -- change the value of the     ]
+[# hide_binary_garbage variable below to 1.                                  ]
+[# ------------------------------------------------------------------------- ]
+
+[define hide_binary_garbage]1[end]
+
+[# ------------------------------------------------------------------------- ]
+
+[# setup page definitions]
+[is servermode "STANDALONE"]
+  [is annotation "annotated"]
+    [define page_title]Annotation of:[end]
+  [else]
+    [define page_title]Contents of:[end]
+  [end]
+[else]
+  [define page_title]Contents of /[where][end]
+[end]
+  [define help_href][docroot]/help_rootview.html[end]
+[# end]
+[include "include/header.ezt" "annotate"]
+[include "include/fileview.ezt"]
+
+<div id="vc_main_body">
+<!-- ************************************************************** -->
+
+[if-any prefer_markup][define hide_binary_garbage]0[end][end]
+[if-any image_src_href][define hide_binary_garbage]0[end][end]
+
+[is hide_binary_garbage "1"]
+<p class="vc_notice">This file's contents are not viewable.
+   [if-any download_href]Please <a href="[download_href]">download</a>
+   this version of the file in order to view it.[end]</p>
+[else]
+
+[define last_rev]0[end]
+[define rowclass]vc_row_odd[end]
+
+[if-any lines]
+<div id="vc_file">
+<table cellspacing="0" cellpadding="0" class="vc_table">
+<tr>
+<th class="vc_header">Line</th>
+[is annotation "annotated"]
+<th class="vc_header">User</th>
+<th class="vc_header">Rev</th>
+[end]
+<th class="vc_header">File contents</th>
+</tr>
+[for lines]
+  [is lines.rev last_rev]
+  [else]
+    [is rowclass "vc_row_even"]
+      [define rowclass]vc_row_odd[end]
+    [else]
+      [define rowclass]vc_row_even[end]
+    [end]
+  [end]
+
+  <tr class="[rowclass]" id="l[lines.line_number]">
+    <td class="vc_file_line_number">[lines.line_number]</td>
+[is annotation "annotated"]
+    <td class="vc_file_line_author">[is lines.rev last_rev]&nbsp;[else][lines.author][end]</td>
+    <td class="vc_file_line_rev">[is lines.rev last_rev]&nbsp;[else][if-any lines.diff_href]<a href="[lines.diff_href]">[end][lines.rev][if-any lines.diff_href]</a>[end][end]</td>
+[end]
+    <td class="vc_file_line_text">[lines.text]</td>
+  </tr>
+  [define last_rev][lines.rev][end]
+[end]
+</table>
+</div>
+
+[else]
+[if-any image_src_href]
+<div id="vc_file_image">
+<img src="[image_src_href]" alt="" />
+</div>
+[end]
+[end]
+[end]
+
+[include "include/props.ezt"]
+
+<!-- ************************************************************** -->
+</div>
+
+[include "include/footer.ezt"]

@@ -1,0 +1,7 @@
+set name=description value="Python 2.4 Minimized"
+set name=info.classification value=":System Tools"
+set name=pkg.detailed_url value=http://wiki.updatecenter.java.net/Wiki.jsp?page=UC2Documentation.ReleaseNotes.2.3
+set name=pkg.summary value="Python 2.4 Minimized"
+set name=pkg.description value="A minimized installation of the popular Python scripting language to support the Update Tool and pkg(5), the Image Packaging System.  Since this is a specially built installation of Python, this installation should not be used by other applications unless such use is validated with the Update Center Project."
+set name=info.upstream_url value=http://www.python.org/
+set name=info.maintainer_url value=http://wiki.updatecenter.java.net/

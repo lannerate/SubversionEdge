@@ -1,0 +1,37 @@
+ul.treeview {
+    /*CSS for Simple Tree Menu*/
+    position: relative;
+    left: -5px;
+    margin: 0;
+    padding: 0px;
+}
+
+.treeview li {
+    /*Style for LI elements in general (excludes an LI that contains sub lists)*/
+    /*background: url(list.gif) no-repeat left center; */
+    list-style-type: none;
+    color: #999999;
+    margin-bottom: 3px;
+    padding-left: 20px;
+}
+
+.treeview li.submenu {
+    /* Style for LI that contains sub lists (other ULs). */
+    background: url('/csvn/images/icons/icon16_arrowcollapsed_gr.gif') no-repeat;
+    color: black;
+    cursor: hand !important;
+    cursor: pointer !important;
+}
+
+.treeview li.submenu ul {
+    /*Style for ULs that are children of LIs (submenu) */
+    display: none; /*Hide them by default. Don't delete. */
+}
+
+.treeview .submenu ul li {
+    /*Style for LIs of ULs that are children of LIs (submenu) */
+    margin-left: -40px;
+    color: black;
+    cursor: hand !important;
+    cursor: pointer !important;
+}

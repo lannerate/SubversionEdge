@@ -1,0 +1,18 @@
+/*
+ * Simple script for running the install-updates file
+ * if needed 
+ */
+ 
+
+if (exitCode == 5) {
+    System.out.println("Starting update script...")
+
+    def updater = "../dist/install-updates.bat".execute()
+    updater.waitFor()
+
+    System.out.println("Finished update script")
+}
+else {
+    System.out.println("Skipping update script.")
+ 
+}

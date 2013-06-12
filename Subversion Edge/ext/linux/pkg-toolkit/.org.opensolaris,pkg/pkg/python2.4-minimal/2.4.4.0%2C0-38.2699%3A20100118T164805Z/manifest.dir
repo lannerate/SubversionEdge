@@ -1,0 +1,17 @@
+dir group=sys mode=0755 owner=root path=pkg/python2.4-minimal
+dir group=sys mode=0755 owner=root path=pkg
+dir group=sys mode=0755 owner=root path=pkg/python2.4-minimal/lib
+dir group=sys mode=0755 owner=root path=pkg/python2.4-minimal/bin
+dir group=sys mode=0755 owner=root path=pkg/python2.4-minimal/lib/python2.4
+dir group=sys mode=0755 owner=root path=pkg/python2.4-minimal/lib/python2.4/lib-dynload
+dir group=sys mode=0755 owner=root path=pkg/python2.4-minimal/lib/python2.4/curses
+dir group=sys mode=0755 owner=root path=pkg/python2.4-minimal/lib/python2.4/email
+dir group=sys mode=0755 owner=root path=pkg/python2.4-minimal/lib/python2.4/encodings
+dir group=sys mode=0755 owner=root path=pkg/python2.4-minimal/lib/python2.4/logging
+dir group=sys mode=0755 owner=root path=pkg/python2.4-minimal/lib/python2.4/bsddb
+dir group=sys mode=0755 owner=root path=pkg/python2.4-minimal/lib/python2.4/xml
+dir group=sys mode=0755 owner=root path=pkg/python2.4-minimal/lib/python2.4/compiler
+dir group=sys mode=0755 owner=root path=pkg/python2.4-minimal/lib/python2.4/site-packages
+dir group=sys mode=0755 owner=root path=pkg/python2.4-minimal/lib/python2.4/xml/dom
+dir group=sys mode=0755 owner=root path=pkg/python2.4-minimal/lib/python2.4/xml/parsers
+dir group=sys mode=0755 owner=root path=pkg/python2.4-minimal/lib/python2.4/xml/sax

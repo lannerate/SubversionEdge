@@ -1,0 +1,279 @@
+<project default="create-package-csvn" basedir=".">
+
+    <property environment="env"/>
+
+    <!-- Local settings -->
+    <property file="local.properties"/>
+
+    <!-- Default settings -->
+    <property file="default.properties"/>
+
+    <property name="CSVN-VERSION" value="4.0.0"/>
+    <property name="SVN_BINARIES_VERSION" value="1.8.0"/>
+    <property name="REVISION-VERSION" value="${env.SVN_REVISION}.${env.BUILD_NUMBER}"/>
+    <property name="DEFAULT-PACKAGE-VERSION" value="${CSVN-VERSION}-${REVISION-VERSION}"/>
+    <property name="SVN-DEFAULT-PACKAGE-VERSION" value="${SVN_BINARIES_VERSION}-${REVISION-VERSION}"/>
+    <property name="LIGHTWEIGHT-DIR"
+              value="${basedir}${file.separator}ext${file.separator}production-images${file.separator}lightweight"/>
+
+    <condition property="TARGET-OS" value="windows">
+        <os family="windows"/>
+    </condition>
+    <condition property="TARGET-OS" value="solaris-sparc">
+        <os name="sunos" family="unix" arch="sparc"/>
+    </condition>
+    <condition property="TARGET-OS" value="solaris">
+        <os name="sunos" family="unix" />
+    </condition>
+    <condition property="TARGET-OS" value="linux">
+        <and>
+            <os family="unix"/>
+            <not>
+                <isset property="TARGET-OS"/>
+            </not>
+        </and>
+    </condition>
+    <condition property="TARGET-OS" value="mac">
+        <os family="mac"/>
+    </condition>
+    <condition property="TARGET-BUILD-4-solaris-sparc">
+        <os family="unix" name="sunos" arch="sparc"/>
+    </condition>
+    <condition property="TARGET-BUILD-4-solaris-x86">
+        <and>
+            <os family="unix" name="sunos"/>
+            <not>
+                <isset property="TARGET-BUILD-4-solaris-sparc"/>
+            </not>
+        </and>
+    </condition>
+    <condition property="TARGET-BUILD-4-linux">
+        <and>
+            <os family="unix"/>
+            <not>
+                <isset property="TARGET-BUILD-4-solaris-x86" />
+            </not>
+            <and>
+                <not>
+                   <isset property="TARGET-BUILD-4-solaris-sparc" />
+                </not>
+            </and>
+            <and>
+                <not>
+                    <os arch="amd64"/>
+                </not>
+            </and>
+            <and>
+                <not>
+                    <os arch="x86_64"/>
+                </not>
+            </and>
+        </and>
+    </condition>
+    <condition property="TARGET-BUILD-4-linux64">
+        <and>
+            <os family="unix"/>
+            <not>
+               <os name="sunos"/>
+            </not>
+            <or>
+                <os arch="amd64"/>
+                <os arch="x86_64"/>
+            </or>
+        </and>
+    </condition>
+    <condition property="TARGET-BUILD-4-windows">
+        <and>
+            <os family="windows"/>
+            <not>
+                <or>
+                    <os arch="amd64"/>
+                    <os arch="x86_64"/>
+                </or>
+            </not>
+        </and>
+    </condition>
+    <condition property="TARGET-BUILD-4-windows64">
+        <and>
+            <os family="windows"/>
+            <or>
+                <os arch="amd64"/>
+                <os arch="x86_64"/>
+            </or>
+        </and>
+    </condition>
+    <condition property="TARGET-BUILD-4-mac">
+        <and>
+            <os family="mac"/>
+            <not>
+                <os family="unix"/>
+            </not>
+        </and>
+    </condition>
+
+    <target name="linuxProperties" if="TARGET-BUILD-4-linux">
+        <property name="CSVN-REPO-URL"
+                  value="http://${CSVN-REPO-HOST}:${CSVN-REPO-PORT-LINUX}"/>
+        <property name="STAGE-CSVN-REPO-URL"
+                  value="http://${STAGE-CSVN-REPO-HOST}:${STAGE-CSVN-REPO-PORT-LINUX}"/>
+        <property name="TARGET-pkg-OS" value="unix"/>
+    </target>
+
+    <target name="linux64Properties" if="TARGET-BUILD-4-linux64">
+        <property name="CSVN-REPO-URL"
+                  value="http://${CSVN-REPO-HOST}:${CSVN-REPO-PORT-LINUX64}"/>
+        <property name="STAGE-CSVN-REPO-URL"
+                  value="http://${STAGE-CSVN-REPO-HOST}:${STAGE-CSVN-REPO-PORT-LINUX64}"/>
+        <property name="TARGET-pkg-OS" value="unix"/>
+    </target>
+
+    <target name="windowsProperties" if="TARGET-BUILD-4-windows">
+        <echo message="Setting build properties for Windows"/>
+        <property name="CSVN-REPO-URL"
+                  value="http://${CSVN-REPO-HOST}:${CSVN-REPO-PORT-WINDOWS}"/>
+        <property name="STAGE-CSVN-REPO-URL"
+                  value="http://${STAGE-CSVN-REPO-HOST}:${STAGE-CSVN-REPO-PORT-WINDOWS}"/>
+        <property name="TARGET-pkg-OS" value="windows"/>
+    </target>
+
+    <target name="windows64Properties" if="TARGET-BUILD-4-windows64">
+        <echo message="Setting build properties for Windows64"/>
+        <property name="CSVN-REPO-URL"
+                  value="http://${CSVN-REPO-HOST}:${CSVN-REPO-PORT-WIN64}"/>
+        <property name="STAGE-CSVN-REPO-URL"
+                  value="http://${STAGE-CSVN-REPO-HOST}:${STAGE-CSVN-REPO-PORT-WIN64}"/>
+        <property name="TARGET-pkg-OS" value="windows"/>
+    </target>
+
+    <target name="solarisX86Properties" if="TARGET-BUILD-4-solaris-x86">
+        <echo message="Setting build properties for Solaris x86"/>
+        <property name="CSVN-REPO-URL"
+                  value="http://${CSVN-REPO-HOST}:${CSVN-REPO-PORT-SOLARIS-X86}"/>
+        <property name="STAGE-CSVN-REPO-URL"
+                  value="http://${STAGE-CSVN-REPO-HOST}:${STAGE-CSVN-REPO-PORT-SOLARIS-X86}"/>
+        <property name="TARGET-pkg-OS" value="solaris"/>
+    </target>
+
+    <target name="solarisSparcProperties" if="TARGET-BUILD-4-solaris-sparc">
+        <echo message="Setting build properties for Solaris Sparc"/>
+        <property name="CSVN-REPO-URL"
+                  value="http://${CSVN-REPO-HOST}:${CSVN-REPO-PORT-SOLARIS-SPARC}"/>
+        <property name="STAGE-CSVN-REPO-URL"
+                  value="http://${STAGE-CSVN-REPO-HOST}:${STAGE-CSVN-REPO-PORT-SOLARIS-SPARC}"/>
+        <property name="TARGET-pkg-OS" value="solaris"/>
+    </target>
+
+    <target name="macProperties" if="TARGET-BUILD-4-mac">
+        <echo message="Setting build properties for Mac"/>
+        <property name="CSVN-REPO-URL"
+                  value="http://${CSVN-REPO-HOST}:${CSVN-REPO-PORT-MAC}"/>
+        <property name="STAGE-CSVN-REPO-URL"
+                  value="http://${STAGE-CSVN-REPO-HOST}:${STAGE-CSVN-REPO-PORT-MAC}"/>
+        <property name="TARGET-pkg-OS" value="mac"/>
+    </target>
+
+    <import file="${basedir}${file.separator}ext${file.separator}${TARGET-OS}/pkg-toolkit/pkg/lib/pkg-ant-tasks.xml"/>
+
+    <macrodef name="create-csvn-pkg-package">
+        <attribute name="version" default="${DEFAULT-PACKAGE-VERSION}"/>
+        <attribute name="prototype"/>
+        <attribute name="description"/>
+        <sequential>
+            <echo message="@{description}"/>
+            <echo message="Running the pkg package for ${TARGET-pkg-OS}">
+                CSVN-REPO-URL = ${CSVN-REPO-URL}
+                TARGET-pkg-OS = ${TARGET-pkg-OS}
+                TARGET-OS = ${TARGET-OS}
+            </echo>
+            <makepkgs
+                    repourl="${CSVN-REPO-URL}"
+                    version="@{version}"
+                    basedir="${basedir}${file.separator}dist">
+                <ostarget>
+                    <os name="${TARGET-pkg-OS}"/>
+                </ostarget>
+                <fileset dir="${basedir}${file.separator}ext">
+                    <filename name="package-prototypes${file.separator}@{prototype}"/>
+                </fileset>
+            </makepkgs>
+        </sequential>
+    </macrodef>
+
+    <target name="create-package-csvn"
+            depends="linuxProperties, linux64Properties, windowsProperties, windows64Properties, macProperties, solarisX86Properties, solarisSparcProperties">
+        <create-csvn-pkg-package prototype="csvn-svn-apache-viewvc-package.py"
+                                 version="${SVN-DEFAULT-PACKAGE-VERSION}"
+                                 description="Creating the SVN Binaries Package (${SVN-DEFAULT-PACKAGE-VERSION} - ${env.BUILD_ID})..."/>
+
+        <create-csvn-pkg-package prototype="csvn-package.py"
+                                 description="Creating the main CSVN (${DEFAULT-PACKAGE-VERSION} - ${env.BUILD_ID})..."/>
+    </target>
+
+
+    <!-- promotes the current platform images from stage to release repository -->
+    <target name="promote-staged-packages-to-release"
+            depends="linuxProperties, linux64Properties, windowsProperties, windows64Properties, macProperties, solarisX86Properties, solarisSparcProperties">
+
+        <taskdef name="groovy"
+                 classname="org.codehaus.groovy.ant.Groovy"
+                 classpath="ext/lib/groovy-all-1.7.2.jar"/>
+
+        <groovy>
+            println "Fetching package information from ${properties['STAGE-CSVN-REPO-URL']}"
+
+            // prepare the base url for searching the staging repo
+            def urlPattern = properties["STAGE-CSVN-REPO-URL"] + "/en/search.shtml?token="
+
+            // add the package identifier and fetch the result
+            def packageInfoUrl = urlPattern + "csvn"
+            def content = packageInfoUrl.toURL().text
+
+            // create a fully-versioned env var for the latest version of the package
+            findLatestVersion(content, "csvn")
+
+            packageInfoUrl = urlPattern + "svn"
+            content = packageInfoUrl.toURL().text
+
+            // create a fully-versioned env var for the latest version of the package
+            findLatestVersion(content, "csvn-svn")
+
+
+            /**
+             * creates an environment variable specifying the latest version of this package
+             */
+            def findLatestVersion(searchResultContent, packageName) {
+                searchResultContent.eachLine() {
+                    if (it.indexOf(packageName + "@") > -1) {
+                        def startIndex = it.indexOf("&gt;")
+                        def endIndex = it.indexOf("&lt;")
+                        def v = it.substring(startIndex + 1, endIndex)
+                        properties[packageName + "_LATEST"] = v
+
+                        println "Found ${packageName} version '${v}'"
+                    }
+                }
+                if (!properties[packageName + "_LATEST"]) {
+                    println "Could not find ${packageName} version"
+                }
+            }
+
+        </groovy>
+
+        <fail unless="csvn_LATEST" message="The 'csvn' latest package could not be determined"/>
+        <fail unless="csvn-svn_LATEST" message="The 'csvn-svn' latest package could not be determined"/>
+
+        <!-- copies the latest CSVN packages on Stage to Release-->
+        <copypkgs
+                srcdir="${STAGE-CSVN-REPO-URL}"
+                destdir="${CSVN-REPO-URL}"
+                >
+            <packages>
+                <package name="${csvn_LATEST}"/>
+                <package name="${csvn-svn_LATEST}"/>
+            </packages>
+        </copypkgs>
+
+    </target>
+
+
+</project>

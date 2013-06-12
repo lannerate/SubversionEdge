@@ -1,0 +1,17 @@
+dir path=pkg/python2.4-minimal/lib/python2.4/curses 
+dir path=pkg/python2.4-minimal/lib/python2.4/encodings 
+dir path=pkg/python2.4-minimal/lib/python2.4/xml/dom 
+dir path=pkg/python2.4-minimal/lib/python2.4/xml 
+dir path=pkg/python2.4-minimal/lib/python2.4/bsddb 
+dir path=pkg/python2.4-minimal/lib/python2.4/logging 
+dir path=pkg/python2.4-minimal/lib/python2.4/compiler 
+dir path=pkg/python2.4-minimal/bin 
+dir path=pkg/python2.4-minimal/lib/python2.4/lib-dynload 
+dir path=pkg/python2.4-minimal 
+dir path=pkg 
+dir path=pkg/python2.4-minimal/lib 
+dir path=pkg/python2.4-minimal/lib/python2.4/site-packages 
+dir path=pkg/python2.4-minimal/lib/python2.4/email 
+dir path=pkg/python2.4-minimal/lib/python2.4/xml/parsers 
+dir path=pkg/python2.4-minimal/lib/python2.4/xml/sax 
+dir path=pkg/python2.4-minimal/lib/python2.4 

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xml:lang="en" lang="en">
+<head>
+    <title>CollabNet Subversion Edge</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Subversion Edge"/>
+    <meta name="author" content="CollabNet"/>
+    <link rel="stylesheet" href="www/viewvc/docroot/css/bootstrap-current.css" type="text/css" />
+    <link rel="stylesheet" href="www/viewvc/docroot/css/svnedge-current.css" type="text/css" />
+    <style type="text/css">
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        padding-bottom: 40px;
+      }
+
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
+    <link rel="shortcut icon" href="www/viewvc/docroot/images/branding/favicon.ico" />
+    <script type="text/javascript">
+    /* <![CDATA[ */
+        var pingUrl = "http://localhost:3343/csvn/images/masthead/logo.png";
+        var totalSeconds = 0;
+        var phaseId = 0;
+
+        function consolePing() {
+            var image = new Image();
+            var uniqueUrl = pingUrl + "?s=" + Math.random();
+            writeActivity();
+
+            // if we load image, set status ok and stop  pinging
+            image.onload = function() {
+
+                if (this.height > 0)  {
+                    setStatusOk();
+                    window.clearTimeout(timeoutId);
+
+                } else if (phaseId <= 60) {
+                    // write some outputs based on the application server every 1 seconds...
+                    timeoutId = window.setTimeout('writeActivity()', 1000);
+
+                } else {
+                    // if we fail to load image, try again in 3 seconds
+                    timeoutId = window.setTimeout('consolePing()', 1000);
+                }
+            }
+            // if we fail to load image, try again in 3 seconds
+            image.onerror = function() {
+                if (totalSeconds >= 119) {
+                    setStatusServerMightBeDown()
+
+                } else {
+                    timeoutId = window.setTimeout('consolePing()', 1000);
+                }
+            }
+            image.src = uniqueUrl;
+            ++totalSeconds;
+        }
+
+        function writeActivity()  {
+            switch(phaseId) {
+            case 0: 
+                document.getElementById("consoleLink").innerHTML = 'Waiting for console to complete startup';
+                phaseId += 25;
+                break;
+
+            case 25: 
+                document.getElementById("consoleLink").innerHTML = 'Waiting for console to complete startup.';
+                phaseId += 25;
+                break;
+
+            case 50:
+                document.getElementById("consoleLink").innerHTML = 'Waiting for console to complete startup..';
+                phaseId += 25;
+                break;
+
+            case 75:
+                document.getElementById("consoleLink").innerHTML = 'Waiting for console to complete startup...';
+                phaseId = 0;
+                break;
+            }
+        }
+
+        // set the link active
+        function setStatusOk() {
+            var linkElement = document.getElementById("consoleLink");
+            linkElement.style.textDecoration = 'underline';
+            linkElement.style.color = 'green';
+            linkElement.innerHTML = 'Ready';
+            linkElement.style.fontWeight = 'bold';
+            linkElement.href = 'http://localhost:3343/csvn';
+
+            document.getElementById('spinner').style.display = 'none';
+            document.getElementById('serverLink').href = 'http://localhost:3343/csvn';
+            document.getElementById('serverStatusImg').src = 'www/viewvc/docroot/images/branding/database-up-icon-hi.png';
+        }
+
+        // set the link active
+        function setStatusServerMightBeDown() {
+            var consoleLink = document.getElementById("consoleLink");
+            consoleLink.innerHTML = 'Console not started. Read troubleshooting information at the Subversion Edge wiki.';
+            consoleLink.href = 'https://ctf.open.collab.net/sf/go/wiki1981';
+            consoleLink.target = '_csvn_win_help';
+            consoleLink.style.fontWeight = 'bold';
+            consoleLink.style.textDecoration = 'underline';
+            document.getElementById('spinner').style.display = 'none';
+        }
+    /* ]]> */
+    </script>
+</head>
+<body>
+
+
+<div class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <img src="www/viewvc/docroot/images/branding/logo.png" alt="CollabNet Subversion Edge" width="217" height="40" />
+      <div class="nav-collapse"></div>
+    </div>
+  </div>
+</div>
+  
+<div class="body">
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="alert alert-info span11">
+          Console Status:
+          <span id="consoleIndicator">
+           <img src="www/viewvc/docroot/images/roller.gif" height="28" width="28" id="spinner" style="align: middle;" alt="Subversion Edge Console is loading..." />
+           <a id="consoleLink" style="text-decoration:none; color:red;">Waiting for console to complete startup...</a>
+          </span>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span3">
+        <a id="serverLink"><img src="www/viewvc/docroot/images/branding/database-down-icon-hi.png" width="200" height="200" id="serverStatusImg" alt="Subversion Edge Console is loading..." /></a>
+      </div>
+
+      <div class="span8">
+                     <p>
+                         Welcome to CollabNet Subversion Edge. The link above will indicate when the management console is ready 
+                         to use. At that time, follow the link to the login page (<a href="http://localhost:3343/csvn">http://localhost:3343/csvn</a>).
+                     </p>
+                     <p>
+                         When first installed, Subversion Edge can be managed with the default administrator account. Use this login to
+                         sign in, but be sure to change the password.
+                     </p>
+                     
+                      <table style="width:200px; background-color:silver; margin:1em;">
+                         <tr>
+                             <td>User name:</td>
+                             <td><b>admin</b></td>
+                         </tr>
+                         <tr>
+                             <td>Password:</td>
+                             <td><b>admin</b></td>
+                         </tr>
+                         </table>
+                     
+                      
+                      <p>Edit your password by clicking the username link that appears in the upper right corner of the
+                      console screen. You'll also see a help icon there that always links to contextually
+                  relevant documentation.</p>
+                  
+                 <p>Thank you for installing CollabNet Subversion Edge.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br/><br/><br/>
+<hr style="width: 99%; border:none; border-top:1px silver solid; height: 1px;" />
+<table>
+<tr>
+    <td style="width: 114px"><a href="http://www.collab.net/?cid=csvnedgeL" target="collabnet">
+     <img width="102" height="31" alt="Powered by CollabNet" style="border: 0" src="www/viewvc/docroot/images/branding/poweredbylogo.gif"/></a>
+    </td>
+    <td>
+     &copy; 2012 CollabNet. CollabNet is a registered trademark of <a href="http://www.collab.net/?cid=csvnedgeL">CollabNet, Inc.</a>
+     <br />
+     <a href="http://subversion.apache.org">Apache Subversion</a> is a trademark of the <a href="http://www.apache.org/">Apache Software Foundation</a>.<br />
+     Subversion and the Apache Subversion logo are registered trademarks of the <a href="http://www.apache.org/">Apache Software Foundation</a>.
+    </td>
+</tr>
+</table>
+<script type="text/javascript">
+    var timeoutId = window.setTimeout("consolePing()", 0);
+</script>
+</body>
+</html>

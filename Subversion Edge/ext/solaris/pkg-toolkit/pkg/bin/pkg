@@ -1,0 +1,227 @@
+#!/bin/sh
+#
+# DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+#
+# Copyright 2009 Sun Microsystems, Inc. All rights reserved.
+#
+# The contents of this file are subject to the terms of either the GNU
+# General Public License Version 2 only ("GPL") or the Common Development
+# and Distribution License("CDDL") (collectively, the "License").  You
+# may not use this file except in compliance with the License. You can obtain
+# a copy of the License at https://glassfish.dev.java.net/public/CDDL+GPL.html
+# or updatetool/LICENSE.txt.  See the License for the specific
+# language governing permissions and limitations under the License.
+#
+# When distributing the software, include this License Header Notice in each
+# file and include the License file at glassfish/bootstrap/legal/LICENSE.txt.
+# Sun designates this particular file as subject to the "Classpath" exception
+# as provided by Sun in the GPL Version 2 section of the License file that
+# accompanied this code.  If applicable, add the following below the License
+# Header, with the fields enclosed by brackets [] replaced by your own
+# identifying information: "Portions Copyrighted [year]
+# [name of copyright owner]"
+#
+# Contributor(s):
+#
+# If you wish your version of this file to be governed by only the CDDL or
+# only the GPL Version 2, indicate your decision by adding "[Contributor]
+# elects to include this software in this distribution under the [CDDL or GPL
+# Version 2] license."  If you don't indicate a single choice of license, a
+# recipient has the option to distribute your version of this file under
+# either the CDDL, the GPL Version 2 or to extend the choice of license to
+# its licensees as provided above.  However, if you add GPL Version 2 code
+# and therefore, elected the GPL Version 2 license, then the option applies
+# only if the new code is made subject to such option by the copyright
+# holder.
+#
+
+#
+# Startup wrapper for pkg
+#
+
+# Resolve a symbolic link to the true file location
+resolve_symlink () {
+    file="$1"
+    while [ -h "$file" ]; do
+        ls=`ls -ld "$file"`
+        link=`expr "$ls" : '^.*-> \(.*\)$' 2>/dev/null`
+        if expr "$link" : '^/' 2> /dev/null >/dev/null; then
+            file="$link"
+        else
+            file=`dirname "$1"`"/$link"
+        fi
+    done
+    echo "$file"
+}
+
+# Take a relative path and make it absolute. Pwd -P will
+# resolve any symlinks in the path
+make_absolute () {
+    save_pwd=`pwd`
+    cd "$1";
+    full_path=`pwd -P`
+    cd "$save_pwd"
+    echo "$full_path"
+}
+
+check_linux_64() {
+    # Check to see if we are running on a 64 bit linux distro without
+    # 32 bit compat libraries. This is just a heuristic, so it will only
+    # catch obvious cases
+
+    os_name=`uname -s`
+    os_isa=`uname -m`
+
+    if [ "$os_name" = "Linux" -a "$os_isa" = "x86_64" ]; then
+        # Check for a couple landmark libraries
+        # to determine if the 32bit compat packages have been installed.
+        # A 32bit version of each library must exist, but we may have
+        # to look in a couple locations for them.
+        landmarks="libc.so.6 libz.so.1"
+        # Directories to check for libraries
+        libdirs="/lib /lib32 /usr/lib /usr/lib32"
+        for f in $landmarks; do
+            _32bit_compat="0"
+            for d in $libdirs; do
+                if [ ! -f $d/$f ]; then
+                    continue
+                fi
+                # Check if 32 bit
+                output=`objdump -f $d/$f | grep -i "elf32"`
+                if [ -z "$output" ]; then
+                    continue
+                fi
+                _32bit_compat="1"
+                break
+            done
+            if [ "$_32bit_compat" = "0" ]; then
+                # Darn. Couldn't find a 32 bit version of a landmark lib
+                break;
+            fi
+        done
+
+        if [ "$_32bit_compat" = "0" ]; then
+            echo "---------------------------------------------------------------"
+            echo "There was an error running"
+            echo
+            echo "$my_python/bin/python"
+            echo
+            echo "You are running on a 64 bit Linux distribution and the 32 bit Linux"
+            echo "compatibility libraries do not appear to be installed. In order to use"
+            echo "the Update Center tools you must install the 32 bit compatibility libraries."
+            echo
+            echo "On Ubuntu (and possibly other Debian based systems) please install the"
+            echo "ia32-libs package. On RedHat 4 (and other RPM based systems), you may"
+            echo "need to add multiple 'compat' runtime library packages. Please see the"
+            echo "Update Center Release Notes for more information"
+            echo "---------------------------------------------------------------"
+        fi
+    fi
+}
+
+# Gets proxy information from Updatetool configuration file and sets
+# the "http_proxy" environment variable for urllib in python
+set_proxy () {
+    os_name=`uname -s`
+    if [ $os_name = "Darwin" ]; then
+        UC_CONFIG_FILE="$HOME/Library/Application Support/updatetool/defaults.cfg"
+    else
+        UC_CONFIG_FILE="$HOME/.updatetool/defaults.cfg"
+    fi
+
+    if [ ! -r "$UC_CONFIG_FILE" ]; then
+        return
+    fi
+
+    # If http_proxy is already set don't mess with it
+    if [ ! -z "$http_proxy" ]; then
+        return
+    fi
+
+    # Loop through the proxy properties in the config file
+    # Remove spaces from line
+    for l in `cat "$UC_CONFIG_FILE" | grep "proxy" | grep "=" | tr -d " "`; do
+
+        # Get the property name and value. For the prop names map "." to "_"
+        prop=`echo $l | cut -f 1 -d "=" | tr "." "_"`
+        valu=`echo $l | cut -f 2 -d "=" `
+
+        # Set the property in our environment
+        if [ ! -z $prop ]; then
+            eval `echo $prop`='"$valu"'
+        fi
+    done
+
+    # Fold values for boolean properties to lower case.
+    proxy_required=`echo $proxy_required | tr "[A-Z]" "[a-z]"`
+        proxy_auth=`echo $proxy_auth     | tr "[A-Z]" "[a-z]"`
+
+    # Set the "http_proxy" environment variable if proxies are set
+    if [ ! -z "$proxy_required" -a "$proxy_required" = "true" ]; then
+        if [ ! -z "$proxy_auth" -a "$proxy_auth" = "true" ]; then
+            http_proxy="http://$proxy_username:$proxy_password@$proxy_host:$proxy_port"
+        else
+            http_proxy="http://$proxy_host:$proxy_port"
+        fi
+        export http_proxy
+    fi
+}
+
+
+# Since we always use the bundled python runtime, make sure user's
+# environment does not mess us up (bug 119)
+unset PYTHONSTARTUP
+unset PYTHONHOME
+unset PYTHONPATH
+
+# Find out where we are installed
+cmd=`resolve_symlink "$0"`
+my_home_relative=`/usr/bin/dirname "$cmd"`
+my_home=`make_absolute "$my_home_relative"`
+
+my_python=$my_home/../python2.4-minimal
+
+set_proxy
+
+# this can be removed once cURL is upgrade to 7.19.6
+if [ -z "$no_proxy" ]; then
+    # NOTE: NO_PROXY was observed to work on Mac while no_proxy was not
+    if [ -z "$NO_PROXY" ]; then
+        no_proxy="localhost,127.0.0.0/8"
+        NO_PROXY="localhost,127.0.0.0/8"
+        export no_proxy
+        export NO_PROXY
+    else
+        no_proxy="$NO_PROXY"
+        export no_proxy
+    fi
+fi
+NO_PROXY="$no_proxy"
+export NO_PROXY
+
+os_name=`uname -s`
+if [ $os_name = "Darwin" ]; then
+    # Set DYLD_LIBRARY_PATH so we can find libraries that python
+    # modules depend on such as libcurl.
+    PYTHONHOME=$my_python
+    export PYTHONHOME
+    DYLD_LIBRARY_PATH=$PYTHONHOME/lib
+    export DYLD_LIBRARY_PATH
+else
+    # Hack to find bundled openssl libraries on Solaris
+    unset LD_LIBRARY_PATH_32
+    unset LD_LIBRARY_PATH_64
+    LD_LIBRARY_PATH=$my_python/lib
+    export LD_LIBRARY_PATH
+fi
+
+"$my_python/bin/python" "$my_home/client.py" "$@"
+_status=$?
+if [ $_status -ne 0 ]; then
+    # Python exited with an error. Go check to see if this is because
+    # We are running on 64 bit Linux.
+    check_linux_64
+fi
+
+exit $_status
+

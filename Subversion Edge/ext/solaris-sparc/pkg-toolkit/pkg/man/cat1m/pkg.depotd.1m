@@ -1,0 +1,261 @@
+System Administration Commands                           pkg.depotd(1M)
+
+
+NAME
+     pkg.depotd - image packaging system depot server
+
+SYNOPSIS
+     /usr/lib/pkg.depotd [-d repo_dir] [-p port] [-s threads]
+         [-t socket_timeout] [--cfg-file] [--content-root] [--debug]
+         [--log-access] [--log-errors] [--mirror] [--proxy-base url]
+         [--readonly] [--rebuild] [--ssl-cert-file] [--ssl-dialog]
+         [--ssl-key-file] [--writable-root]
+
+DESCRIPTION
+     pkg.depotd is the depot server for the image packaging system.
+     pkg(1), the retrieval client, makes requests of the depot server
+     for catalogs and packages.  pkgsend(1), the publication client,
+     sends new versions of packages to the depot server.  pkg.depotd is
+     typically run as a service on the system.  Package and software
+     developers may wish to run private copies for various testing
+     purposes.
+
+     The pkg.depot server is generally configured via the smf(5) properties
+     associated with its service.  The following properties are recognized:
+
+     pkg/cfg_file               (astring) The pathname of the file from which
+                                to read and to write configuration information.
+
+     pkg/content_root           (astring) The file system path at which
+                                the instance should find its static
+                                and other web content.  The default
+                                value is /usr/share/lib/pkg.
+
+     pkg/debug                  (astring) A comma-separated list of debug
+                                features to enable.  Possible values are:
+
+                                  headers
+                                        Logs the headers of every request to
+                                        the error log.
+
+     pkg/inst_root              (astring) The file system path at which
+                                the instance should find its repository
+                                data.  The default value is
+                                /var/pkg/repo.
+
+     pkg/log_access             (astring) The destination for any access
+                                related information logged by the depot
+                                process.  Possible values are: stderr,
+                                stdout, none, or an absolute pathname.
+                                The default value is stdout if stdout is
+                                a tty; otherwise the default value is
+                                none.
+
+     pkg/log_errors             (astring) The destination for any errors
+                                or other information logged by the depot
+                                process.  Possible values are: stderr,
+                                stdout, none, or an absolute pathname.
+                                The default value is stderr.
+
+     pkg/mirror                 (boolean) Sets whether package mirror mode 
+                                is used. When true, publishing and metadata
+                                operations are disabled and only a limited
+                                browser user interface is provided. This
+                                property may not be true when pkg/readonly is
+                                true. The default value is false.
+
+     pkg/port                   (count) The port number on which the
+                                instance should listen for incoming
+                                package requests.  The default value is
+                                80 if ssl certificate and key information has
+                                not been provided; otherwise, the default
+                                value is 443.
+
+     pkg/proxy_base             (uri) This changes the base URL for the
+                                depot server and is most useful when
+                                running behind Apache or some other
+                                webserver in a reverse proxy
+                                configuration.
+
+     pkg/readonly               (boolean) Sets whether modifying operations, 
+                                such as those initiated by pkgsend(1M) are 
+                                disabled. Retrieval operations are still 
+                                available. This property may not be true
+                                when pkg/mirror is true. The default value
+                                is false.
+
+     pkg/socket_timeout         (count) The maximum number of seconds the
+                                server should wait for a response from a
+                                client before closing a connection.  The
+                                default value is 60.
+
+     pkg/ssl_cert_file          (astring) The absolute pathname to a PEM-
+                                encoded Certificate file.  The default
+                                value is none.  This property must be used
+                                with ssl_key_file.  The depot will only
+                                respond to SSL requests if provided.
+
+     pkg/ssl_dialog             (astring) Specifies what method should be
+                                used to obtain the passphrase needed to de-
+                                crypt the ssl_key_file.  Possible values
+                                are: builtin, exec:/path/to/program or
+                                smf:fmri.  builtin will prompt for the
+                                passphrase; exec will execute the specified
+                                external program to obtain the passphrase,
+                                which should be printed to stdout.  The first
+                                argument to the program will be '', and is
+                                reserved.  The second argument to the
+                                program will be the port number of the
+                                server.  smf:fmri will attempt to retrieve
+                                the value of pkg_secure/ssl_key_passphrase
+                                from the service instance related to the
+                                fmri.  The default value is builtin.
+
+     pkg/ssl_key_file           (astring) The absolute pathname to a PEM-
+                                encoded Private Key file.  This property
+                                must be used with ssl_cert_file.  The
+                                depot will only respond to SSL requests
+                                if provided.
+
+     pkg/threads                (count) The number of threads that will
+                                be started to serve requests.  The default
+                                value is 10.
+
+     pkg/writable_root          (astring) The file system path to a directory
+                                to which the program has write access.  Used
+                                with --readonly to allow server to create
+                                needed files, such as search indices, without
+                                needing write access to the package information.
+
+     pkg_secure/ssl_key_passphrase      (astring) The password to use to
+                                        decrypt the pkg/ssl_key_file.  This
+                                        value is read-authorization
+                                        protected.
+
+OPTIONS
+     The following options alter the default behavior, if present, and
+     will override the settings from the service instance when managed
+     via an smf(5) restarter:
+
+     -d repo_dir                Overrides pkg/inst_root with the value
+                                given by repo_dir.
+
+     -p port                    Overrides pkg/port with the value given
+                                by port.
+
+     -s threads                 Overrides pkg/threads with the value
+                                given by threads.
+
+     -t socket_timeout          Overrides pkg/socket_timeout with the
+                                value given by socket_timeout.
+
+     --cfg-file cfg_file        Overrides pkg/cfg_file with the value
+                                given by cfg_file.
+
+     --content-root root_dir    Overrides pkg/content_root with the value
+                                given by root_dir.
+
+     --debug features           Overrides pkg/debug with the value given
+                                by features.
+
+     --log-access dest          Overrides pkg/log_access with the value
+                                given by dest.
+
+     --log-errors dest          Overrides pkg/log_errors with the value
+                                given by dest.
+
+     --mirror                   Overrides pkg/mirror and sets it to be true.
+
+     --proxy-base url           Overrides pkg/proxy_base with the value
+                                given by url.  Ignored if empty value is
+                                provided.
+
+     --readonly                 Overrides pkg/readonly and sets it to be true.
+
+     --rebuild                  Any existing repository catalog will be
+                                destroyed and then recreated on startup.
+                                This option may not be combined with the
+                                --mirror or --readonly options.
+
+     --ssl-cert-file source     Overrides pkg/ssl_cert_file with the value
+                                given by source.
+
+     --ssl-dialog type          Overrides pkg/ssl_dialog with the value given
+                                by type.
+
+     --ssl-key-file source      Overrides pkg/ssl_key_file with the value
+                                given by source.
+
+     --writable-root path       Overrides pkg/writable_root with the value
+                                given by path.
+
+EXAMPLES
+     Example 1:  Enabling the depot server.
+
+     # svcadm enable application/pkg/server
+
+     Example 2:  Changing the listening port of the server.
+
+     # svccfg -s application/pkg/server setprop pkg/port = 10000
+     # svcadm refresh application/pkg/server
+     # svcadm restart application/pkg/server
+
+ENVIRONMENT VARIABLES
+     PKG_DEPOT_CONTENT          Specifies the directory containing static
+                                content served by the depot.  The files
+                                listed below under FILES should be present
+                                in this directory, although their content
+                                may differ from the supplied default
+                                content.
+
+EXIT STATUS
+     The following exit values are returned:
+
+     0     Successful operation.
+
+     1     Error encountered.
+
+     2     Invalid command line options were specified.
+
+FILES
+     /var/pkg/repo              Default repository location; modify
+                                pkg/inst_root to select an
+                                alternate location.
+
+     /usr/share/lib/pkg         Default presentation content location;
+                                modify pkg/content_root to select an
+                                alternate location.
+
+ATTRIBUTES
+     See attributes(5) for descriptions of the  following  attri-
+     butes:
+     ____________________________________________________________
+    |       ATTRIBUTE TYPE        |       ATTRIBUTE VALUE       |
+    |_____________________________|_____________________________|
+    | Availability                |                             |
+    |_____________________________|_____________________________|
+
+SEE ALSO
+     pkg(1), pkgsend(1), attributes(5), smf(5)
+
+NOTES
+     The image packaging system is an under-development feature.
+     Command names, invocation, formats, and operations are all subject
+     to change.  Development is hosted in the OpenSolaris community
+     at:
+
+     http://opensolaris.org/os/project/pkg/
+
+     The pkd.depotd service is managed by the service  management
+     facility, smf(5), under the service identifier:
+
+          svc:/application/pkg/server
+
+     Because the depot server expects to be run by an smf(5) restarter,
+     it does not daemonize.  Error messages are generally sent to
+     standard output, or to the syslogd(1M) system.
+
+     Changes to configuration require a restart of the depot server process
+     so that they can be reflected in operations and output.  This must be
+     done when the server is not operating in read-only or mirror mode.
+

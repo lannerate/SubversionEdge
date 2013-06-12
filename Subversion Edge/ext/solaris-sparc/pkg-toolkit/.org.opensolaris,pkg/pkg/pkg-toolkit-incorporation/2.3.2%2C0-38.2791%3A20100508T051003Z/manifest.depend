@@ -1,0 +1,7 @@
+depend fmri=pkg:/pkg-toolkit@2.3.2-38 type=incorporate
+depend fmri=pkg:/python2.4-minimal@2.4.4.0-38 type=incorporate
+depend fmri=pkg:/pkg@1.122.2-38 type=incorporate
+depend fmri=pkg:/pkg-java@1.122-38 type=incorporate
+depend fmri=pkg:/pkg-extra-tools@0.2.0-38 type=incorporate
+depend fmri=pkg:/wxpython2.8-minimal@2.8.10.1-38 type=incorporate
+depend fmri=pkg:/updatetool@2.3.2-38 type=incorporate

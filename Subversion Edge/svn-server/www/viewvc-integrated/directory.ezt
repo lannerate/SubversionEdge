@@ -1,0 +1,211 @@
+[# setup page definitions]
+[is servermode "STANDALONE"]
+  [define page_title]Index of:[end]
+[else]
+  [define page_title]Index of /[where][end]
+[end]
+  [define help_href][docroot]/help_[if-any where]dir[else]root[end]view.html[end]
+[# end]
+[include "include/header.ezt" "directory"]
+
+[if-any where][else]
+  <!-- you may insert repository access instructions here -->
+[end]
+
+<table class="auto">
+[is picklist_len "0"][else][is picklist_len "1"][else]
+<tr>
+  <td>Jump to page:</td>
+  <td><form method="get" action="[dir_paging_action]">
+        [for dir_paging_hidden_values]<input type="hidden" name="[dir_paging_hidden_values.name]" value="[dir_paging_hidden_values.value]"/>[end]
+        <select name="dir_pagestart"  onchange="submit()">
+          [for picklist]
+            <option [is picklist.count dir_pagestart]selected[end] value="[picklist.count]">Page [picklist.page]: [picklist.start] to [picklist.end]</option>
+          [end]
+        </select>
+        <input type="submit" value="Go" />
+      </form>
+  </td>
+</tr>
+[end][end]
+</table>
+
+<div id="vc_main_body">
+<!-- ************************************************************** -->
+
+[is roottype "svn"]
+  [if-any rev]
+  <div id="vc_togglables">
+    <a href="[revision_href]"><img src="[docroot]/images/branding/revision-icon.gif" alt="Changeset"/> r[rev]</a>
+  </div>
+  [end]
+[else]
+[is num_dead "0"]
+[else]
+  <div id="vc_togglables">
+  [if-any attic_showing]
+    <a href="[hide_attic_href]">Hide
+  [else]
+    <a href="[show_attic_href]">Show
+  [end]
+  dead files</a>
+  </div>
+[end]
+[end]
+
+[is skip "true"]
+  <h2>Not displayed because the number of entries in this directory ([sfee_display]) is greater than the maximum supported ([sfee_display_max])</h2>
+[else]
+<table class="vc_table" id="dirlist">
+<tbody>
+<tr class="table_header"><td colspan=[is cfg.options.show_logs "1"]5[else]4[end]>/[where]</td></tr>
+<tr class="column_header">
+
+  <td class="vc_header[is sortby "file"]_sort[end]">
+    <a href="[sortby_file_href]#dirlist">
+     [is sortby "file"]
+      <img class="vc_sortarrow" alt="[is sortdir "down"](rev)[else](asc)[end]"
+        width="8" height="9"
+        src="[docroot]/images/branding/sort_[is sortdir "up"]up[else]down[end].gif" />
+     [else]
+      <img class="vc_sortarrow" alt="Sort"
+        width="8" height="9"
+        src="[docroot]/images/branding/sort_up_down.gif"/>
+     [end]
+    </a>File
+  </td>
+  <td class="vc_header[is sortby "rev"]_sort[end]">
+    [if-any sortby_rev_href]<a href="[sortby_rev_href]#dirlist">
+    [is sortby "rev"]
+      <img class="vc_sortarrow" alt="[is sortdir "down"](rev)[else](asc)[end]"
+        width="8" height="9"
+        src="[docroot]/images/branding/sort_[is sortdir "up"]up[else]down[end].gif" />
+    [else]
+      <img class="vc_sortarrow" alt="Sort"
+        src="[docroot]/images/branding/sort_up_down.gif"/>
+    [end]
+    </a>[end]Rev.
+  </td>
+  <td class="vc_header[is sortby "date"]_sort[end]">
+    [if-any sortby_date_href]<a href="[sortby_date_href]#dirlist">
+    [is sortby "date"]
+      <img class="vc_sortarrow" alt="[is sortdir "down"](rev)[else](asc)[end]"
+        width="8" height="9"
+        src="[docroot]/images/branding/sort_[is sortdir "up"]up[else]down[end].gif" />
+    [else]
+      <img class="vc_sortarrow" alt="Sort"
+        width="8" height="9"
+        src="[docroot]/images/branding/sort_up_down.gif"/>
+    [end]
+    </a>[end]Age
+  </td>
+  <td class="vc_header[is sortby "author"]_sort[end]">
+    [if-any sortby_author_href]<a href="[sortby_author_href]#dirlist">
+    [is sortby "author"]
+      <img class="vc_sortarrow" alt="[is sortdir "down"](rev)[else](asc)[end]"
+        width="8" height="9"
+        src="[docroot]/images/branding/sort_[is sortdir "up"]up[else]down[end].gif" />
+    [else]
+      <img class="vc_sortarrow" alt="Sort"
+        width="8" height="9"
+        src="[docroot]/images/branding/sort_up_down.gif"/>
+    [end]
+    </a>[end]Author
+  </td>
+[is cfg.options.show_logs "1"]
+  <td class="vc_header[is sortby "log"]_sort[end]">
+    [if-any sortby_log_href]<a href="[sortby_log_href]#dirlist">
+    [is sortby "log"]
+      <img class="vc_sortarrow" alt="[is sortdir "down"](rev)[else](asc)[end]"
+        width="8" height="9"
+        src="[docroot]/images/branding/sort_[is sortdir "up"]up[else]down[end].gif" />
+    [else]
+      <img class="vc_sortarrow" alt="Sort"
+        width="8" height="9"
+        src="[docroot]/images/branding/sort_up_down.gif"/>
+    [end]
+    </a>[end]Last log entry
+  </td>
+[end]
+</tr>
+
+[if-any up_href]
+  <tr class="vc_row_odd">
+    <td>
+      <a href="[up_href]">
+      <img src="[docroot]/images/back_small.png" alt="" class="vc_icon"
+          width="16px" height="16px"
+      />&nbsp;../</a>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    [is cfg.options.show_logs "1"]
+      <td>&nbsp;</td>
+    [end]
+  </tr>
+[end]
+[for entries]
+  [is entries.pathtype "dir"]
+    [define name_href][entries.view_href][end]
+    [define name_href_title]View directory contents[end]
+    [define rev_href][entries.log_href][end]
+    [define rev_href_title]View directory revision log[end]
+  [else]
+    [define file_href][entries.view_href][end]
+    [define file_href_title]View file contents[end]
+    [define name_href][file_href][end]
+    [define name_href_title][file_href_title][end]
+    [define rev_href][entries.log_href][end]
+    [define rev_href_title]View file revision log[end]
+    [is servermode "STANDALONE"]
+    [else]
+      [is testmode "1"]
+        [define name_href][entries.log_href][end]
+        [define name_href_title]View file revision log[end]
+        [define rev_href][file_href][end]
+        [define rev_href_title][file_href_title][end]
+      [end]
+    [end]
+  [end]
+  <tr class="vc_row_[if-index entries even]even[else]odd[end]">
+    <td [if-any name_href]onclick="jumpTo('[name_href]')"[end]>
+    [if-any name_href]<a name="[entries.anchor]" href="[name_href]" title="[name_href_title]">[end]
+       <img src="[docroot]/images/[is entries.pathtype "dir"]dir[else][is entries.state "dead"]broken[else]text[end][end].png" alt="" class="vc_icon" width="16px" height="16px"/>
+       [entries.name][is entries.pathtype "dir"]/[end][if-any name_href]</a>[end]
+       [is entries.state "dead"](dead)[end]
+    </td>
+     [if-any entries.errors]
+       <td colspan=[is cfg.options.show_logs "1"]4[else]3[end]>
+         [for entries.errors]<em>[entries.errors]</em>[end]
+       </td>
+     [else]
+       <td style="white-space: nowrap;">&nbsp;[if-any entries.rev][if-any rev_href]<a href="[rev_href]" title="[rev_href_title]">[end]<strong>[entries.rev]</strong>[if-any rev_href]</a>[end][end]
+       [if-any entries.lockinfo]<img src="[docroot]/images/lock.png" alt="locked" class="vc_icon" title="Locked by [entries.lockinfo]" />[end]
+       </td>
+       <td>&nbsp;[entries.ago]</td>
+       <td>&nbsp;[entries.author]</td>
+       [is cfg.options.show_logs "1"]
+         [if-any entries.short_log]
+           <td>&nbsp;[entries.short_log][is entries.pathtype "dir"][is roottype "cvs"]
+             <em>(from [entries.log_file]/[entries.log_rev])</em>[end][end]</td>
+         [else]
+           <td>&nbsp;</td>
+         [end]
+      [end]
+    [end]
+  </tr>
+[end]
+</tbody>
+</table>
+
+[end]
+
+[include "include/dir_footer.ezt"]
+
+[include "include/props.ezt"]
+
+<!-- ************************************************************** -->
+</div>
+
+[include "include/footer.ezt"]

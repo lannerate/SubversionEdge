@@ -1,0 +1,18 @@
+<hr/>
+<table class="auto">
+<tr>
+  <td>Sticky [is roottype "cvs"]Tag[else]Revision[end]:</td>
+  <td>[include "pathrev_form.ezt"]</td>
+</tr>
+
+[include "paging.ezt"]
+</table>
+
+[is pathtype "file"]
+  [include "diff_form.ezt"]
+[end]
+
+[include "sort.ezt"]
+
+[include "footer.ezt"]
+

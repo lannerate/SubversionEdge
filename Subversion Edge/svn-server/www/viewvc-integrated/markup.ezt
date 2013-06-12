@@ -1,0 +1,22 @@
+[# setup page definitions]
+[is servermode "STANDALONE"]
+  [define page_title]View of:[end]
+[else]
+  [define page_title]View of /[where][end]
+[end[
+  [define help_href][docroot]/help_rootview.html[end]
+[# end]
+[include "include/header.ezt" "markup"]
+[include "include/fileview.ezt"]
+
+<div id="vc_main_body">
+<!-- ************************************************************** -->
+
+<div id="vc_markup"><pre>[markup]</pre></div>
+
+[include "include/props.ezt"]
+
+<!-- ************************************************************** -->
+</div>
+
+[include "include/footer.ezt"]

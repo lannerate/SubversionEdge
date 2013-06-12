@@ -1,0 +1,28 @@
+<?xml version="1.0"  encoding="ISO-8859-1"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+  <Set name="contextPath">/csvn</Set>
+  <Set name="war"><SystemProperty name="jetty.home" default="."/>/webapps/csvn.war</Set>
+  <Set name="defaultsDescriptor"><SystemProperty name="jetty.home" default="."/>/etc/webdefault.xml</Set>
+
+  <Set name="sessionHandler">
+    <New class="org.eclipse.jetty.server.session.SessionHandler">
+      <Arg>
+        <New id="hashMgr"
+class="org.eclipse.jetty.server.session.HashSessionManager">
+          <Set name="secureRequestOnly">true</Set>
+          <Set name="httpOnly">true</Set>
+          <Set name="sessionCookie">SESSID</Set>
+          <Set name="sessionIdPathParameterName">none</Set>
+        </New>
+      </Arg>
+    </New>
+  </Set>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!-- Max Form Size                                                   -->
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <Set name="maxFormContentSize">10485760</Set>
+
+</Configure>

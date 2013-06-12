@@ -1,0 +1,35 @@
+[filter]
+
+[authority_layered.sun.com]
+origin = http://pkg.sun.com/layered/collection/dev/
+ssl_key = None
+ssl_cert = None
+
+repo.related_uris = []
+mirrors = []
+repo.description = None
+repo.name = None
+repo.sort_policy = priority
+disabled = False
+alias = None
+prefix = layered.sun.com
+repo.legal_uris = []
+repo.registered = False
+repo.registration_uri = None
+repo.collection_type = core
+repo.refresh_seconds = 14400
+
+[property]
+send-uuid = True
+description = An installation of the pkg(5) multi-platform network repository based packaging system. This toolkit provides the Image Packaging System and associated tools that are useful for publishing packages and creating preinstalled images.
+title = pkg(5) Toolkit
+require-optional = False
+flush-content-cache-on-success = False
+display-copyrights = True
+preferred-authority = layered.sun.com
+pursue-latest = True
+
+[variant]
+variant.opensolaris.zone = global
+
+

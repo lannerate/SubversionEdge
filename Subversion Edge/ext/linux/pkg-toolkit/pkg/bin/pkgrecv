@@ -1,0 +1,95 @@
+#!/bin/sh
+#
+# DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+#
+# Copyright 2008 Sun Microsystems, Inc. All rights reserved.
+#
+# The contents of this file are subject to the terms of either the GNU
+# General Public License Version 2 only ("GPL") or the Common Development
+# and Distribution License("CDDL") (collectively, the "License").  You
+# may not use this file except in compliance with the License. You can obtain
+# a copy of the License at https://glassfish.dev.java.net/public/CDDL+GPL.html
+# or updatetool/LICENSE.txt.  See the License for the specific
+# language governing permissions and limitations under the License.
+#
+# When distributing the software, include this License Header Notice in each
+# file and include the License file at glassfish/bootstrap/legal/LICENSE.txt.
+# Sun designates this particular file as subject to the "Classpath" exception
+# as provided by Sun in the GPL Version 2 section of the License file that
+# accompanied this code.  If applicable, add the following below the License
+# Header, with the fields enclosed by brackets [] replaced by your own
+# identifying information: "Portions Copyrighted [year]
+# [name of copyright owner]"
+#
+# Contributor(s):
+#
+# If you wish your version of this file to be governed by only the CDDL or
+# only the GPL Version 2, indicate your decision by adding "[Contributor]
+# elects to include this software in this distribution under the [CDDL or GPL
+# Version 2] license."  If you don't indicate a single choice of license, a
+# recipient has the option to distribute your version of this file under
+# either the CDDL, the GPL Version 2 or to extend the choice of license to
+# its licensees as provided above.  However, if you add GPL Version 2 code
+# and therefore, elected the GPL Version 2 license, then the option applies
+# only if the new code is made subject to such option by the copyright
+# holder.
+#
+
+#
+# Startup wrapper for pkgrecv
+#
+
+# Resolve a symbolic link to the true file location
+resolve_symlink () {
+    file="$1"
+    while [ -h "$file" ]; do
+        ls=`ls -ld "$file"`
+        link=`expr "$ls" : '^.*-> \(.*\)$' 2>/dev/null`
+        if expr "$link" : '^/' 2> /dev/null >/dev/null; then
+            file="$link"
+        else
+            file=`dirname "$1"`"/$link"
+        fi
+    done
+    echo "$file"
+}
+
+# Take a relative path and make it absolute. Pwd -P will
+# resolve any symlinks in the path
+make_absolute () {
+    save_pwd=`pwd`
+    cd "$1";
+    full_path=`pwd -P`
+    cd "$save_pwd"
+    echo "$full_path"
+}
+
+# Since we always use the bundled python runtime, make sure user's
+# environment does not mess us up (bug 119)
+unset PYTHONSTARTUP
+unset PYTHONHOME
+unset PYTHONPATH
+
+# Find out where we are installed
+cmd=`resolve_symlink "$0"`
+my_home_relative=`/usr/bin/dirname "$cmd"`
+my_home=`make_absolute "$my_home_relative"`
+
+my_python=$my_home/../python2.4-minimal
+
+os_name=`uname -s`
+if [ $os_name = "Darwin" ]; then
+    # Set DYLD_LIBRARY_PATH so we can find libraries that python
+    # modules depend on such as libcurl.
+    PYTHONHOME=$my_python
+    export PYTHONHOME
+    DYLD_LIBRARY_PATH=$PYTHONHOME/lib
+    export DYLD_LIBRARY_PATH
+else
+    # Hack to find bundled openssl libraries on Solaris
+    LD_LIBRARY_PATH=$my_python/lib
+    export LD_LIBRARY_PATH
+fi
+
+exec "$my_python/bin/python" "$my_home/pull.py" "$@"
+

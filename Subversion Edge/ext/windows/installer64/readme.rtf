@@ -1,0 +1,85 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf100
+{\fonttbl\f0\fswiss\fcharset0 ArialMT;}
+{\colortbl;\red255\green255\blue255;\red54\green95\blue145;\red79\green129\blue189;}
+\vieww12000\viewh15840\viewkind0
+\deftab720
+\pard\pardeftab720
+
+\f0\b\fs28 \cf2 Readme - CollabNet Subversion Edge\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720
+
+\fs24 \cf0 Release: 4.0.0
+\fs28 \cf2 \
+\pard\pardeftab720
+
+\b0\fs22 \cf0 \
+CollabNet Subversion Edge includes everything you need to install, manage and operate a Subversion server.  It includes all of the Subversion and Apache binaries needed to run a Subversion server.  It also integrates the popular ViewVC repository browsing tool so that users can view repository history from a web browser.\
+\
+CollabNet Subversion Edge also includes a powerful web-based management console that makes it easy to configure and manage your Apache server and Subversion repositories.  You can easily setup the server to use SSL connections and even connect the server to a corporate LDAP repository, including Microsoft Active Directory.\
+\
+CollabNet Subversion Edge only supports serving Subversion repositories via Apache httpd and it only supports the Subversion fsfs repository format.\
+\pard\pardeftab720\sl276\slmult1\sb200
+
+\b\fs26 \cf3 Requirements:\
+\pard\pardeftab720
+
+\b0\fs22 \cf0 Java 1.6 JRE/JDK must be installed.  The installer will install Java 1.6 if does not detect it as already installed.  The installer will create the JAVA_HOME environment variable only if it does not already exist.\
+\pard\pardeftab720\sl276\slmult1\sb200
+
+\b\fs26 \cf3 Installation Notes:\
+\pard\pardeftab720
+
+\b0\fs22 \cf0 The installer will update the system PATH variable to include the path to the "bin" and "Python25" folders that are installed by the installer and it will also create or update the PYTHONPATH environment variable.\
+\
+The installer will add rules to the Windows Firewall to allow access to the Apache binary and to open up ports 3343 and 4434.\
+\
+The installer will add two Windows services set to start automatically when the system starts.\
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720
+\cf0 	1.	
+\b CollabNet Subversion Edge
+\b0  - a Java-based web application that provides a browser UI for configuring and managing your Apache Subversion server.\
+	2.	
+\b CollabNet Subversion Server
+\b0  - the actual Apache Subversion server that the management console manages for you, and that your Subversion users will access.\
+\pard\pardeftab720
+\cf0 \
+You must login to the CollabNet Subversion Edge browser-based management console and configure the Apache server before it can be run for the first time.  The UI of the management console writes the needed Apache configuration files based on the information you provide.\
+\
+The default administrator login is:\
+\
+Address: http://localhost:3343/csvn\
+Username: admin\
+Password: admin\
+\
+The installer provides the option to start the application at the end of the install.  This will open your browser to a local page that will detect when the server has finished starting.\
+\
+\pard\pardeftab720
+
+\b\fs26 \cf3 Updates:\
+\pard\pardeftab720
+
+\b0\fs22 \cf0 CollabNet Subversion Edge includes a built-in mechanism for discovering and installing updates.  You should use this facility to install updates as opposed to downloading and running a new version of the application installer.\
+\
+The update mechanism will require you to restart the servers at the end of the process, but it will do it for you.\
+\
+\pard\pardeftab720
+
+\b\fs26 \cf3 Support:\
+\pard\pardeftab720
+
+\b0\fs22 \cf0 Ask questions and get assistance with using CollabNet Subversion Edge via the community forums on openCollabNet.  The forum for CollabNet Subversion Edge questions is available here:\
+\
+http://subversion.open.collab.net/ds/viewForumSummary.do?dsForumId=3\
+\
+\pard\pardeftab720
+
+\b\fs26 \cf3 Documentation:\
+\pard\pardeftab720
+
+\b0\fs22 \cf0 Documentation for CollabNet Subversion Edge is available here:\
+\
+http://help.collab.net/\
+\
+}

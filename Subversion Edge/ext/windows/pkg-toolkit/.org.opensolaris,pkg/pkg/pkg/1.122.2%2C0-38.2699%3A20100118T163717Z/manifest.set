@@ -1,0 +1,7 @@
+set name=description value="pkg(5) Image Packaging System"
+set name=info.classification value=":System Tools"
+set name=pkg.detailed_url value=http://wiki.updatecenter.java.net/Wiki.jsp?page=UC2Documentation.ReleaseNotes.2.3
+set name=pkg.summary value="pkg(5) Image Packaging System"
+set name=pkg.description value="The Image Packaging System, also known as pkg(5), is a network-centric packaging system. This is the core package of the pkg(5) system including the publication client, pkgsend(1), repository server, pkg.depotd(1m), and retrieval client, pkg(1) and other supporting tools. The Python-based pkg(5) system was originally developed in support of OpenSolaris, but early on in its development it was ported to a wide variety of operating systems to support installation and management of layered application installations. For more information, see http://ipshowto.org and http://OpenSolaris.org"
+set name=info.upstream_url value=http://opensolaris.org/os/project/pkg/
+set name=info.maintainer_url value=http://wiki.updatecenter.java.net/

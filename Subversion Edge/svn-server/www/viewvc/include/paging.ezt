@@ -1,0 +1,37 @@
+  [is picklist_len "0"]
+  [else]
+    [is picklist_len "1"]
+    [else]
+<tr>
+  <td>View revision range:</td>
+  <td>
+      <form method="get" action="[log_paging_action]">
+        [define last_count][end]
+        [define prev_count][end]
+        [define next_count][end]
+        [define seen_this]0[end]
+        [define prev_next_base][log_paging_action]?[end]
+        [for log_paging_hidden_values][define prev_next_base][prev_next_base][log_paging_hidden_values.name]=[log_paging_hidden_values.value]&[end][end]
+
+        [for log_paging_hidden_values]<input type="hidden" name="[log_paging_hidden_values.name]" value="[log_paging_hidden_values.value]"/>[end]
+        <select name="log_pagestart"  onchange="submit()">
+          [for picklist]
+           [is seen_this "1"][is next_count ""][define next_count][picklist.count][end][end][end]
+           [is picklist.count log_pagestart][define seen_this]1[end][define prev_count][last_count][end][end]
+           [if-any picklist.more]
+            <option [is picklist.count log_pagestart]selected[end] value="[picklist.count]">Page [picklist.page]: [is roottype "svn"]r[end][picklist.start] ...</option>
+           [else]
+            <option [is picklist.count log_pagestart]selected[end] value="[picklist.count]">Page [picklist.page]: [is roottype "svn"]r[end][picklist.start] - [is roottype "svn"]r[end][picklist.end]</option>
+           [end]
+           [define last_count][picklist.count][end]
+          [end]
+        </select>
+        <input type="submit" class="btn btn-small" value="Go">
+        
+        [if-any prev_count]<a href="[prev_next_base]log_pagestart=[prev_count]"/><img src="[docroot]/images/back.png" alt="Previous" width="20" height="22" /></a>[end]
+        [if-any next_count]<a href="[prev_next_base]log_pagestart=[next_count]"/><img src="[docroot]/images/forward.png" alt="Next" width="20" height="22" /></a>[end]
+      </form>
+  </td>
+</tr>
+    [end]
+  [end]

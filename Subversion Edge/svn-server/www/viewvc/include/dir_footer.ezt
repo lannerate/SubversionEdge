@@ -1,0 +1,78 @@
+
+<table class="table-condensed well">
+<tr><td>Files shown:</td><td><strong>[files_shown]</strong>
+[is num_dead "0"]
+[else]
+  [if-any attic_showing]
+    (<a href="[hide_attic_href]">Hide [num_dead] dead files</a>)
+  [else]
+    (<a href="[show_attic_href]">Show [num_dead] dead files</a>)
+  [end]
+[end]
+</td></tr>
+
+[is roottype "svn"]
+<tr>
+  <td>Directory revision:</td>
+  <td><a href="[tree_rev_href]" title="Revision [tree_rev]">[tree_rev]</a>[if-any youngest_rev] (of <a href="[youngest_rev_href]" title="Revision [youngest_rev]">[youngest_rev]</a>)[end]</td>
+</tr>
+[end]
+<tr>
+  <td>Sticky [is roottype "cvs"]tag[else]revision[end]:</td>
+  <td>[include "pathrev_form.ezt"]</td>
+</tr>
+
+[if-any search_re_action]
+<tr>
+  <td>Filter files by content:</td>
+  <td><form method="get" action="[search_re_action]" style="display: inline;">
+      <div style="display: inline;">
+      [for search_re_hidden_values]<input type="hidden" name="[search_re_hidden_values.name]" value="[search_re_hidden_values.value]"/>[end]
+      <input type="text" name="search" value="[search_re]" />
+      <input type="submit" class="btn btn-small" value="Search Regexp" />
+      </div>
+     </form>
+     [if-any search_re]
+     <form method="get" action="[search_re_action]" style="display: inline;">
+     <div style="display: inline;">
+     [for search_re_hidden_values]<input type="hidden" name="[search_re_hidden_values.name]" value="[search_re_hidden_values.value]"/>[end]
+     <input type="submit" class="btn btn-small" value="Show All Files" />
+     </div>
+     </form>
+     [end]
+  </td>
+</tr>
+[end]
+
+[if-any queryform_href]
+<tr>
+  <td>Query:</td>
+  <td><a href="[queryform_href]">Query revision history</a></td>
+</tr>
+[end]
+
+</table>
+
+[is picklist_len "0"]
+[else]
+  [is picklist_len "1"]
+  [else]
+    <form method="get" action="[dir_paging_action]">
+      [for dir_paging_hidden_values]<input type="hidden" name="[dir_paging_hidden_values.name]" value="[dir_paging_hidden_values.value]"/>[end]
+      <input type="submit" class="btn btn-small" value="Go to:" />
+      <select name="dir_pagestart"  onchange="submit()">
+        [for picklist]
+          <option [is picklist.count dir_pagestart]selected[end] value="[picklist.count]">Page [picklist.page]: [picklist.start] to [picklist.end]</option>
+        [end]
+      </select>
+    </form>
+  [end]
+[end]
+
+[# if you want to disable tarball generation remove the following: ]
+[if-any tarball_href]
+<hr/>
+<p style="margin:0;"><a href="[tarball_href]">Download GNU tarball</a></p>
+[end]
+
+

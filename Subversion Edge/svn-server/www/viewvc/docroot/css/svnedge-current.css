@@ -1,0 +1,326 @@
+/* *************************************************************************
+ *                     Bootstrap CSS Overrides                             *
+ *************************************************************************** */
+body {
+  padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+  padding-bottom: 40px;
+}
+
+.sidebar-nav {
+  padding: 9px 0;
+}
+
+.navbar .brand {
+  padding: 0px 8px;
+}
+
+.navbar {
+  font-weight: bold;
+}
+
+.alert {
+  padding-left: 2em;
+  background-repeat: no-repeat;
+  background-position: 0.4em 0.5em; 
+  background-image: url(/csvn/images/icons/icon_warning_sml.gif);
+}
+
+.alert-error {
+  font-weight: bold;
+  background-image: url(/csvn/images/icons/icon_error_sml.gif);
+}
+
+.alert-info {
+  background-image: url(/csvn/images/icons/icon_info_sml.gif);
+}
+
+.alert-success {
+  background-image: url(/csvn/images/icons/icon_success_sml.gif);
+}
+
+.form-horizontal .control-label {
+  width: 180px;
+}
+.form-horizontal .controls {
+  margin-left: 200px;
+}
+.form-horizontal .form-actions {
+  padding-left: 200px;
+}
+
+.form-actions {
+  background-color: #fff;
+}
+
+.sessionmessages .alert, .requestmessages .alert {
+  color: black;
+}
+
+.page-header {
+    padding-bottom: 10px;
+    margin: 10px 0;
+}
+.page-header h1 {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+select.autoWidth {
+    width: auto;
+}
+
+.controls.readonly {
+    padding-top: 5px;
+}
+
+/* *************************************************************************
+ *                     Subversion Edge Specific CSS                        *
+ *************************************************************************** */
+
+.sessionmessages, .requestmessages {
+  font-size: 110%;
+  color: black;
+}
+
+/* For toggles on job details page */
+.triggerRunning {
+  color: green;
+  font-weight: bold;
+}
+
+.triggerPaused {
+  color: red;
+  font-weight: bold;
+}
+
+.error .help-block ul{
+  background: #fdf7f1 url(/csvn/images/icons/icon_error_sml.gif) 0.4em 0.5em no-repeat;
+  padding: 5px 5px 5px 25px;
+}
+.error ul li {
+  list-style: none;
+}
+
+label.withFor {
+  margin-left: -18px;
+}
+
+.required-field .control-label {
+    font-weight: bold;
+}
+
+.spacer {
+    height: 1em;
+    width: 1em;
+}
+
+/* Marketing section of Overview
+-------------------------------------------------- */
+.marketing .row {
+  margin-bottom: 9px;
+}
+.marketing h1 {
+  margin: 36px 0 27px;
+  font-size: 40px;
+  font-weight: 300;
+  text-align: center;
+}
+.marketing h2 {
+  font-weight: 300;
+}
+.marketing h2 {
+  font-size: 22px;
+}
+.marketing p {
+  margin-right: 10px;
+}
+.marketing .bs-icon {
+  float: left;
+  margin: 7px 10px 0 0;
+  opacity: .8;
+}
+.marketing .small-bs-icon {
+  float: left;
+  margin: 4px 5px 0 0;
+}
+.marketing-byline {
+  margin: -18px 0 27px;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 24px;
+  color: #999;
+  text-align: center;
+}
+
+.wizard {
+  margin-top: 3px;
+  margin-bottom: 10px;
+}
+
+.wizard-inner {
+  margin: 5px;
+  padding: 3px;
+  background: #000000;
+  background: rgba(0, 0, 0, 0.8);
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+
+.wizard-title {
+  padding: 9px 15px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #eee;
+  -webkit-border-radius: 3px 3px 0 0;
+  -moz-border-radius: 3px 3px 0 0;
+  border-radius: 3px 3px 0 0;
+}
+
+.wizard-steps {
+  font-size: 14px;
+  color: #000;
+  float: right;
+}
+
+.wizard-content {
+  padding: 14px;
+  background-color: #ffffff;
+  -webkit-border-radius: 0 0 3px 3px;
+  -moz-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.wizard-content p,
+.popover-content ul,
+.popover-content ol {
+  margin-bottom: 0;
+}
+
+
+.wizard-sidenav {
+  //width: 228px;
+  //margin: 30px 0 0;
+  padding: 0;
+  background-color: #fff;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+     -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+          box-shadow: 0 1px 4px rgba(0,0,0,.065);
+}
+
+
+.wizard-sidenav > li > a {
+  display: block;
+  //width: 190px \9;
+  margin: 0 0 -1px;
+  padding: 8px 14px;
+  border: 1px solid #e5e5e5;
+}
+.wizard-sidenav > li:first-child > a {
+  -webkit-border-radius: 6px 6px 0 0;
+     -moz-border-radius: 6px 6px 0 0;
+          border-radius: 6px 6px 0 0;
+}
+.wizard-sidenav > li:last-child > a {
+  -webkit-border-radius: 0 0 6px 6px;
+     -moz-border-radius: 0 0 6px 6px;
+          border-radius: 0 0 6px 6px;
+}
+.wizard-sidenav > .active > a {
+  position: relative;
+  z-index: 2;
+  padding: 9px 15px;
+  border: 0;
+  text-shadow: 0 1px 0 rgba(0,0,0,.15);
+  -webkit-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+     -moz-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+          box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+}
+/* Icons/Chevrons */
+.wizard-sidenav .icon-chevron-right, .wizard-sidenav .icon-ok {
+  float: right;
+  margin-top: 2px;
+  margin-right: -6px;
+  opacity: .5;
+}
+.wizard-sidenav > li > a:hover {
+  background-color: #f5f5f5;
+}
+.wizard-sidenav a:hover .icon-chevron-right {
+  opacity: .5;
+}
+.wizard-sidenav .active .icon-chevron-down,
+.wizard-sidenav .active a:hover .icon-chevron-down {
+  opacity: 1;
+  float: right;
+  margin-top: 2px;
+  margin-right: -6px;
+}
+
+/* Modal Lightbox Styles
+-------------------------------------------------- */
+.modal-gallery{width:auto;max-height:none;}
+.modal-gallery .modal-image{position:relative;margin:auto;min-width:128px;min-height:128px;overflow:hidden;cursor:pointer;}
+.modal-loading .modal-image{background:url(/csvn/images/loading.gif) center no-repeat;}
+.modal-gallery.fade .modal-image{-webkit-transition:width 0.15s ease, height 0.15s ease;-moz-transition:width 0.15s ease, height 0.15s ease;-ms-transition:width 0.15s ease, height 0.15s ease;-o-transition:width 0.15s ease, height 0.15s ease;transition:width 0.15s ease, height 0.15s ease;}
+.modal-gallery .modal-image *{position:absolute;top:0;opacity:0;filter:alpha(opacity=0);}
+.modal-gallery.fade .modal-image *{-webkit-transition:opacity 0.5s linear;-moz-transition:opacity 0.5s linear;-ms-transition:opacity 0.5s linear;-o-transition:opacity 0.5s linear;transition:opacity 0.5s linear;}
+.modal-gallery .modal-image *.in{opacity:1;filter:alpha(opacity=100);}
+.modal-fullscreen{border:none;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;background:transparent;overflow:hidden;}
+.modal-fullscreen.modal-loading{border:0;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;}
+.modal-fullscreen .modal-body{padding:0;}
+.modal-fullscreen .modal-header,.modal-fullscreen .modal-footer{position:absolute;top:0;right:0;left:0;background:transparent;border:0;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;opacity:0;z-index:2000;}
+.modal-fullscreen .modal-footer{top:auto;bottom:0;}
+.modal-fullscreen .close,.modal-fullscreen .modal-title{color:#fff;text-shadow:0 0 2px rgba(33, 33, 33, 0.8);}
+.modal-fullscreen .modal-header:hover,.modal-fullscreen .modal-footer:hover{opacity:1;}
+@media (max-width:480px){.modal-gallery .btn span{display:none;}}
+
+.short-user-menu {
+  display: none;
+}
+.full-user-menu {
+  display: inherit;
+}
+
+// NOTE: application.js selectUsernameNavigationStyle overrides this
+@media (max-width: 979px) {
+  .full-user-menu {
+      display: none;
+  }
+  .short-user-menu {
+      display: inherit;
+  }
+}
+
+@media (max-width: 1199px) {
+  .navbar .nav > li > a {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  
+  body {
+    padding-top: 0;
+  }
+  .navbar-fixed-top,
+  .navbar-fixed-bottom {
+    position: static;
+  }
+    .navbar-fixed-top {
+    margin-bottom: 18px;
+  }
+}
+
+@media (max-width: 979px) {
+  .navbar-fixed-top .navbar-inner,
+  .navbar-fixed-bottom .navbar-inner {
+    padding: -5px;
+  }
+}

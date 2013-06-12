@@ -1,0 +1,2 @@
+link path=pkg/python2.4-minimal/lib/libcurl.so.4 target=libcurl.so.4.1.1
+link path=pkg/python2.4-minimal/lib/libcurl.so target=libcurl.so.4.1.1

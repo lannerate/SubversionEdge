@@ -1,0 +1,7 @@
+set name=description value="pkg(5) Extra Tools"
+set name=info.classification value=":System Tools"
+set name=pkg.detailed_url value=http://wiki.updatecenter.java.net/Wiki.jsp?page=UC2Documentation.ReleaseNotes.2.3
+set name=pkg.summary value="pkg(5) Extra Tools"
+set name=pkg.description value="The Image Packaging System, also known as pkg(5), is a network-centric packaging system. This package provides an evolving set of tools intended to ease the process of creating and maintaining packages and pre-installed pkg(5) images.  As these tools mature and evolve, they will likely be integrated in some form into the core pkg(5) package."
+set name=info.upstream_url value=http://wiki.updatecenter.java.net/
+set name=info.maintainer_url value=http://wiki.updatecenter.java.net/

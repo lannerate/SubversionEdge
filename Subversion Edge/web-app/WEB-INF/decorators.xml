@@ -1,0 +1,8 @@
+<decorators>
+    <excludes>
+        <pattern>/cometd</pattern>
+        <pattern>*.cometd</pattern>
+        <pattern>/cometd/*</pattern>
+        <pattern>/plugins/cometd*</pattern>
+    </excludes>
+</decorators>

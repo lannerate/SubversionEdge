@@ -1,0 +1,49 @@
+# Apache properties
+httpd.group=${user.group}
+httpd.user=${user.name}
+
+# Application properties
+app.user=${user.name}
+webserver.root-url=${ctf.webserver.url}
+
+# Executables keys
+sfmain.integration.executables.bdstool=bdstool
+sfmain.integration.executables.subversion=${svn.binary}
+sfmain.integration.executables.subversion_admin=${svnadmin.binary}
+sfmain.integration.executables.subversion_look=${svnlook.binary}
+sfmain.integration.executables.python=python
+
+# Integration listener keys
+sfmain.integration.listener_host=${ctf.hostname}
+sfmain.integration.listener_port=${ctf.port}
+sfmain.integration.listener_ssl=${ctf.useSsl}
+
+# Proxy server config
+sfmain.integration.http_proxy_host=${proxy.hostname}
+sfmain.integration.http_proxy_port=${proxy.port}
+sfmain.integration.http_proxy_username=${proxy.username}
+sfmain.integration.http_proxy_password=${proxy.password}
+
+# Integration miscellaneous keys
+sfmain.integration.os=${os.name}
+sfmain.integration.repository-archive=${repository.archive.dir}
+sfmain.integration.security.check_timestamp=0
+sfmain.integration.subversion.fstype=fsfs
+sfmain.integration.user_group=__not_used__
+sfmain.integration.user_home=__not_used__
+sfmain.integration.user_shell.active=/bin/sh
+sfmain.integration.user_shell.disabled=/bin/false
+sfmain.soap.api_server.url=${ctf.soap.url}
+sfmain.sourceforge_home=${app.data}
+app.data=${app.data}
+sfmain.tempdir=${temp.dir}
+sfmain.integration.scripts-root=${integration.dir}
+scm.python.path=${python.path}
+
+# Integration server constants
+subversion.repository_base=${repo.parent.dir}
+
+# Branding related keys
+# CSVN will not be used for branding, but there are some checks in the
+# code related to checking if a given repo is the branding repo.
+scm.branding.repo=__no_csvn_branding_repo___

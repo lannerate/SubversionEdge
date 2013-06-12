@@ -1,0 +1,33 @@
+# Configuration for setting up Edge as an integration server
+# ctf_url, shared_secret_key, and edge_console_port are required
+
+ctf_url=http://cu280.cloud.sp.collab.net
+shared_secret_key=adasfljad8089098)*)*
+svnedge_console_port=3343
+
+# If CTF credentials are provided, this Edge integration server will
+# be automatically registered with CTF, just as if the conversion process 
+# were started in the Edge UI. If they are not provided, then it will be
+# necessary to use the CTF UI to manually create the integration server 
+# or edit an existing integration server to match this Edge configuration.
+
+#ctf_username=admin
+#ctf_password=admin
+
+
+# The exsyNNNN key for the integration server. If the integration server
+# has not been created in CTF yet or the id is already specified in the
+# repository parent directory, then it does not need to be given here.
+# There may be no reason to ever specify this, but just in case, it's here
+
+#external_system_id=exsy1001
+
+
+# Server properties. These can be used to setup the server without
+# using the UI.  Available properties are: hostname, port, 
+# useSsl, useSslConsole, useHttpV2, repoParentDir, dumpDir,
+# adminName, adminEmail, and adminAltContact, and svnBasePath
+
+#server_repoParentDir=/svnroot
+#server_svnBasePath=/svn/repos
+#server_useSsl=true

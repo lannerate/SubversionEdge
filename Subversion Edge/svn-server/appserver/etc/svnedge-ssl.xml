@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<!-- =============================================================== -->
+<!-- Configure the Jetty Server                                      -->
+<!--                                                                 -->
+<!-- Documentation of this file format can be found at:              -->
+<!-- http://docs.codehaus.org/display/JETTY/jetty.xml                -->
+<!--                                                                 -->
+<!-- =============================================================== -->
+
+
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+
+    <!-- =========================================================== -->
+    <!-- Set SSL connector                                           -->
+    <!-- =========================================================== -->
+
+    <Call name="addConnector">
+      <Arg>
+          <New class="org.eclipse.jetty.server.ssl.SslSelectChannelConnector">
+            <Set name="port"><SystemProperty name="jetty.ssl.port" default="4434"/></Set>
+            <Set name="maxIdleTime">30000</Set>
+            <Set name="Acceptors">2</Set>
+            <Set name="AcceptQueueSize">100</Set>
+            <Set name="Keystore"><SystemProperty name="jetty.home" default="." />/etc/svnedge.jks</Set>
+            <Set name="Password">OBF:1vv11wum1uo91t331unp1wts1vu9</Set>
+            <Set name="KeyPassword">OBF:1vv11wum1uo91t331unp1wts1vu9</Set>
+            <Set name="truststore"><SystemProperty name="jetty.home" default="." />/etc/svnedge.jks</Set>
+            <Set name="trustPassword">OBF:1vv11wum1uo91t331unp1wts1vu9</Set>
+           </New>
+      </Arg>
+    </Call>
+
+</Configure>

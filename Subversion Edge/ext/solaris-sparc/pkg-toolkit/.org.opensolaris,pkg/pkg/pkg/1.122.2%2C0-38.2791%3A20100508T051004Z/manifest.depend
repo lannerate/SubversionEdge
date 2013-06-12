@@ -1,0 +1,1 @@
+depend fmri=pkg:/python2.4-minimal@2.4.4.0-38 type=require
