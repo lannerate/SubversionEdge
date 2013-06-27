@@ -18,10 +18,18 @@
   <g:form class="form-horizontal" method="post">
     <g:hiddenField name="id" value="${groupInstance?.id}"/>
     <g:hiddenField name="version" value="${groupInstance?.version}"/>
-    <g:propControlsBody bean="${groupInstance}" field="description" prefix="group">
-      <g:textArea id="description" name="description" value="${groupInstance?.description}" class="span6"/>
-    </g:propControlsBody>        
-            
+    <div class="control-group">
+	     <g:propControlsBody bean="${groupInstance}" field="name" prefix="group">
+	      <g:textArea id="name" name="name" value="${groupInstance?.name}"/>
+	    </g:propControlsBody> 
+     </div> 
+   
+     
+    <div class="control-group">
+	    <g:propControlsBody bean="${groupInstance}" field="description" prefix="group">
+	      <g:textArea id="description" name="description" value="${groupInstance?.description}" class="span6"/>
+	    </g:propControlsBody>        
+     </div>       
     <div class="control-group">
       <span class="control-label"><g:message code="group.people.label"/></span>
       <div class="controls">

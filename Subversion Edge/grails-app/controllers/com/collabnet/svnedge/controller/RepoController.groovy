@@ -17,20 +17,19 @@
  */
 package com.collabnet.svnedge.controller
 
+import org.apache.commons.io.FileUtils
+import org.codehaus.groovy.grails.plugins.springsecurity.Secured
+
 import com.collabnet.svnedge.ValidationException
-import com.collabnet.svnedge.admin.RepoVerifyJob
 import com.collabnet.svnedge.console.DumpBean
 import com.collabnet.svnedge.console.SchedulerBean
+import com.collabnet.svnedge.domain.*
 import com.collabnet.svnedge.domain.integration.CloudServicesConfiguration
-import com.collabnet.svnedge.domain.integration.ReplicatedRepository
 import com.collabnet.svnedge.integration.AuthenticationCloudServicesException
 import com.collabnet.svnedge.integration.InvalidNameCloudServicesException
 import com.collabnet.svnedge.integration.QuotaCloudServicesException
 import com.collabnet.svnedge.util.ControllerUtil
 import com.collabnet.svnedge.util.ServletContextSessionLock
-import org.apache.commons.io.FileUtils
-import org.codehaus.groovy.grails.plugins.springsecurity.Secured
-import com.collabnet.svnedge.domain.*
 
 @Secured(['ROLE_ADMIN', 'ROLE_ADMIN_REPO'])
 class RepoController {
@@ -301,8 +300,12 @@ class RepoController {
         if (Server.server.mode == ServerMode.REPLICA) {
             return 'reports'
         }
-        return authenticateService.ifAnyGranted('ROLE_ADMIN,ROLE_ADMIN_HOOKS') ?
-                'hooksList' : 'dumpFileList'   
+/*        return authenticateService.ifAnyGranted('ROLE_ADMIN,ROLE_ADMIN_HOOKS') ?
+                'hooksList' : 'dumpFileList'   */
+				
+		return authenticateService.ifAnyGranted('ROLE_ADMIN,ROLE_ADMIN_HOOKS') ?
+				'repoGroupsList' : 'hooksList'
+				
     }
 
     @Secured(['ROLE_USER'])
@@ -390,6 +393,389 @@ class RepoController {
         return model
     }
 
+	
+	@Secured(['ROLE_ADMIN', 'ROLE_ADMIN_REPO'])
+	def listRepoGroup = {
+		def repoGroupInstanceList = RepositoryGroups.findAllByRepoid(params.id)
+		def repoGroupUrls = []
+		def repoGroupInstances =[]
+		for(repoGroupInstance in repoGroupInstanceList){
+			if(!repoGroupUrls.contains(repoGroupInstance.url)){
+				repoGroupUrls.add(repoGroupInstance.url)
+				repoGroupInstances.add(repoGroupInstance)
+			}
+		}
+		return [repoGroupInstanceList: repoGroupInstances,
+			repoGroupInstanceTotal: repoGroupInstances ? repoGroupInstances.size() : 0,
+			repoid:params.id
+	]
+	}
+	
+	
+	@Secured(['ROLE_ADMIN', 'ROLE_ADMIN_REPO'])
+	def createRepoGroup = {
+		def model = [:]
+		def repo = Repository.get(params.id)
+		def groups = Groups.getAll()
+		def userList = getUserList()
+		if (repo) {
+			model["userList"] = userList
+			model["repo"] = repo
+			model["groups"] =groups
+		}
+		return model
+	}
+	
+	@Secured(['ROLE_ADMIN', 'ROLE_ADMIN_REPO'])
+	def editRepoGroup = {
+		def model = [:]
+		def purl = params.urls
+		def id_url = params.id 
+		Repository repo = Repository.get(params.id)
+		def groups = Groups.getAll()
+		def users = getUserList()
+		//current groups and users by editing
+		def listrepoGroup = []
+		def listrepoUser = []
+		//last groups and users by adding
+		def groupsLast = []
+		def usersLast = []
+		//ids
+		def groupsids =[]
+		def usersids = []
+		
+		def groupsRemove = []
+		def repoGroupList
+		def urls = []
+		RepositoryGroups rp
+		if (repo) {
+			repoGroupList = RepositoryGroups.findAllByRepoid(params.id)
+			if(repoGroupList&&repoGroupList.size>0){
+				for(repogroup in repoGroupList){
+
+				   if(purl==repogroup.url){
+					   if(!groupsids.contains(repogroup.groupsid)&&"-2"!=repogroup.groupsid){
+						   listrepoGroup.add(repogroup)
+						   groupsids.add(repogroup.groupsid)
+					   }
+					   if(!usersids.contains(repogroup.userid)&&"-1"!=repogroup.userid){
+						   listrepoUser.add(repogroup)
+						   usersids.add(repogroup.userid)
+					   }
+					   rp = repogroup
+				   }
+				}
+			}
+			
+			//calc last groups
+			groupsLast = groups
+			if(groupsids){
+				for(gid in groupsids){
+					def g = Groups.get(gid)
+					groupsLast.remove(g)
+				}
+			}
+			//calc last users
+			usersLast = users
+			if(usersids){
+				for(uid in usersids){
+					def g = User.get(uid)
+					groupsLast.remove(g)
+				}
+			}
+			
+			
+			model["listrepoGroup"] = listrepoGroup
+			model["groupsLast"] =groupsLast
+			
+			model["listrepoUser"] = listrepoUser
+			model["usersLast"] =usersLast
+			
+			model["groups"] =groups
+			model["users"] =users
+			model["rp"] = rp
+			model["repo"] =repo
+		}
+		return model
+    }
+	
+	
+	
+	@Secured(['ROLE_ADMIN', 'ROLE_ADMIN_REPO'])
+	def deleteRepoGroup = {
+		def url = params.urls
+		def repoid =params.id
+		
+		def repoGroupList = RepositoryGroups.findAllByRepoid(repoid)
+		if(repoGroupList.size>0){
+			for(repogroup in repoGroupList){
+			   try {
+				    if(url==repogroup.url)
+						repogroup.delete()
+				}catch (Exception e) {
+					log.warn("Could not create repogroup", e)
+				}
+			 
+			}
+		}
+		
+		try{
+			SaveAccessRules(getAccessrules())
+		}catch(Exception e) {
+					log.warn("Could not create repogroup", e)
+		}
+		
+		def repogroups = RepositoryGroups.findAllByRepoid(repoid)
+		if(repogroups){
+		 redirect(action: listRepoGroup,id:repoid)
+		}else{
+		 redirect(action:list)
+		}
+	}
+	
+	
+	@Secured(['ROLE_ADMIN', 'ROLE_ADMIN_REPO'])
+	def saveRepoGroup = {
+		String idrw = params.idrw
+		String uidrw = params.uidrw
+		def uri = params.uri.trim()
+		def url = params.url.trim()
+		def repoid =params.repoid.trim()
+		RepositoryGroups repoGroup
+		
+		if(url){
+			if(url.indexOf("/")==-1){
+				url="/"+url
+			}
+		}
+		def repoGroupList = RepositoryGroups.findAllByRepoid(repoid)
+		if(repoGroupList.size>0){
+			for(repogroup in repoGroupList){
+			   try {
+				    if(url==repogroup.url)
+						repogroup.delete()
+				}catch (Exception e) {
+					log.warn("Could not create repogroup", e)
+				}
+			 
+			}
+		}
+		
+		
+		if(idrw.lastIndexOf(',')!=-1){
+			def idrwArr = idrw.split(',')
+			for (b in idrwArr) {
+				def a = b.split('=')
+				def group = Groups.get(a[0])
+				if(a.length>1&&group){
+				 repoGroup = new RepositoryGroups(repoid:repoid,
+					groupsid:a[0],groupsname:group.name,userid:'-1',username:'-1',rw:a[1],uri:uri,url:url)
+				 try {
+					 repoGroup.save(flush: true)
+				 }catch (Exception e) {
+					 log.warn("Could not create roles", e)
+				 }
+				}
+			}
+		}
+		
+		if(uidrw.lastIndexOf(',')!=-1){
+			def uidrwArr = uidrw.split(',')
+			for (b in uidrwArr) {
+				def a = b.split('=')
+				def user = User.get(a[0])
+				if(a.length>1&&user){
+				 repoGroup = new RepositoryGroups(repoid:repoid,groupsid:'-2',groupsname:'-2',
+					userid:a[0],username:user.username,rw:a[1],uri:uri,url:url)
+				 try {
+					 repoGroup.save(flush: true)
+				 }catch (Exception e) {
+					 log.warn("Could not create roles", e)
+				 }
+				}
+			}
+		}
+		
+		
+			if(!repoGroup){
+				//flash.message = "repoGroup not found with id $params.id"
+				render(contentType: "text/json") {
+					[result: "fail"]
+				}
+				return
+			}else{
+						 
+		  if(SaveAccessRules(getAccessrules())){
+			   //flash.clear()
+			   render(contentType: "text/json") {
+					[result: "sucess"]
+				 }
+			}else{
+			//flash.clear()
+			render(contentType: "text/json") {
+				[result: "fail"]
+			 }
+			}
+		}
+	}
+	
+	
+	def getAccessrules(){
+
+		def groupContext =""""""
+		def groupList = Groups.getAll()
+		if(groupList&&groupList.size>0){
+			groupContext+="""
+[groups]"""			
+
+			def unames=""
+			def userList = getUserList()
+					for(group in groupList){
+						def gname =group.name
+						def selectedUsers = group?.people.collect { it.id }
+						unames=""
+						if(userList){
+							for(user in userList){
+								if(selectedUsers.contains(user.id)){
+									def uname = user.username
+									unames+=uname+","
+								}
+							}
+						}
+				 
+				 if(unames!=""){
+				 groupContext+="""
+${gname} = ${unames}"""
+				 }
+			}
+		}
+		
+		def repogroupstr=""""""
+		def repoGroupList = RepositoryGroups.getAll()
+		if(repoGroupList&&repoGroupList.size>0){
+			def reposids =[]
+			for(repogroup in repoGroupList){
+				 def repoid     =repogroup.repoid
+				 def groupsid   =repogroup.groupsid
+				 def groupsname =repogroup.groupsname
+				 def uri		=repogroup.uri
+				 def rw		    =repogroup.rw
+				 if(!reposids.toList().contains(repoid)){
+					 reposids.add(repoid)
+				 }
+
+			}
+			
+			if(reposids){
+				for(id in reposids){
+					def repos = RepositoryGroups.findAllByRepoid(id)
+					if(repos){
+/*					RepositoryGroups r = repos[0]
+					def wuri = r.uri
+					def wurl = r.url
+					if(wurl){
+						if(wurl.indexOf("/")==-1){
+							wurl+="/"
+						}
+					}
+				    repogroupstr+="""
+[${wuri}:${wurl}]"""*/	
+					 //add single collectioins
+					def refGroups = []
+					def urlArr = []
+					for(rs in repos){
+						def url = rs.url
+						if(!urlArr.toList().contains(url)){
+							urlArr.add(url)
+							refGroups.add(rs)
+						}
+					}
+					
+					 for(ref in refGroups){
+						 def wuri = ref.uri
+						 def wurl = ref.url
+						 if(wurl){
+							 if(wurl.indexOf("/")==-1){
+								 wurl="/"+wurl
+							 }
+						 }
+						 repogroupstr+="""
+[${wuri}:${wurl}]"""
+					     def grouprule=""""""
+						 for(re in repos){
+							 if(wurl==re.url&&("-2"!=re.groupsid)){
+							 def repoid     =re.repoid
+							 def groupsid   =re.groupsid
+							 def groupsname =re.groupsname
+							 def uri		=re.uri
+							 def rw		    =re.rw
+							 if(rw=="none"){
+							 	rw=""
+							 }
+							 grouprule+="""
+@${groupsname} = ${rw}"""
+							 }
+							 if(wurl==re.url&&("-1"!=re.userid)){
+								 def repoid     =re.repoid
+								 def userid     =re.userid
+								 def username   =re.username
+								 def uri		=re.uri
+								 def urw		=re.rw
+								 if(urw=="none"){
+									 urw=""
+								 }
+								 grouprule+="""
+${username} = ${urw}"""
+								 }
+						}
+						 repogroupstr+="""${grouprule}"""
+					 } 
+				  }
+				}
+			}
+		}
+		
+		String accessrule = """
+${groupContext}
+${repogroupstr}
+"""
+		
+		return accessrule
+
+	}
+	
+	private List<User> getUserList() {
+		
+				def users = User.list().sort({it.username})
+/*				String principal = authenticateService.principal().getUsername()
+		
+				// remove active session user from this list (cannot modify own privileges)
+				users = users.findAll {it -> it.username != principal}*/
+		
+				return users
+	}
+	
+	
+	@Secured(['ROLE_ADMIN', 'ROLE_ADMIN_REPO'])
+	def repoGroupsList = {
+		def model = reports()
+		def repo = Repository.get(params.id)
+		def groups = Groups.getAll()
+		if (repo) {
+			// set default sort to be date descending, if neither sort
+			// parameter is present
+	/*		ControllerUtil.setDefaultSort(params, "date", "desc")
+			ControllerUtil.decorateFileClass()
+			def sortBy = params.sort
+			boolean isAscending = params.order == "asc"*/
+			RepositoryGroups repoGroups = RepositoryGroups.findAllByRepoid(repo.id+'')[0] 
+			model["repoGroups"] = repoGroups
+			model["groups"] =groups
+		}
+		return model
+	}
+	
+	
     /**
      * fetches a JSON representation of all the dumps / backups for all repos
      */
@@ -1092,7 +1478,138 @@ class RepoController {
             redirect(action: 'showAuthorization')
         }
     }
+	
+	
+	
+	def editAuthorizationInvoke() {
+		// in Managed Mode, local edit of access rules is prohibited
+		if (Server.server.mode == ServerMode.MANAGED) {
+			flash.error = message(code: "filter.probihited.mode.managed")
+			//redirect(action: "list")
+			return
+		}
+		flash.clear()
+		ServletContextSessionLock lock =
+				ServletContextSessionLock.obtain(session, ACCESS_RULES_LOCK_KEY)
+		if (lock) {
+			lock.userId = loggedInUserInfo(field:'id') as int
+			String accessRules = serverConfService.readSvnAccessFile()
+			def command = new AuthzRulesCommand(fileContent: accessRules)
+			if (Server.getServer().forceUsernameCase) {
+				request['unfiltered_warn'] = message(code: "repository.page.editAuthorization.caseNormalization",
+						args: [createLink(controller: 'server', action: 'editAuthentication')])
+			}
+			return [authRulesCommand: command]
+		} else {
+			return
+		}
+	}
+	
 
+
+		
+	void testEditAuthorization() {
+		
+				this.serverConfService = serverConfService
+				this.metaClass.loggedInUserInfo = { return 1 }
+		
+				// should fetch an svn_access_file from services
+				def model = this.editAuthorization()
+				assertNotNull "Expected 'authRulesCommand' model object",
+					model.authRulesCommand
+			}
+		
+	boolean SaveAccessRules(String accessrules) {
+				try{
+					this.serverConfService = serverConfService
+					//this.metaClass.loggedInUserInfo = { return 1 }
+			
+					// obtain lock
+					this.editAuthorizationInvoke()
+			
+					// save the original file to restore after test
+					String original = serverConfService.readSvnAccessFile()
+			
+					// content we will submit to controller
+					String testFile = accessrules
+					def cmd = new AuthzRulesCommand(fileContent: testFile)
+					this.saveAuthorizationInvoke(cmd)
+				// restore original
+				//serverConfService.writeSvnAccessFile(original)
+				}catch(Exception e){
+					flash.error = message(
+                        code: 'repository.action.saveAuthorization.failure')
+					flash.message = null
+					return false
+				}
+				return true
+	}
+			
+
+	
+	@Secured(['ROLE_ADMIN', 'ROLE_ADMIN_REPO'])
+	def saveAuthorizationInvoke = { AuthzRulesCommand cmd ->
+		// in Managed Mode, local edit of access rules is prohibited
+		if (Server.server.mode == ServerMode.MANAGED) {
+			flash.error = message(code: "filter.probihited.mode.managed")
+			//redirect(action: "list")
+			return
+		}
+		ServletContextSessionLock existingLock =
+				ServletContextSessionLock.peek(session, ACCESS_RULES_LOCK_KEY)
+		if (!existingLock) {
+			log.warn "RepoController.saveAuthorization was called without an existing lock."
+			flash.warn = message(code: 'repository.action.saveAuthorization.not.locked')
+			//redirect(action: 'showAuthorization')
+			return
+		}
+		ServletContextSessionLock lock =
+				ServletContextSessionLock.obtain(session, ACCESS_RULES_LOCK_KEY)
+		if (!lock) {
+			log.warn "RepoController.saveAuthorization was called without an owning the lock."
+			flash.warn = message(code: 'repository.action.saveAuthorization.not.locked')
+			//redirect(action: 'showAuthorization')
+			return
+		}
+
+		def result = serverConfService.validateSvnAccessFile(
+				cmd.fileContent)
+		def exitStatus = Integer.parseInt(result[0])
+
+		if (exitStatus != 0) {
+			def err = result[2].split(": ")
+			if (err.length == 3) {
+				def line = err[1].split(":")
+				flash.error = message(code:
+				'repository.action.saveAuthorization.validate.failure.lineno',
+						args: [line[line.length - 1], err[2]])
+			} else {
+				flash.error = message(code:
+				'repository.action.saveAuthorization.validate.failure.nolineno',
+						args: [err[err.length - 1]])
+			}
+
+			flash.message = null
+		} else {
+			if (!cmd.hasErrors() && serverConfService.writeSvnAccessFile(
+					cmd.fileContent)) {
+				lock.release(session)
+				flash.message = message(
+						code: 'repository.action.saveAuthorization.success')
+				flash.error = null
+				//redirect(action: 'showAuthorization')
+				return
+			} else {
+				flash.error = message(
+						code: 'repository.action.saveAuthorization.failure')
+				flash.message = null
+			}
+		}
+		return
+		//render(view: 'editAuthorizationInvoke', model: [authRulesCommand: cmd])
+	}
+	
+	
     @Secured(['ROLE_ADMIN', 'ROLE_ADMIN_REPO'])
     def saveAuthorization = { AuthzRulesCommand cmd ->
         // in Managed Mode, local edit of access rules is prohibited

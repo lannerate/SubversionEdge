@@ -31,6 +31,7 @@
         ['${repositoryInstance.id}',
           '${repoName}',
           '${repoName}',
+          '${repositoryInstance.id}|${statusMsg}',
           '${repositoryInstance.id}|${statusMsg}'
         ]<g:if test="${i < (repositoryInstanceList.size() - 1)}">,</g:if>
       </g:if> 
@@ -155,6 +156,14 @@
          "fnRender": function(oObj, sVal) {
            var template = '<g:link action="show" id="REPOID">MSG</g:link>';
            return template.replace("REPOID", sVal.split("|")[0]).replace("MSG", sVal.split("|")[1]);
+         }
+        },
+       
+         {"sTitle": "${message(code:'repository.page.list.listaccessRules')}",
+         "bSortable": false ,
+           "fnRender": function(oObj, sVal) {
+           var template = '<g:link action="listRepoGroup" id="REPOID">${message(code:'repository.page.repogroup.rw.detail.title')}</g:link>';
+           return template.replace("REPOID", sVal.split("|")[0]);
          }
         }
       ]

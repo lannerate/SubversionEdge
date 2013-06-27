@@ -17,19 +17,19 @@
  */
 package com.collabnet.svnedge.controller.user
 
-import java.util.List;
-
-import com.collabnet.svnedge.domain.Role 
-import com.collabnet.svnedge.domain.Groups
-import com.collabnet.svnedge.domain.User 
 import org.codehaus.groovy.grails.plugins.springsecurity.Secured
 
+import com.collabnet.svnedge.controller.RepoController
+import com.collabnet.svnedge.domain.Groups
+import com.collabnet.svnedge.domain.Role
+import com.collabnet.svnedge.domain.User
 
 @Secured(['ROLE_ADMIN', 'ROLE_ADMIN_USERS'])
 class GroupsController {
 
     def authenticateService
-
+	def uuid
+	def repoController = new RepoController();
     def index = {
         redirect action: list, params: params
     }
@@ -53,6 +53,7 @@ class GroupsController {
     }
 
     def edit = {
+		def gid = params.id
         def group = Groups.get(params.id)
         if (!group) {
             flash.message = "group not found with id $params.id"
@@ -62,92 +63,275 @@ class GroupsController {
 
         [groupInstance: group, activeButton: "user", userList: getUserList()]
     }
+	
+	def precreate = {
+		redirect action: create, params: params
+	}
 	/**
 	 * create group
 	 */
+	@Secured(['ROLE_ADMIN', 'ROLE_ADMIN_USERS'])
 	def create = {
-		def group = new Groups()
+	
+		uuid = "GROUP_" +UUID.randomUUID().toString()
 		
+		Groups group = Groups.findByAuthority(uuid) ?:
+		new Groups(authority:uuid,name:uuid,
+				description: message(code:"group.GROUP_USER"))
 		
-		return [groupInstance: group, activeButton: "user", userList: getUserList(),roleList : getRoleList(),
-				authorizedRoleList : getAuthorizedRoleList()]
+		def password = authenticateService.encodePassword("admin")
+		
+		User normalUser = User.findByUsername("user") ?:
+		new User(username: "user",
+				realUserName: "Regular User", passwd: password,
+				description: "regular user", enabled: true,
+				email: "user@example.com").save(flush: true)
+				
+		group.addToPeople(normalUser)
+		 try {
+				group.save(flush: true)
+	        }catch (Exception e) {
+	            log.warn("Could not create roles", e)
+	     }
+		return [groupInstance: group, activeButton: "user", userList: getUserList()]
 	}
+	
+	
+	/**
+	 * group save action.
+	 */
+	@Secured(['ROLE_ADMIN', 'ROLE_ADMIN_USERS'])
+	def save = {
+		
+        def group = Groups.get(params.id)
+        if (!group) {
+            flash.message = "group not found with id $params.id"
+            redirect action: create
+            return
+        }
+		group.name=params.name
+		group.authority = params.authority
+		group.description = params.description
+		
 
+        if (authenticateService.ifNotGranted("${group.authority},ROLE_ADMIN")) {
+
+            flash.error = "You do not have the authority to edit this group"
+            redirect action: create
+            return
+        }
+
+        // add self to Role.people if already there (removed by Grails params mapping)
+        def u = getActiveUser()
+        boolean addSelf = group.people.contains(u)
+
+
+
+        long version = params.version.toLong()
+        if (group.version > version) {
+            group.errors.rejectValue 'version', "role.optimistic.locking.failure",
+                    "Another user has updated this Role while you were editing."
+            render view: 'create', model: [group: group, activeButton: "user"]
+            return
+        }
+
+        group.properties = params
+        // update members when all deleted
+        if (!params.people) {
+            group.people = []
+        }
+        // restore self to collection if needed
+        if (addSelf) {
+            group.addToPeople (u)
+        }
+
+        // do not remove the GROUP_USER role if other roles are granted to the user
+        Groups groupUser = Groups.findByAuthority("GROUP_USER")
+        def users = groupUser.people
+        if (group == groupUser) {
+            def admins = []
+/*            admins.addAll(Roles.findByAuthority("GROUP_ADMIN").people)
+            admins.addAll(Roles.findByAuthority("GROUP_ADMIN_REPO").people)
+            admins.addAll(Roles.findByAuthority("GROUP_ADMIN_USERS").people)
+            admins.addAll(Roles.findByAuthority("GROUP_ADMIN_SYSTEM").people)*/
+            getUserList().each {
+                if (admins.contains(it) && !users.contains(it)) {
+                    groupUser.addToPeople(it)
+                }
+            }
+        } else {            
+            group.people.each {
+                if (!users.contains(it)) {
+                    groupUser.addToPeople(it)
+                }
+            }
+        }
+
+        if (group.save()) {
+            flash.message = "The group has been updated"
+			try{
+				if(repoController.SaveAccessRules(repoController.getAccessrules())){
+					 flash.message = "The access rules has been updated sucessfully!"
+				 }else{
+				 flash.message = "The access rules has been updated failly!"
+				 }
+        	}catch(Exception e){
+			    flash.message = "find  Exceptions, when the access rules has been updated!"
+				log.info(e.getMessage())
+        	}	
+            //redirect controller: "groups",  action:show, id: group.id 
+        }
+		
+		redirect action:list 
+        /*else {
+            render view: 'list', model: [group: group, activeButton: "user", userList: getUserList()]
+        }
+		*/
+  }
+	
+	
 	
     /**
      * group update action.
      */
+	@Secured(['ROLE_ADMIN', 'ROLE_ADMIN_USERS'])
     def update = {
-
-        def role = Role.get(params.id)
-        if (!role) {
-            flash.message = "Role not found with id $params.id"
+//		int ids = params.id as int
+        def group = Groups.get(params.id)
+        if (!group) {
+            flash.message = "group not found with id $params.id"
             redirect action: edit, id: params.id
             return
         }
 
-        if (authenticateService.ifNotGranted("${role.authority},ROLE_ADMIN")) {
+        if (authenticateService.ifNotGranted("${group.authority},ROLE_ADMIN")) {
 
-            flash.error = "You do not have the authority to edit this role"
+            flash.error = "You do not have the authority to edit this group"
             redirect action: edit, id: params.id
             return
         }
 
         // add self to Role.people if already there (removed by Grails params mapping)
         def u = getActiveUser()
-        boolean addSelf = role.people.contains(u)
+        boolean addSelf = group.people.contains(u)
 
 
 
         long version = params.version.toLong()
-        if (role.version > version) {
-            role.errors.rejectValue 'version', "role.optimistic.locking.failure",
+        if (group.version > version) {
+            group.errors.rejectValue 'version', "role.optimistic.locking.failure",
                     "Another user has updated this Role while you were editing."
-            render view: 'edit', model: [role: role, activeButton: "user"]
+            render view: 'edit', model: [group: group, activeButton: "user"]
             return
         }
 
-        role.properties = params
+        group.properties = params
         // update members when all deleted
         if (!params.people) {
-            role.people = []
+            group.people = []
         }
         // restore self to collection if needed
         if (addSelf) {
-            role.addToPeople (u)
+            group.addToPeople (u)
         }
 
-        // do not remove the ROLE_USER role if other roles are granted to the user
-        Role roleUser = Role.findByAuthority("ROLE_USER")
-        def users = roleUser.people
-        if (role == roleUser) {
+        // do not remove the GROUP_USER role if other roles are granted to the user
+        Groups groupUser = Groups.findByAuthority("GROUP_USER")
+        def users = groupUser.people
+        if (group == groupUser) {
             def admins = []
-            admins.addAll(Role.findByAuthority("ROLE_ADMIN").people)
-            admins.addAll(Role.findByAuthority("ROLE_ADMIN_REPO").people)
-            admins.addAll(Role.findByAuthority("ROLE_ADMIN_USERS").people)
-            admins.addAll(Role.findByAuthority("ROLE_ADMIN_SYSTEM").people)
+/*            admins.addAll(Roles.findByAuthority("GROUP_ADMIN").people)
+            admins.addAll(Roles.findByAuthority("GROUP_ADMIN_REPO").people)
+            admins.addAll(Roles.findByAuthority("GROUP_ADMIN_USERS").people)
+            admins.addAll(Roles.findByAuthority("GROUP_ADMIN_SYSTEM").people)*/
             getUserList().each {
                 if (admins.contains(it) && !users.contains(it)) {
                     roleUser.addToPeople(it)
                 }
             }
         } else {            
-            role.people.each {
+            group.people.each {
                 if (!users.contains(it)) {
-                    roleUser.addToPeople(it)
+                    groupUser.addToPeople(it)
                 }
             }
         }
 
-        if (role.save()) {
-            flash.message = "The Role has been updated"
-            redirect action: show, id: role.id
+        if (group.save()) {
+            flash.message = "The group has been updated"
+			try{
+				if(repoController.SaveAccessRules(repoController.getAccessrules())){
+					 flash.message = "The access rules has been updated sucessfully!"
+				 }else{
+				 flash.message = "The access rules has been updated failly!"
+				 }
+			}catch(Exception e){
+				flash.message = "find  Exceptions, when the access rules has been updated!"
+				log.info(e.getMessage())
+			}
+          //  redirect action: show, id: group.id
         }
         else {
-            render view: 'edit', model: [role: role, activeButton: "user", userList: getUserList()]
+            render view: 'edit', model: [group: group, activeButton: "user", userList: getUserList()]
         }
     }
 
+	/**
+	 * group update action.
+	 */
+	@Secured(['ROLE_ADMIN', 'ROLE_ADMIN_USERS'])
+	def delete = {
+		def did = params.did
+		def group = Groups.get(params.did)
+		if (!group) {
+			flash.message = "group not found with id $params.id"
+			redirect action: show, id: params.id
+			return
+		}
+
+		if (authenticateService.ifNotGranted("${group.authority},ROLE_ADMIN")) {
+
+			flash.error = "You do not have the authority to edit this group"
+			redirect action: show, id: params.id
+			return
+		}
+
+/*		long version = params.version.toLong()
+		if (group.version > version) {
+			group.errors.rejectValue 'version', "role.optimistic.locking.failure",
+					"Another user has updated this Role while you were editing."
+			redirect action: show, id: group.id
+			return
+		}*/
+		try{
+			if (group.delete()) {
+				flash.message = "The group has been delete"
+				
+				//redirect action: list
+			}
+			
+			try{
+				if(repoController.SaveAccessRules(repoController.getAccessrules())){
+					 flash.message = "The access rules has been updated sucessfully!"
+				 }else{
+				 flash.message = "The access rules has been updated failly!"
+				 }
+			}catch(Exception e){
+				flash.message = "find  Exceptions, when the access rules has been updated!"
+				log.info(e.getMessage())
+			}
+			
+			
+		}catch(Exception e){
+			//flash.message = "this group:  $params.id cannot be deleted !"
+			
+		}
+	//	redirect action: list
+		
+		
+	}
+	
+	
     private User getActiveUser() {
         String principal = authenticateService.principal().getUsername()
         return User.findByUsername(principal)

@@ -149,6 +149,7 @@
   <g:if test="${!params.suppressTabs && !isReplicaServer}">
   <g:set var="tabArray" value="${[]}"/>
   <g:ifAnyGranted role="ROLE_ADMIN,ROLE_ADMIN_HOOKS">
+    <g:set var="tabArray" value="${tabArray << [action:'repoGroupsList', href:createLink(action: 'repoGroupsList', id: params.id), label: message(code:'repository.page.show.tabs.repoGroupsList')]}" />
     <g:set var="tabArray" value="${tabArray << [action:'hooksList', href:createLink(action: 'hooksList', id: params.id), label: message(code:'repository.page.show.tabs.hooksList')]}" />
   </g:ifAnyGranted>
   <g:ifAnyGranted role="ROLE_ADMIN,ROLE_ADMIN_REPO">
