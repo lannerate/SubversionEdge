@@ -2,7 +2,7 @@
 
 ## New features
 
-- svn source code manamgment application, support svn repository management(create, delete, update, merge), 
+- svn source code manamgment application, integarted svn-sever, svn repository management(create, delete, update, merge), 
 
 - enhance users/groups mangement.
 
