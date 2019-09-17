@@ -1,11 +1,10 @@
-SubversionEdge
-==============
+# The fixed and enhanced SubversionEdge
 
-The fixed version of Subversion Edge 
+## New features
 
-the new features: 
+- svn source code manamgment application, support svn repository management(create, delete, update, merge), 
 
-1.add the groups management feature.
+- enhance users/groups mangement.
 
-2.configure the access rules of Repos by editing users/groups's reading
+- support to configure the access rules of Repos by editing users/groups's reading
 or writing.
